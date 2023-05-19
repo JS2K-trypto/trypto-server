@@ -1,1 +1,5 @@
-# lecture_go
+# trypto-server
+
+## model
+
+## controller
