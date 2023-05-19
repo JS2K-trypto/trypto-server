@@ -1,1 +1,1 @@
-# trypto-server
+# lecture_go
