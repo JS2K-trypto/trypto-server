@@ -2,7 +2,7 @@ package router
 
 import (
 	"fmt"
-	ctl "ginRest/go-mvc/controller"
+	ctl "trypto-server/controller"
 
 	"github.com/gin-gonic/gin"
 )
@@ -54,11 +54,11 @@ func LiteAuth() gin.HandlerFunc {
 func (p *Router) Idx() *gin.Engine {
 	//~생략
 	e := gin.New()
-	account := e.Group("acc/v01", LiteAuth())
+	routerAdm := e.Group("/v01", LiteAuth())
 	{
-		fmt.Println(account)
-		account.GET("/ok", p.ct.GetOK) // controller 패키지의 실제 처리 함수
-
+		fmt.Println(routerAdm)
+		routerAdm.POST("/ok", p.ct.GpsCalc) // controller 패키지의 실제 처리 함수
+		routerAdm.POST("/ok1", p.ct.GetOk) // controller 패키지의 실제 처리 함수
 	}
 
 	return e
