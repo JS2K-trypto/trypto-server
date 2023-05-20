@@ -1,3 +1,4 @@
 trypto-server/main/.env
 main 
 DBSchema.md
+./logs/*
