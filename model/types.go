@@ -29,11 +29,14 @@ type EncyclopediaDNFT struct {
 	DnftCountry     string  `json:"dnftCountry"`
 	DnftImgUrl      string  `json:"dnftImgUrl"`
 	DnftDescription string  `json:"dnftDescription"`
+	DnftCount       int     `json:"dnftCount"`
 }
 
 type BadgeResource struct {
-	BadgeId          int    `json:"badgeId"`
-	BadgeCountry     string `json:"badgeCountry"`
-	BadgeImgUrl      string `json:"badgeImgUrl"`
-	BadgeDescription string `json:"badgeDescription"`
+	BadgeId            int    `json:"badgeId"`
+	BadgeCountry       string `json:"badgeCountry"`
+	BadgeImgUrl_bronze string `json:"badgeImgUrl_bronze"`
+	BadgeImgUrl_silver string `json:"badgeImgUrl_silver"`
+	BadgeImgUrl_gold   string `json:"badgeImgUrl_gold"`
+	BadgeDescription   string `json:"badgeDescription"`
 }
