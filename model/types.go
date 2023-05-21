@@ -22,21 +22,22 @@ type TravelPlan struct {
 }
 
 type EncyclopediaDNFT struct {
-	DnftId          int     `json:"dnftId"`
-	WalletAccount   string  `json:"walletAccount"`
-	Latitude        float64 `json:"latitude"`
-	Longitude       float64 `json:"longitude"`
-	DnftCountry     string  `json:"dnftCountry"`
-	DnftImgUrl      string  `json:"dnftImgUrl"`
-	DnftDescription string  `json:"dnftDescription"`
-	DnftCount       int     `json:"dnftCount"`
+	DnftId          int       `json:"dnftId"`
+	WalletAccount   string    `json:"walletAccount"`
+	Latitude        float64   `json:"latitude"`
+	Longitude       float64   `json:"longitude"`
+	DnftCountry     string    `json:"dnftCountry"`
+	DnftImgUrl      string    `json:"dnftImgUrl"`
+	DnftDescription string    `json:"dnftDescription"`
+	DnftCount       int       `json:"dnftCount"`
+	DnftTime        time.Time `json:"dnfttime"`
 }
 
 type BadgeResource struct {
-	BadgeId            int    `json:"badgeId"`
-	BadgeCountry       string `json:"badgeCountry"`
-	BadgeImgUrl_bronze string `json:"badgeImgUrl_bronze"`
-	BadgeImgUrl_silver string `json:"badgeImgUrl_silver"`
-	BadgeImgUrl_gold   string `json:"badgeImgUrl_gold"`
-	BadgeDescription   string `json:"badgeDescription"`
+	BadgeId          int    `json:"badgeId"`
+	BadgeCountry     string `json:"badgeCountry"`
+	BadgeUrl_bronze  string `json:"badgeUrl_bronze"`
+	BadgeUrl_silver  string `json:"badgeUrl_silver"`
+	BadgeUrl_gold    string `json:"badgeUrl_gold"`
+	BadgeDescription string `json:"badgeDescription"`
 }

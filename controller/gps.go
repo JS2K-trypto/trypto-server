@@ -32,7 +32,7 @@ func (p *Controller) GpsCalc(c *gin.Context) {
 		fmt.Println("Error:", err)
 		return
 	}
-
+	
 	country := location.Country
 	region := location.State
 

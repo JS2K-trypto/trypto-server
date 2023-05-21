@@ -57,8 +57,8 @@ func (p *Router) Idx() *gin.Engine {
 	routerAdm := e.Group("/v01", LiteAuth())
 	{
 		fmt.Println(routerAdm)
-		routerAdm.POST("/ok", p.ct.GpsCalc) // controller 패키지의 실제 처리 함수
-		routerAdm.POST("/ok1", p.ct.GetOk) // controller 패키지의 실제 처리 함수
+		routerAdm.POST("/badge", p.ct.GpsCalc) // controller 패키지의 실제 처리 함수
+		routerAdm.POST("/ok1", p.ct.GetOk)     // controller 패키지의 실제 처리 함수
 	}
 
 	return e
