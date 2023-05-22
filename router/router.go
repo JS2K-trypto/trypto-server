@@ -54,11 +54,17 @@ func LiteAuth() gin.HandlerFunc {
 func (p *Router) Idx() *gin.Engine {
 	//~생략
 	e := gin.New()
-	routerAdm := e.Group("/v01", LiteAuth())
+	routerAdm := e.Group("/v01/badge", LiteAuth())
 	{
 		fmt.Println(routerAdm)
-		routerAdm.POST("/badge", p.ct.GpsCalc) // controller 패키지의 실제 처리 함수
-		routerAdm.POST("/ok1", p.ct.GetOk)     // controller 패키지의 실제 처리 함수
+		routerAdm.POST("/issue", p.ct.CreateBadge) // controller 패키지의 실제 처리 함수
+		//routerAdm.POST("/ok1", p.ct.GetOk)     // controller 패키지의 실제 처리 함수
+	}
+
+	routerAcc := e.Group("/v01/acc", LiteAuth())
+	{
+		routerAcc.POST("nickname", p.ct.UserRegisterHandler)
+		routerAcc.GET("profile", p.ct.UserProfileHandler)
 	}
 
 	return e

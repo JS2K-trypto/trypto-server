@@ -3,13 +3,17 @@ package model
 import "time"
 
 type Account struct {
-	AccountId     int    `json:"accountId"`
 	WalletAccount string `json:"walletAccount"`
 	NickName      string `json:"nickName"`
 	MyTravelCount int    `json:"myTravelCount"`
 	MyDNFTCount   int    `json:"myDnftCount"`
 	LikeCount     int    `json:"likeCount"`
 	CommentCount  int    `json:"commentCount"`
+}
+
+// Error implements error
+func (*Account) Error() string {
+	panic("unimplemented")
 }
 
 type TravelPlan struct {
