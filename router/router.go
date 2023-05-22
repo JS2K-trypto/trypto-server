@@ -63,7 +63,8 @@ func (p *Router) Idx() *gin.Engine {
 
 	routerAcc := e.Group("/v01/acc", LiteAuth())
 	{
-		routerAcc.POST("nickname", p.ct.UserRegisterHandler)
+		routerAcc.POST("register", p.ct.UserRegisterHandler)
+		routerAcc.POST("nickname", p.ct.UserEditHandler)
 		routerAcc.GET("profile", p.ct.UserProfileHandler)
 	}
 

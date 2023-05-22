@@ -2,8 +2,8 @@ package controller
 
 import (
 	"fmt"
-	"log"
 	"net/http"
+	"time"
 	"trypto-server/model"
 
 	"github.com/codingsince1985/geo-golang/openstreetmap"
@@ -13,6 +13,7 @@ import (
 
 var (
 	encyDnft model.EncyclopediaDNFT
+	location model.Location
 )
 
 // latitude := 37.7749
@@ -24,30 +25,26 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
+	now := time.Now()
+	custom := now.Format("2006-01-02 15:04:05")
+	fmt.Println("encyDnft", encyDnft)
 	geocoder := openstreetmap.Geocoder()
-
 	location, err := geocoder.ReverseGeocode(encyDnft.Latitude, encyDnft.Longitude)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
 	}
 
-	country := location.Country
-	region := location.State
+	encyDnft.DnftCountry = location.Country
+	encyDnft.DnftTime = custom
 
-	fmt.Println("Country:", country)
-	fmt.Println("Region:", region)
-
-	log.Println(encyDnft)
+	result := p.md.MatchBadgeResource(&encyDnft)
+	fmt.Println("dnft", result)
+	fmt.Println("location.Country:", location.Country)
 
 	//나라를 계산한 후 DB에 적재
 
 	//동시에 DNFT 발급하는 식으로 진행
 
 	c.JSON(http.StatusOK, location)
-}
-
-func SelectBadgeResource(){
-	
 }

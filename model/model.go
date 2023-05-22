@@ -9,11 +9,11 @@ import (
 )
 
 type Model struct {
-	client          *mongo.Client
-	colAccount      *mongo.Collection
-	colTravelPlan   *mongo.Collection
-	colEncyclopedia *mongo.Collection
-	colResource     *mongo.Collection
+	client        *mongo.Client
+	colAccount    *mongo.Collection
+	colTravelPlan *mongo.Collection
+	colDnftBadge  *mongo.Collection
+	colResource   *mongo.Collection
 }
 
 func NewModel() (*Model, error) {
@@ -31,7 +31,7 @@ func NewModel() (*Model, error) {
 		db := r.client.Database(dbName)
 		r.colAccount = db.Collection("account")
 		r.colTravelPlan = db.Collection("travelplan")
-		r.colEncyclopedia = db.Collection("encyclopedia")
+		r.colDnftBadge = db.Collection("dnftbadge")
 		r.colResource = db.Collection("resource")
 
 	}

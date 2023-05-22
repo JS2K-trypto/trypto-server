@@ -19,4 +19,6 @@ func NewCTL(rep *model.Model) (*Controller, error) {
 func (p *Controller) GetOk(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "Testing successfully"})
+
+	
 }
