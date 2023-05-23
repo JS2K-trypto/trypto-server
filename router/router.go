@@ -58,6 +58,7 @@ func (p *Router) Idx() *gin.Engine {
 	{
 		fmt.Println(routerAdm)
 		routerAdm.POST("/issue", p.ct.CreateBadge) // controller 패키지의 실제 처리 함수
+		routerAdm.GET("/user", p.ct.GetMyBadge)
 		//routerAdm.POST("/ok1", p.ct.GetOk)     // controller 패키지의 실제 처리 함수
 	}
 

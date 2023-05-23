@@ -7,7 +7,6 @@ import (
 	"trypto-server/model"
 
 	"github.com/codingsince1985/geo-golang/openstreetmap"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -46,5 +45,15 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 
 	//동시에 DNFT 발급하는 식으로 진행
 
-	c.JSON(http.StatusOK, location)
+	c.JSON(http.StatusOK, encyDnft)
+}
+
+func (p *Controller) GetMyBadge(c *gin.Context) {
+	if err := c.ShouldBindJSON(&account); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	fmt.Println("account", account.WalletAccount)
+	result := p.md.GetMyDnft(account.WalletAccount)
+	c.JSON(http.StatusOK, result)
 }

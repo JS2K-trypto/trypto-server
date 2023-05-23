@@ -22,6 +22,7 @@ func (m *Model) RegisterUser(account Account) error {
 		log.Println("Failed to insert data in user_account")
 		return fmt.Errorf("fail to register user: %w", err)
 	}
+
 	return nil
 }
 
@@ -49,6 +50,7 @@ func (m *Model) GetProfile(account Account) error {
 	}
 	return &account
 }
+
 
 func (m *Model) MatchUser(account string) bool {
 	result := false
