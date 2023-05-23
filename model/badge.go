@@ -6,6 +6,7 @@ import (
 	"log"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 var (
@@ -69,6 +70,58 @@ func (m *Model) MatchBadgeResource(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT
 	return encyDnft
 }
 
+// MyDnft 여러 개 불러오기
+func (m *Model) GetMyAllDnft(account string) []bson.M {
+	// Aggregation 파이프라인 생성
+	pipeline := mongo.Pipeline{
+		// Group 스테이지: DnftCountry로 그룹화하고 최대 issueCount 계산
+		{
+			{"$group", bson.D{
+				{"_id", "$DnftCountry"},
+				{"maxIssueCount", bson.D{{"$max", "$IssueCount"}}},
+			}},
+		},
+		// Match 스테이지: 최대 issueCount가 0보다 큰 문서만 필터링
+		{
+			{"$match", bson.D{{"maxIssueCount", bson.D{{"$gt", 0}}}}},
+		},
+		// Project 스테이지: 필요한 필드만 선택하여 결과 형식 조정
+		{
+			{"$project", bson.D{
+				{"DnftCountry", "$_id"},
+				{"maxIssueCount", 1},
+				{"_id", 0},
+			}},
+		},
+	}
+
+	// Aggregation 실행
+	cursor, err := m.colDnftBadge.Aggregate(context.TODO(), pipeline)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer cursor.Close(context.TODO())
+	fmt.Println("cursor", cursor)
+
+	// 결과 처리
+	var results []bson.M
+	if err := cursor.All(context.TODO(), &results); err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("results", results)
+
+	// 결과 출력
+	for _, result := range results {
+		dnftCountry := result["DnftCountry"].(string)
+		maxIssueCount := result["maxIssueCount"].(int64)
+		fmt.Printf("DnftCountry: %s, Max IssueCount: %d\n", dnftCountry, maxIssueCount)
+	}
+
+	return results
+}
+
+// MyDnft 한개만 불러오기
 func (m *Model) GetMyDnft(account string) *EncyclopediaDNFT {
 
 	// return list

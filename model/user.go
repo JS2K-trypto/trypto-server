@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strconv"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -38,7 +39,7 @@ func (m *Model) UpdateUser(account Account) error {
 	return nil
 }
 
-func (m *Model) GetProfile(account Account) error {
+func (m *Model) GetProfile(account Account) []string {
 
 	// 메뉴 조회
 	err := m.colAccount.FindOne(context.TODO(), bson.M{"walletAccount": account.WalletAccount}).Decode(&account)
@@ -46,11 +47,19 @@ func (m *Model) GetProfile(account Account) error {
 	if err != nil {
 		log.Println(err)
 		fmt.Errorf("fail to get menu detail")
-
 	}
-	return &account
-}
+	fmt.Println("account", account)
+	fmt.Println("account", account.NickName)
+	profile := []string{}
+	profile = append(profile, account.ID.String())
+	profile = append(profile, account.NickName)
+	profile = append(profile, strconv.Itoa(account.MyTravelCount))
+	profile = append(profile, strconv.Itoa(account.MyDNFTCount))
+	profile = append(profile, strconv.Itoa(account.LikeCount))
+	profile = append(profile, strconv.Itoa(account.CommentCount))
 
+	return profile
+}
 
 func (m *Model) MatchUser(account string) bool {
 	result := false

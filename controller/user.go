@@ -56,5 +56,6 @@ func (p *Controller) UserProfileHandler(c *gin.Context) {
 	}
 	log.Println(account)
 	result := p.md.GetProfile(account)
+	fmt.Println("result", result)
 	c.JSON(http.StatusOK, result)
 }
