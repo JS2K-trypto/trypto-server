@@ -2,3 +2,5 @@ trypto-server/main/.env
 main 
 DBSchema.md
 ./logs/*
+./nohup.out
+./logs

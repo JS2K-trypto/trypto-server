@@ -1,8 +1,6 @@
 package model
 
 import (
-	"time"
-
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -17,13 +15,14 @@ type Account struct {
 	CommentCount  int                `json:"commentCount"`
 }
 
-type TravelPlan struct {
-	TravelId          int       `json:"travelId"`
-	TravelTitle       string    `json:"travelTitle"`
-	TravelDescription string    `json:"travelDescription"`
-	TravelMemo        string    `json:"travelMemo"`
-	TravelImgSrc      string    `json:"travelImgSrc"`
-	TravelTime        time.Time `json:"travelTime"`
+type TripPlan struct {
+	TripId          int    `json:"travelId"`
+	WalletAccount   string `bson:"walletAccount"`
+	TripTitle       string `bson:"tripTitle"`
+	TripDescription string `bson:"tripDescription"`
+	TripMemo        string `bson:"tripMemo"`
+	TripImgSrc      string `bson:"tripImgSrc"`
+	TripTime        string `json:"tripTime"`
 }
 
 type EncyclopediaDNFTs struct {

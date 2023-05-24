@@ -69,5 +69,10 @@ func (p *Router) Idx() *gin.Engine {
 		routerAcc.GET("profile", p.ct.UserProfileHandler)
 	}
 
+	routerTrip := e.Group("/v01/trip", LiteAuth())
+	{
+		routerTrip.POST("/myplan", p.ct.CreateTripPlan)
+	}
+
 	return e
 }

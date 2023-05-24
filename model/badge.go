@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"trypto-server/logger"
 
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 var (
@@ -39,7 +39,7 @@ func (m *Model) MatchBadgeResource(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT
 	if estCountErr != nil {
 		panic(estCountErr)
 	}
-	fmt.Println("estCount", estCount)
+
 	//wallet account가발급한 dnft 개수가 3개 미만이면 브론즈 티어, 브론즈 이미지URL은 브론즈 URL
 	//wallet account가발급한 dnft 개수가 5개 미만이면 실버
 	//wallet account가발급한 dnft 개수가 7개 미만이면 골드
@@ -64,6 +64,9 @@ func (m *Model) MatchBadgeResource(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT
 	if err != nil {
 		log.Fatal(err)
 	}
+	//이전 Dnft 발급한 것을 삭제하기
+
+	//한달에 한 번만 발급할 수 있게 조정하기
 
 	fmt.Println("check encyDnft", encyDnft, result)
 
@@ -72,53 +75,17 @@ func (m *Model) MatchBadgeResource(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT
 
 // MyDnft 여러 개 불러오기
 func (m *Model) GetMyAllDnft(account string) []bson.M {
-	// Aggregation 파이프라인 생성
-	pipeline := mongo.Pipeline{
-		// Group 스테이지: DnftCountry로 그룹화하고 최대 issueCount 계산
-		{
-			{"$group", bson.D{
-				{"_id", "$DnftCountry"},
-				{"maxIssueCount", bson.D{{"$max", "$IssueCount"}}},
-			}},
-		},
-		// Match 스테이지: 최대 issueCount가 0보다 큰 문서만 필터링
-		{
-			{"$match", bson.D{{"maxIssueCount", bson.D{{"$gt", 0}}}}},
-		},
-		// Project 스테이지: 필요한 필드만 선택하여 결과 형식 조정
-		{
-			{"$project", bson.D{
-				{"DnftCountry", "$_id"},
-				{"maxIssueCount", 1},
-				{"_id", 0},
-			}},
-		},
-	}
-
-	// Aggregation 실행
-	cursor, err := m.colDnftBadge.Aggregate(context.TODO(), pipeline)
+	var datas []bson.M
+	res, err := m.colDnftBadge.Find(context.TODO(), bson.M{})
 	if err != nil {
-		log.Fatal(err)
-	}
-	defer cursor.Close(context.TODO())
-	fmt.Println("cursor", cursor)
-
-	// 결과 처리
-	var results []bson.M
-	if err := cursor.All(context.TODO(), &results); err != nil {
-		log.Fatal(err)
+		logger.Error(err)
 	}
 
-	fmt.Println("results", results)
-
-	// 결과 출력
-	for _, result := range results {
-		dnftCountry := result["DnftCountry"].(string)
-		maxIssueCount := result["maxIssueCount"].(int64)
-		fmt.Printf("DnftCountry: %s, Max IssueCount: %d\n", dnftCountry, maxIssueCount)
+	// 결과를 변수에 담기
+	if err = res.All(context.TODO(), &datas); err != nil {
+		fmt.Println(err)
 	}
-
-	return results
+	return datas
 }
 
 // MyDnft 한개만 불러오기

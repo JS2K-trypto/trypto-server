@@ -57,3 +57,6 @@ func (p *Controller) GetMyBadge(c *gin.Context) {
 	result := p.md.GetMyAllDnft(account.WalletAccount)
 	c.JSON(http.StatusOK, result)
 }
+
+
+
