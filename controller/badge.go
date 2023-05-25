@@ -75,6 +75,7 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 	fmt.Println("mint", mint)
 
 	//나라를 계산한 후 DB에 적재
+	
 
 	//동시에 DNFT 발급하는 식으로 진행
 
