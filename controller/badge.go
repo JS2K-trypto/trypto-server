@@ -1,13 +1,17 @@
 package controller
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"time"
 	"trypto-server/model"
 
+	conf "trypto-server/config"
+
 	"github.com/codingsince1985/geo-golang/openstreetmap"
 	"github.com/gin-gonic/gin"
+	"github.com/thirdweb-dev/go-sdk/thirdweb"
 )
 
 var (
@@ -41,6 +45,28 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 	fmt.Println("dnft", result)
 	fmt.Println("location.Country:", location.Country)
 
+	config := conf.GetConfig("./config/.config.toml")
+
+	contractAddress := config.DB["contract"]["DnftContract"].(string)
+	sdk, err := thirdweb.NewThirdwebSDK("mumbai", &thirdweb.SDKOptions{
+		PrivateKey: config.DB["contract"]["PRIVATEKEY"].(string),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	contract, err := sdk.GetContractFromAbi(contractAddress, ABI)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("contract", contract)
+
+	balance, err := contract.Call(context.Background(), "balanceOf", encyDnft.WalletAccount)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("balance", balance)
+
 	//나라를 계산한 후 DB에 적재
 
 	//동시에 DNFT 발급하는 식으로 진행
@@ -57,6 +83,3 @@ func (p *Controller) GetMyBadge(c *gin.Context) {
 	result := p.md.GetMyAllDnft(account.WalletAccount)
 	c.JSON(http.StatusOK, result)
 }
-
-
-

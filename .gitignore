@@ -4,3 +4,4 @@ DBSchema.md
 ./logs/*
 ./nohup.out
 ./logs
+./config/.config.toml
