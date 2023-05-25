@@ -66,6 +66,13 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 		panic(err)
 	}
 	fmt.Println("balance", balance)
+	metaData := []string{}
+	metaData = append(metaData, encyDnft.DnftBronzeUrl)
+	metaData = append(metaData, encyDnft.DnftSilverUrl)
+	metaData = append(metaData, encyDnft.DnftGoldUrl)
+
+	mint, err := contract.Call(context.Background(), "mint", contractAddress, metaData, encyDnft.DnftId)
+	fmt.Println("mint", mint)
 
 	//나라를 계산한 후 DB에 적재
 
