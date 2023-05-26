@@ -4,6 +4,8 @@ import (
 	"fmt"
 	ctl "trypto-server/controller"
 
+	"trypto-server/logger"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -53,7 +55,16 @@ func LiteAuth() gin.HandlerFunc {
 // 실제 라우팅
 func (p *Router) Idx() *gin.Engine {
 	//~생략
-	e := gin.New()
+	e := gin.Default() //gin 선언
+
+	// r.Use(gin.Logger())   //gin 내부 log, logger 미들웨어 사용 선언
+	// r.Use(gin.Recovery()) //gin 내부 recover, recovery 미들웨어 사용 - 패닉복구
+
+	e.Use(logger.GinLogger())
+	e.Use(logger.GinRecovery(true))
+	e.Use(CORS()) //crossdomain 미들웨어 사용 등록
+	logger.Info("start server")
+
 	routerAdm := e.Group("/v01/badge", LiteAuth())
 	{
 		fmt.Println(routerAdm)
