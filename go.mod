@@ -4,12 +4,14 @@ go 1.20
 
 require (
 	github.com/codingsince1985/geo-golang v1.8.3
+	github.com/gin-gonic/autotls v0.0.5
 	github.com/gin-gonic/gin v1.9.0
 	github.com/naoina/toml v0.1.2-0.20170918210437-9fafd6967416
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/thirdweb-dev/go-sdk v1.3.4
 	go.mongodb.org/mongo-driver v1.11.6
 	go.uber.org/zap v1.24.0
+	golang.org/x/crypto v0.5.0
 	golang.org/x/sync v0.2.0
 )
 
@@ -60,7 +62,6 @@ require (
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
-	golang.org/x/crypto v0.5.0 // indirect
 	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.7.0 // indirect

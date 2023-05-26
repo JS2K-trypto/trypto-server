@@ -5,3 +5,5 @@ DBSchema.md
 ./nohup.out
 ./logs
 ./config/.config.toml
+*.pem
+

@@ -33,6 +33,11 @@ type Config struct {
 		Mage    int
 		Mbackup int
 	}
+
+	Contract struct {
+		DnftContract string
+		PRIVATEKEY   string
+	}
 }
 
 // 파일 오픈
