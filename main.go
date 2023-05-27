@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"crypto/tls"
 	"flag"
 	"fmt"
 	"io"
@@ -73,30 +72,30 @@ func main() {
 
 		logger.Debug("ready server....")
 		//dataDir := "."
-		tlsConfig := &tls.Config{
-			ClientAuth: tls.RequireAnyClientCert,
-		}
+		//tlsConfig := &tls.Config{
+		// 	ClientAuth: tls.RequireAnyClientCert,
+		// }
 		//http 서버 설정 변수
 		mapi := &http.Server{
-			Addr:           "127.0.0.1:1323",
+			Addr:           cf.Server.Port,
 			Handler:        rt.Idx(),
 			ReadTimeout:    0, //  5 * time.Second, 이전 값 현재 값은 테스트를 위해 설정함
 			WriteTimeout:   0, // 10 * time.Second, 이전 값 현재 값은 테스트를 위해 설정함
 			MaxHeaderBytes: 1 << 20,
-			TLSConfig:      tlsConfig,
+			//TLSConfig:      tlsConfig,
 		}
 		// m := &autocert.Manager{
 		// 	Prompt:     autocert.AcceptTOS,
 		// 	HostPolicy: autocert.HostWhitelist("example.com", "example2.com"),
 		// 	Cache:      autocert.DirCache(dataDir),
 		// }
-		//mapi.TLSConfig = &tls.Config{GetCertificate: m.GetCertificate}
+		// mapi.TLSConfig = &tls.Config{GetCertificate: m.GetCertificate}
 
 		//고루틴 서버 동작
 		g.Go(func() error {
 			//return mapi.ListenAndServeTLS("cert.pem", "key.pem")
-			//return mapi.ListenAndServeTLS("/home/robertseo/go/src/hackathon_chainlink_2023/trypto-server/cert.pem", "/home/robertseo/go/src/hackathon_chainlink_2023/trypto-server/key.pem")
-			return mapi.ListenAndServeTLS("127.0.0.1.pem", "127.0.0.1-key.pem")
+			//return mapi.ListenAndServeTLS("./127.0.0.1.pem", "./127.0.0.1-key.pem")
+			return mapi.ListenAndServe()
 		})
 
 		quit := make(chan os.Signal) //chan 선언

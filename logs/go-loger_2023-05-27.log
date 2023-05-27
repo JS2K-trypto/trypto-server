@@ -1,0 +1,50 @@
+{"level":"DEBUG","time":"2023-05-27T21:12:32.663+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T21:12:32.718+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T21:12:59.908+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T21:12:59.908+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"ERROR","time":"2023-05-27T21:12:59.908+0900","caller":"logger/logger.go:71","msg":"error","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-27T21:13:02.664+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T21:13:02.664+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:13:50.127+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:13:50.128+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"ERROR","time":"2023-05-27T22:13:50.128+0900","caller":"logger/logger.go:71","msg":"error","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-27T22:22:13.473+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-27T22:22:37.796+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-27T22:22:54.131+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:22:54.131+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:25:55.607+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:25:55.623+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"ERROR","time":"2023-05-27T22:25:55.624+0900","caller":"logger/logger.go:71","msg":"error","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-27T22:26:02.186+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:26:02.186+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:26:14.030+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:26:14.030+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"ERROR","time":"2023-05-27T22:26:14.030+0900","caller":"logger/logger.go:71","msg":"error","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-27T22:26:19.223+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:26:19.225+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:26:50.712+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:26:50.712+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"ERROR","time":"2023-05-27T22:26:50.712+0900","caller":"logger/logger.go:71","msg":"error","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-27T22:26:57.501+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:26:57.501+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:27:36.008+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:27:36.008+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"ERROR","time":"2023-05-27T22:27:36.008+0900","caller":"logger/logger.go:71","msg":"error","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-27T22:27:41.524+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-27T22:52:00.725+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-27T22:52:29.492+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-27T22:52:47.736+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-27T22:53:17.423+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:53:17.423+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:53:32.612+0900","caller":"logger/logger.go:104","msg":"/swagger/index.html","status":200,"method":"GET","path":"/swagger/index.html","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.0004168}
+{"level":"INFO","time":"2023-05-27T22:53:33.040+0900","caller":"logger/logger.go:104","msg":"/swagger/swagger-ui.css","status":200,"method":"GET","path":"/swagger/swagger-ui.css","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.000300073}
+{"level":"INFO","time":"2023-05-27T22:53:33.053+0900","caller":"logger/logger.go:104","msg":"/swagger/swagger-ui-bundle.js","status":200,"method":"GET","path":"/swagger/swagger-ui-bundle.js","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.000664263}
+{"level":"INFO","time":"2023-05-27T22:53:33.055+0900","caller":"logger/logger.go:104","msg":"/swagger/swagger-ui-standalone-preset.js","status":200,"method":"GET","path":"/swagger/swagger-ui-standalone-preset.js","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.000327498}
+{"level":"INFO","time":"2023-05-27T22:53:33.431+0900","caller":"logger/logger.go:104","msg":"/swagger/favicon-32x32.png","status":200,"method":"GET","path":"/swagger/favicon-32x32.png","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.000106138}
+{"level":"INFO","time":"2023-05-27T22:53:33.584+0900","caller":"logger/logger.go:104","msg":"/swagger/doc.json","status":200,"method":"GET","path":"/swagger/doc.json","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.000319102}
+{"level":"INFO","time":"2023-05-27T22:53:38.038+0900","caller":"logger/logger.go:104","msg":"/swagger/favicon-32x32.png","status":304,"method":"GET","path":"/swagger/favicon-32x32.png","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.000036999}
+{"level":"INFO","time":"2023-05-27T22:53:41.410+0900","caller":"logger/logger.go:104","msg":"/swagger/favicon-32x32.png","status":304,"method":"GET","path":"/swagger/favicon-32x32.png","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.000061642}
+{"level":"INFO","time":"2023-05-27T22:53:45.164+0900","caller":"logger/logger.go:104","msg":"/swagger/favicon-32x32.png","status":304,"method":"GET","path":"/swagger/favicon-32x32.png","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.000054731}
+{"level":"INFO","time":"2023-05-27T22:53:55.816+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-27T22:53:55.816+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"ERROR","time":"2023-05-27T22:53:55.816+0900","caller":"logger/logger.go:71","msg":"error","-":"ready server.... "}

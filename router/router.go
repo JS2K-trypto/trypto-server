@@ -1,12 +1,15 @@
 package router
 
 import (
+	"echo-boilerplate-ORM-MySQL/golang-echo-boilerplate/docs"
 	"fmt"
 	ctl "trypto-server/controller"
 
 	"trypto-server/logger"
 
 	"github.com/gin-gonic/gin"
+	swgFiles "github.com/swaggo/files"
+	ginSwg "github.com/swaggo/gin-swagger"
 )
 
 type Router struct {
@@ -56,13 +59,17 @@ func LiteAuth() gin.HandlerFunc {
 func (p *Router) Idx() *gin.Engine {
 	//~생략
 	e := gin.Default() //gin 선언
-	gin.SetMode(gin.ReleaseMode)
+	//gin.SetMode(gin.ReleaseMode)
 	// r.Use(gin.Logger())   //gin 내부 log, logger 미들웨어 사용 선언
 	// r.Use(gin.Recovery()) //gin 내부 recover, recovery 미들웨어 사용 - 패닉복구
 
 	e.Use(logger.GinLogger())
 	e.Use(logger.GinRecovery(true))
 	e.Use(CORS()) //crossdomain 미들웨어 사용 등록
+
+	e.GET("/swagger/:any", ginSwg.WrapHandler(swgFiles.Handler))
+	docs.SwaggerInfo.Host = "localhost" //swagger 정보 등록
+
 	//e.RunTLS("0.0.0.0:1323", "cert.pem", "key.pem")
 	logger.Info("start server")
 
