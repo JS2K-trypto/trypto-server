@@ -9,15 +9,14 @@ import (
 	_ "trypto-server/docs"
 
 	"github.com/gin-gonic/gin"
-	
 )
 
 var (
 	tripPlan model.TripPlan
 )
 
-// 여행계획 만들어주는 함수
 // CreateTripPlan godoc
+// @BasePath /v01
 // @Summary 계정주소, 제목, 설명, 메모, 여행사진등을 입력해서 여행계획을 만들어줍니다.
 // @Tags CreateTripPlan
 // @Description 사용자 위치를 참고해서 뱃지를 발급하는 함수

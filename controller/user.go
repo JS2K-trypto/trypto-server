@@ -15,7 +15,7 @@ var (
 	account model.Account
 )
 
-// 유저 등록해주는 함수
+// @BasePath /v01
 // UserRegisterHandler godoc
 // @Summary 계정주소, 닉네임, 비밀번호를 입력합니다.
 // @Tags UserRegisterHandler
@@ -43,7 +43,7 @@ func (p *Controller) UserRegisterHandler(c *gin.Context) {
 
 }
 
-// 유저 프로필 업데이트하는 함수
+// @BasePath /v01
 // UserEditHandler godoc
 // @Summary 계정주소, 닉네임을 입력합니다.
 // @Tags UserEditHandler
@@ -74,7 +74,7 @@ func (p *Controller) UserEditHandler(c *gin.Context) {
 
 }
 
-// 유저 프로필 정보를 가져오는 함수
+// @BasePath /v01
 // UserProfileHandler godoc
 // @Summary 계정주소, 닉네임을 입력합니다.
 // @Tags UserProfileHandler

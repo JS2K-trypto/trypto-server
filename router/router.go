@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"net/http"
 	ctl "trypto-server/controller"
-	"trypto-server/docs"
-
+	docs "trypto-server/docs"
 	"trypto-server/logger"
 
-	"github.com/gin-gonic/gin"
 	swgFiles "github.com/swaggo/files"
 	ginSwg "github.com/swaggo/gin-swagger"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Router struct {
@@ -82,18 +82,20 @@ func (p *Router) Idx() *gin.Engine {
 		})
 	})
 
-	docs.SwaggerInfo.Title = "Swagger Example API"
+	docs.SwaggerInfo.Title = "Trypto Swagger Example API"
 	docs.SwaggerInfo.Description = "This is a trypto server."
 	docs.SwaggerInfo.Version = "1.0"
 	docs.SwaggerInfo.Host = "localhost:1323"
-	docs.SwaggerInfo.BasePath = ""
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
-	url := ginSwg.URL("http://localhost:1323/swagger/doc.json") //
-	e.GET("/swagger/:any", ginSwg.WrapHandler(swgFiles.Handler, url))
-	docs.SwaggerInfo.Host = "localhost" //swagger 정보 등록
+	docs.SwaggerInfo.BasePath = "/v01"
 
 	//e.RunTLS("0.0.0.0:1323", "cert.pem", "key.pem")
 	logger.Info("start server")
+	//e.GET("/swagger/:any", ginSwg.WrapHandler(swgFiles.Handler))
+
+	e.GET("/swagger/:any", ginSwg.WrapHandler(swgFiles.Handler,
+		ginSwg.URL("http://localhost:1323/swagger/doc.json"),
+		ginSwg.DefaultModelsExpandDepth(-1)))
 
 	routerAdm := e.Group("/v01/badge", LiteAuth())
 	{

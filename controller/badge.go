@@ -20,8 +20,8 @@ var (
 	location model.Location
 )
 
-// 뱃지를 생성해주는 함수
 // CreateBadge godoc
+// @BasePath /v01
 // @Summary 위도, 경도를 입력받고 해당하는 나라의 리소스를 참고해서 뱃지를 발급해줍니다.
 // @Tags CreateBadge
 // @Description 사용자 위치를 참고해서 뱃지를 발급하는 함수
@@ -86,8 +86,8 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 
 }
 
-// 뱃지를 가져오는 함수
 // CreateBadge godoc
+// @BasePath /v01
 // @Summary 나의 뱃지를 가져오는 함수
 // @Tags GetMyBadge
 // @Description 사용자 위치를 참고해서 뱃지를 발급하는 함수
