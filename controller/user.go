@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"trypto-server/model"
 
+	_ "trypto-server/docs"
+
 	"github.com/gin-gonic/gin"
 )
 

@@ -6,7 +6,10 @@ import (
 	"time"
 	"trypto-server/model"
 
+	_ "trypto-server/docs"
+
 	"github.com/gin-gonic/gin"
+	
 )
 
 var (

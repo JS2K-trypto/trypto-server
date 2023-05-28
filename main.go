@@ -13,26 +13,20 @@ import (
 	"time"
 	conf "trypto-server/config"
 	ctl "trypto-server/controller"
+
 	"trypto-server/logger"
 	"trypto-server/model"
 	rt "trypto-server/router"
 
+	_ "trypto-server/docs"
+
+	"github.com/gin-gonic/gin"
 	"golang.org/x/sync/errgroup"
 )
 
 var (
 	g errgroup.Group
 )
-
-// @BasePath /v1
-// swagger API 선언
-// func setupSwagger(r *gin.Engine) {
-// 	r.GET("/", func(c *gin.Context) {
-// 		c.Redirect(http.StatusFound, "/swagger/index.html")
-// 	})
-
-// 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-// }
 
 const (
 	htmlIndex    = `<html><body>Welcome!</body></html>`
@@ -41,6 +35,30 @@ const (
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, htmlIndex)
+}
+
+type welcomeModel struct {
+	ID   int    `json:"id" example:"1" format:"int64"`
+	Name string `json:"name" example:"account name"`
+}
+
+// Welcome godoc
+// @Summary Summary를 적어 줍니다
+// @Description 자세한 설명은 이곳에 적습니다.
+// @name get-string-by-int
+// @Accept  json
+// @Produce  json
+// @Param name path string true "User name"
+// @Router /welcome/{name} [get]
+// @Success 200 {object} welcomeModel
+func welcomeApi(c *gin.Context) {
+	name := c.Param("name")
+	message := name + " is very handsome!"
+	welcomeMessage := welcomeModel{1, message}
+
+	// welcomeMessage := model.User{ID: 1, Name: name}
+
+	c.JSON(200, gin.H{"message": welcomeMessage})
 }
 
 func main() {

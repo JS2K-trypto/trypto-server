@@ -1,0 +1,8 @@
+{"level":"DEBUG","time":"2023-05-28T14:22:24.683+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-28T14:22:24.684+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-28T14:22:32.734+0900","caller":"logger/logger.go:104","msg":"/","status":200,"method":"GET","path":"/","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.000221883}
+{"level":"INFO","time":"2023-05-28T14:22:33.249+0900","caller":"logger/logger.go:104","msg":"/img/paris.jpeg","status":200,"method":"GET","path":"/img/paris.jpeg","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.024875879}
+{"level":"INFO","time":"2023-05-28T14:22:35.774+0900","caller":"logger/logger.go:104","msg":"/favicon.ico","status":404,"method":"GET","path":"/favicon.ico","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.000010348}
+{"level":"INFO","time":"2023-05-28T14:32:49.417+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-28T14:32:49.417+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"ERROR","time":"2023-05-28T14:32:49.417+0900","caller":"logger/logger.go:71","msg":"error","-":"ready server.... "}

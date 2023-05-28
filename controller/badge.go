@@ -9,6 +9,8 @@ import (
 
 	conf "trypto-server/config"
 
+	_ "trypto-server/docs"
+
 	"github.com/codingsince1985/geo-golang/openstreetmap"
 	"github.com/gin-gonic/gin"
 	"github.com/thirdweb-dev/go-sdk/thirdweb"

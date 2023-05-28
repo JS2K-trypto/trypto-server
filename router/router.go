@@ -1,9 +1,10 @@
 package router
 
 import (
-	"echo-boilerplate-ORM-MySQL/golang-echo-boilerplate/docs"
 	"fmt"
+	"net/http"
 	ctl "trypto-server/controller"
+	"trypto-server/docs"
 
 	"trypto-server/logger"
 
@@ -67,7 +68,22 @@ func (p *Router) Idx() *gin.Engine {
 	e.Use(logger.GinRecovery(true))
 	e.Use(CORS()) //crossdomain 미들웨어 사용 등록
 
-	e.GET("/swagger/:any", ginSwg.WrapHandler(swgFiles.Handler))
+	e.Static("/img", "./img")
+	e.LoadHTMLGlob("templates/*.html")
+	e.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"content": "This is an index page...",
+		})
+	})
+
+	docs.SwaggerInfo.Title = "Swagger Example API"
+	docs.SwaggerInfo.Description = "This is a trypto server."
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = "localhost:1323"
+	docs.SwaggerInfo.BasePath = ""
+	docs.SwaggerInfo.Schemes = []string{"http", "https"}
+	url := ginSwg.URL("http://localhost:1323/swagger/doc.json") //
+	e.GET("/swagger/:any", ginSwg.WrapHandler(swgFiles.Handler, url))
 	docs.SwaggerInfo.Host = "localhost" //swagger 정보 등록
 
 	//e.RunTLS("0.0.0.0:1323", "cert.pem", "key.pem")

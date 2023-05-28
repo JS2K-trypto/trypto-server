@@ -6,4 +6,4 @@ DBSchema.md
 ./logs
 ./config/.config.toml
 *.pem
-
+./nohup.out
