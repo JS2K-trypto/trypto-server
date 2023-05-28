@@ -6,3 +6,16 @@
 {"level":"INFO","time":"2023-05-28T14:32:49.417+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
 {"level":"INFO","time":"2023-05-28T14:32:49.417+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
 {"level":"ERROR","time":"2023-05-28T14:32:49.417+0900","caller":"logger/logger.go:71","msg":"error","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-28T14:37:39.831+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-28T14:37:39.832+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-28T14:38:03.512+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-28T14:38:03.512+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"ERROR","time":"2023-05-28T14:38:03.512+0900","caller":"logger/logger.go:71","msg":"error","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-28T14:38:11.948+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-28T14:38:11.956+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-28T14:38:13.647+0900","caller":"logger/logger.go:104","msg":"/","status":404,"method":"GET","path":"/","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.000013405}
+{"level":"INFO","time":"2023-05-28T14:38:20.116+0900","caller":"logger/logger.go:104","msg":"/index","status":200,"method":"GET","path":"/index","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.000191251}
+{"level":"INFO","time":"2023-05-28T14:38:20.534+0900","caller":"logger/logger.go:104","msg":"/img/paris.jpeg","status":304,"method":"GET","path":"/img/paris.jpeg","query":"","ip":"::1","user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36","errors":"","cost":0.000246758}
+{"level":"INFO","time":"2023-05-28T14:38:29.533+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-28T14:38:29.533+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"ERROR","time":"2023-05-28T14:38:29.533+0900","caller":"logger/logger.go:71","msg":"error","-":"ready server.... "}

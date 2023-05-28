@@ -70,7 +70,7 @@ func (p *Router) Idx() *gin.Engine {
 
 	e.Static("/img", "./img")
 	e.LoadHTMLGlob("templates/*.html")
-	e.GET("/", func(c *gin.Context) {
+	e.GET("/index", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
 			"content": "This is an index page...",
 		})
