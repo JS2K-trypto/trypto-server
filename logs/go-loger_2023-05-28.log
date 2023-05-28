@@ -152,3 +152,8 @@
 {"level":"INFO","time":"2023-05-28T16:04:53.858+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
 {"level":"INFO","time":"2023-05-28T16:04:53.858+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
 {"level":"ERROR","time":"2023-05-28T16:04:53.858+0900","caller":"logger/logger.go:71","msg":"error","-":"ready server.... "}
+{"level":"DEBUG","time":"2023-05-28T16:16:43.763+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-28T16:16:43.765+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-28T16:16:49.747+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"INFO","time":"2023-05-28T16:16:49.747+0900","caller":"logger/logger.go:59","msg":"info","-":"ready server.... "}
+{"level":"ERROR","time":"2023-05-28T16:16:49.747+0900","caller":"logger/logger.go:71","msg":"error","-":"ready server.... "}

@@ -18,7 +18,7 @@ type Model struct {
 
 func NewModel() (*Model, error) {
 
-	config := conf.GetConfig("./config/.config.toml")
+	config := conf.GetConfig("./config/config.toml")
 	r := &Model{}
 	var err error
 	mgUrl := config.DB["user"]["host"].(string)

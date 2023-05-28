@@ -55,7 +55,7 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 	result := p.md.MatchBadgeResource(&encyDnft)
 	log.Println("dnft", result)
 
-	config2 := conf.GetConfig("./config/.config.toml")
+	config2 := conf.GetConfig("./config/config.toml")
 	contractAddress := config2.Contract.DnftContract
 	sdk, err := thirdweb.NewThirdwebSDK("goerli", &thirdweb.SDKOptions{
 		PrivateKey: config2.Contract.PRIVATEKEY,

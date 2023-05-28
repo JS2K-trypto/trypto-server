@@ -32,7 +32,7 @@ func main() {
 	} else if rt, err := rt.NewRouter(controller); err != nil {
 	} else {
 
-		config := conf.GetConfig("./config/.config.toml")
+		config := conf.GetConfig("./config/config.toml")
 
 		log.Println("config.Server.Port", config.Server.Port)
 		log.Println("config.Server.Mode", config.Server.Mode)

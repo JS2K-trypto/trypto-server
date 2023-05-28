@@ -1,11 +1,7 @@
 trypto-server/main/.env
 main 
 DBSchema.md
-./logs/*
-./nohup.out
-./logs
-./config/.config.toml
 *.pem
-./nohup.out
-./config/config.toml
 config/config.toml
+logs
+nohup.out 
