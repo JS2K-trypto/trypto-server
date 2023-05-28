@@ -70,9 +70,15 @@ func (p *Router) Idx() *gin.Engine {
 
 	e.Static("/img", "./img")
 	e.LoadHTMLGlob("templates/*.html")
-	e.GET("/index", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{
-			"content": "This is an index page...",
+	e.GET("/paris", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "paris.html", gin.H{
+			"content": "This is an Paris !",
+		})
+	})
+
+	e.GET("/cherry", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "cherry.html", gin.H{
+			"content": "This is an cherry flower !",
 		})
 	})
 

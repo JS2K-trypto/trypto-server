@@ -3,13 +3,12 @@ package controller
 import (
 	"context"
 	"fmt"
+	"log"
 	"net/http"
 	"time"
-	"trypto-server/model"
-
 	conf "trypto-server/config"
-
 	_ "trypto-server/docs"
+	"trypto-server/model"
 
 	"github.com/codingsince1985/geo-golang/openstreetmap"
 	"github.com/gin-gonic/gin"
@@ -54,43 +53,37 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 	encyDnft.DnftTime = custom
 
 	result := p.md.MatchBadgeResource(&encyDnft)
-	fmt.Println("dnft", result)
-	fmt.Println("location.Country:", location.Country)
+	log.Println("dnft", result)
 
-	config := conf.GetConfig("./config/.config.toml")
-
-	contractAddress := config.DB["contract"]["DnftContract"].(string)
-	sdk, err := thirdweb.NewThirdwebSDK("mumbai", &thirdweb.SDKOptions{
-		PrivateKey: config.DB["contract"]["PRIVATEKEY"].(string),
+	config2 := conf.GetConfig("./config/.config.toml")
+	contractAddress := config2.Contract.DnftContract
+	sdk, err := thirdweb.NewThirdwebSDK("goerli", &thirdweb.SDKOptions{
+		PrivateKey: config2.Contract.PRIVATEKEY,
 	})
 	if err != nil {
 		panic(err)
 	}
-
+	log.Println("contractAddress", contractAddress)
 	contract, err := sdk.GetContractFromAbi(contractAddress, ABI)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("contract", contract)
 
 	balance, err := contract.Call(context.Background(), "balanceOf", encyDnft.WalletAccount)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("balance", balance)
+	log.Println("balance", balance)
 	metaData := []string{}
 	metaData = append(metaData, encyDnft.DnftBronzeUrl)
 	metaData = append(metaData, encyDnft.DnftSilverUrl)
 	metaData = append(metaData, encyDnft.DnftGoldUrl)
 
-	mint, err := contract.Call(context.Background(), "safeMint", contractAddress, metaData)
+	mint, err := contract.Call(context.Background(), "safeMint", encyDnft.WalletAccount, metaData[0])
 	fmt.Println("mint", mint)
 
-	//나라를 계산한 후 DB에 적재
+	c.JSON(http.StatusOK, mint)
 
-	//동시에 DNFT 발급하는 식으로 진행
-
-	c.JSON(http.StatusOK, encyDnft)
 }
 
 // 뱃지를 가져오는 함수

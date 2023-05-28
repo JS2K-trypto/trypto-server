@@ -2,9 +2,7 @@ package main
 
 import (
 	"context"
-	"flag"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"os"
@@ -20,7 +18,6 @@ import (
 
 	_ "trypto-server/docs"
 
-	"github.com/gin-gonic/gin"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -28,90 +25,41 @@ var (
 	g errgroup.Group
 )
 
-const (
-	htmlIndex    = `<html><body>Welcome!</body></html>`
-	inProduction = true
-)
-
-func handleIndex(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, htmlIndex)
-}
-
-type welcomeModel struct {
-	ID   int    `json:"id" example:"1" format:"int64"`
-	Name string `json:"name" example:"account name"`
-}
-
-// Welcome godoc
-// @Summary Summary를 적어 줍니다
-// @Description 자세한 설명은 이곳에 적습니다.
-// @name get-string-by-int
-// @Accept  json
-// @Produce  json
-// @Param name path string true "User name"
-// @Router /welcome/{name} [get]
-// @Success 200 {object} welcomeModel
-func welcomeApi(c *gin.Context) {
-	name := c.Param("name")
-	message := name + " is very handsome!"
-	welcomeMessage := welcomeModel{1, message}
-
-	// welcomeMessage := model.User{ID: 1, Name: name}
-
-	c.JSON(200, gin.H{"message": welcomeMessage})
-}
-
 func main() {
 
-	//model 모듈 선언
 	if mod, err := model.NewModel(); err != nil {
-		//~생략
-	} else if controller, err := ctl.NewCTL(mod); err != nil { //controller 모듈 설정
-		//~생략
-	} else if rt, err := rt.NewRouter(controller); err != nil { //router 모듈 설정
-		//~생략
+	} else if controller, err := ctl.NewCTL(mod); err != nil {
+	} else if rt, err := rt.NewRouter(controller); err != nil {
 	} else {
-		var configFlag = flag.String("config", "./config/.config.toml", "toml file to use for configuration")
-		flag.Parse()
-		cf := conf.GetConfig(*configFlag)
-		//config := conf.GetConfig("./config/.config.toml")
-		//cf := conf.NewConfig(*configFlag)
-		// fmt.Println("config.Server.Port", config.Server.Port)
-		// fmt.Println("config.Server.Mode", config.Server.Mode)
-		// fmt.Println("config.DB[account][pass]", config.DB["account"]["pass"])
-		// fmt.Println("work", config.Work)
-		// fmt.Println("work", config.Work[0].Desc)
+
+		config := conf.GetConfig("./config/.config.toml")
+
+		log.Println("config.Server.Port", config.Server.Port)
+		log.Println("config.Server.Mode", config.Server.Mode)
+		log.Println("config.DB[account][pass]", config.DB["account"]["pass"])
+		log.Println("work", config.Work)
+		log.Println("work", config.Work[0].Desc)
+		log.Println("contract", config.Contract)
+		log.Println("contract", config.Contract.DnftContract)
 
 		// 로그 초기화
-		if err := logger.InitLogger(cf); err != nil {
+		if err := logger.InitLogger(config); err != nil {
 			fmt.Printf("init logger failed, err:%v\n", err)
 			return
 		}
-
 		logger.Debug("ready server....")
-		//dataDir := "."
-		//tlsConfig := &tls.Config{
-		// 	ClientAuth: tls.RequireAnyClientCert,
-		// }
-		//http 서버 설정 변수
+
 		mapi := &http.Server{
-			Addr:           cf.Server.Port,
+			Addr:           config.Server.Port,
 			Handler:        rt.Idx(),
 			ReadTimeout:    0, //  5 * time.Second, 이전 값 현재 값은 테스트를 위해 설정함
 			WriteTimeout:   0, // 10 * time.Second, 이전 값 현재 값은 테스트를 위해 설정함
 			MaxHeaderBytes: 1 << 20,
-			//TLSConfig:      tlsConfig,
 		}
-		// m := &autocert.Manager{
-		// 	Prompt:     autocert.AcceptTOS,
-		// 	HostPolicy: autocert.HostWhitelist("example.com", "example2.com"),
-		// 	Cache:      autocert.DirCache(dataDir),
-		// }
-		// mapi.TLSConfig = &tls.Config{GetCertificate: m.GetCertificate}
 
 		//고루틴 서버 동작
 		g.Go(func() error {
-			//return mapi.ListenAndServeTLS("cert.pem", "key.pem")
+
 			//return mapi.ListenAndServeTLS("./127.0.0.1.pem", "./127.0.0.1-key.pem")
 			return mapi.ListenAndServe()
 		})
