@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"net/http"
 	ctl "trypto-server/controller"
-	docs "trypto-server/docs"
 	"trypto-server/logger"
+
+	docs "trypto-server/docs"
 
 	swgFiles "github.com/swaggo/files"
 	ginSwg "github.com/swaggo/gin-swagger"
@@ -82,27 +83,15 @@ func (p *Router) Idx() *gin.Engine {
 		})
 	})
 
-	docs.SwaggerInfo.Title = "Trypto Swagger Example API"
-	docs.SwaggerInfo.Description = "This is a trypto server."
-	docs.SwaggerInfo.Version = "1.0"
 	docs.SwaggerInfo.Host = "localhost:1323"
-	docs.SwaggerInfo.Schemes = []string{"http", "https"}
-	docs.SwaggerInfo.BasePath = "/v01"
-
-	//e.RunTLS("0.0.0.0:1323", "cert.pem", "key.pem")
+	e.GET("/swagger/:any", ginSwg.WrapHandler(swgFiles.Handler))
 	logger.Info("start server")
-	//e.GET("/swagger/:any", ginSwg.WrapHandler(swgFiles.Handler))
-
-	e.GET("/swagger/:any", ginSwg.WrapHandler(swgFiles.Handler,
-		ginSwg.URL("http://localhost:1323/swagger/doc.json"),
-		ginSwg.DefaultModelsExpandDepth(-1)))
 
 	routerAdm := e.Group("/v01/badge", LiteAuth())
 	{
 		fmt.Println(routerAdm)
 		routerAdm.POST("/issue", p.ct.CreateBadge) // controller 패키지의 실제 처리 함수
 		routerAdm.GET("/user", p.ct.GetMyBadge)
-		//routerAdm.POST("/ok1", p.ct.GetOk)     // controller 패키지의 실제 처리 함수
 	}
 
 	routerAcc := e.Group("/v01/acc", LiteAuth())

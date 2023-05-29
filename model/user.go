@@ -19,10 +19,13 @@ func (m *Model) RegisterUser(account Account) error {
 	update := bson.D{{Key: "$set", Value: account}}
 
 	opts := options.Update().SetUpsert(true)
-	if _, err := m.colAccount.UpdateOne(context.TODO(), filter, update, opts); err != nil {
+	result, err := m.colAccount.UpdateOne(context.TODO(), filter, update, opts)
+	if err != nil {
 		log.Println("Failed to insert data in user_account")
+
 		return fmt.Errorf("fail to register user: %w", err)
 	}
+	fmt.Println("result", result.MatchedCount, result.UpsertedCount)
 
 	return nil
 }
@@ -51,7 +54,7 @@ func (m *Model) GetProfile(account Account) []string {
 	fmt.Println("account", account)
 	fmt.Println("account", account.NickName)
 	profile := []string{}
-	profile = append(profile, account.ID.String())
+	// = append(profile, account.ID.String())
 	profile = append(profile, account.NickName)
 	profile = append(profile, strconv.Itoa(account.MyTravelCount))
 	profile = append(profile, strconv.Itoa(account.MyDNFTCount))

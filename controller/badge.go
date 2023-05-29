@@ -7,11 +7,11 @@ import (
 	"net/http"
 	"time"
 	conf "trypto-server/config"
-	_ "trypto-server/docs"
 	"trypto-server/model"
 
 	"github.com/codingsince1985/geo-golang/openstreetmap"
 	"github.com/gin-gonic/gin"
+
 	"github.com/thirdweb-dev/go-sdk/thirdweb"
 )
 
@@ -21,18 +21,19 @@ var (
 )
 
 // CreateBadge godoc
-// @BasePath /v01
-// @Summary 위도, 경도를 입력받고 해당하는 나라의 리소스를 참고해서 뱃지를 발급해줍니다.
-// @Tags CreateBadge
-// @Description 사용자 위치를 참고해서 뱃지를 발급하는 함수
-// @name CreateBadge
-// @Accept  json
-// @Produce  json
-// @Param walletAccount  string true "walletAccount"
-// @Param latitude float true "latitude"
-// @Param longitude float true "longitude"
-// @Router v01/badge/issue [post]
-// @Success 200 {object} string
+//	@BasePath	/v01
+//	@Schemes
+//	@Summary		위도, 경도를 입력받고 해당하는 나라의 리소스를 참고해서 뱃지를 발급해줍니다.
+//	@Tags			CreateBadge
+//	@Description	사용자 위치를 참고해서 뱃지를 발급하는 함수
+//	@name			CreateBadge
+//	@Accept			json
+//	@Produce		json
+//	@Param			walletAccount	string	true	"walletAccount"
+//	@Param			latitude		float	true	"latitude"
+//	@Param			longitude		float	true	"longitude"
+//	@Router			/v01/badge/issue [post]
+//	@Success		200	{object}	string
 func (p *Controller) CreateBadge(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&encyDnft); err != nil {
@@ -87,16 +88,16 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 }
 
 // CreateBadge godoc
-// @BasePath /v01
-// @Summary 나의 뱃지를 가져오는 함수
-// @Tags GetMyBadge
-// @Description 사용자 위치를 참고해서 뱃지를 발급하는 함수
-// @name GetMyBadge
-// @Accept  json
-// @Produce  json
-// @Param walletAccount  string true "walletAccount"
-// @Router v01/badge/user [get]
-// @Success 200 {object} string
+//	@BasePath		/v01
+//	@Summary		나의 뱃지를 가져오는 함수
+//	@Tags			GetMyBadge
+//	@Description	사용자 위치를 참고해서 뱃지를 발급하는 함수
+//	@name			GetMyBadge
+//	@Accept			json
+//	@Produce		json
+//	@Param			walletAccount	string	true	"walletAccount"
+//	@Router			/v01/badge/user [get]
+//	@Success		200	{object}	string
 func (p *Controller) GetMyBadge(c *gin.Context) {
 	if err := c.ShouldBindJSON(&account); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

@@ -4,46 +4,63 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+// 유저 계정
 type Account struct {
 	ID            primitive.ObjectID `bson:"_id,omitempty"`
 	WalletAccount string             `json:"walletAccount"`
 	NickName      string             `json:"nickName"`
-	Password      string             `json:"password"`
 	MyTravelCount int                `json:"myTravelCount"`
 	MyDNFTCount   int                `json:"myDnftCount"`
 	LikeCount     int                `json:"likeCount"`
 	CommentCount  int                `json:"commentCount"`
 }
 
+// 여행계획
 type TripPlan struct {
-	TripId          int    `json:"travelId"`
-	WalletAccount   string `bson:"walletAccount"`
-	TripTitle       string `bson:"tripTitle"`
-	TripDescription string `bson:"tripDescription"`
-	TripMemo        string `bson:"tripMemo"`
-	TripImgSrc      string `bson:"tripImgSrc"`
-	TripTime        string `json:"tripTime"`
+	TripId        int    `json:"travelId", 		bson:"travelId"`
+	WalletAccount string `json:"walletAccount", 	bson:"walletAccount"`
+	TripTitle     string `json:"tripTitle", 		bson:"tripTitle"`
+	TripCountry   string `json:"tripCountry",     bson:"tripCountry"`
+	TripDeparture string `json:"tripDeparture", 	bson:"tripDeparture"`
+	TripArrival   string `json:"tripArrival", 	bson:"tripArrival"`
+	ItemList      []DayItem
 }
 
+type DayItem struct {
+	DayItemTime string `json:"day1_time", bson:"day1_time"`
+	ItemArray   []Item
+}
+type Item struct {
+	StartDate       string `json:"startDate", 	bson:"endDate"`
+	EndDate         string `json:"endDate",		bson:"endDate"`
+	ImgSrc          string `json:"imgSrc",		bson:"imgSrc"`
+	ItemTitle       string `json:"title", 		bson:"title"`
+	ItemDescription string `json:"description", bson:"description"`
+	ItemMemo        string `json:"memo", 		bson:"memo"`
+}
+
+// 다이나믹 NFT 배열
 type EncyclopediaDNFTs struct {
 	Arr []EncyclopediaDNFT
 }
 
+// 다이나믹 NFT 구조체
 type EncyclopediaDNFT struct {
-	DnftId        int64   `bson:"dnftId"`        //전체 dnftID
-	WalletAccount string  `bson:"walletAccount"` //지갑계정
-	Latitude      float64 `json:"latitude"`      //위도
-	Longitude     float64 `json:"longitude"`     //경도
-	DnftCountry   string  `bson:"dnftCountry"`   //국가
-	DnftImgUrl    string  `json:"dnftImgUrl"`    //이미지URL로 쓸 변수
-	DnftBronzeUrl string  `json:"dnftBronzeUrl"` //브론즈 URL
-	DnftSilverUrl string  `json:"dnftSilverUrl"` //실버 URL
-	DnftGoldUrl   string  `json:"dnftGoldUrl"`   //골드 URL
-	DnftTime      string  `json:"dnfttime"`      //발급 시간
-	BadgeTier     string  `json:"dnftTier"`      //티어
-	IssueCount    int64   `bson:"issueCount"`    //계정별, 국가별 발급횟수를 체크하는 변수
+	DnftId        int64   `bson:"dnftId", json:"dnftId"`               //전체 dnftID
+	WalletAccount string  `bson:"walletAccount", json:"walletAccount"` //지갑계정
+	Latitude      float64 `bson:"latitude",json:"latitude"`            //위도
+	Longitude     float64 `bson:"longitude",json:"longitude"`          //경도
+	DnftCountry   string  `bson:"dnftCountry",json:"dnftCountry"`      //국가
+	DnftImgUrl    string  `bson:"dnftImgUrl",json:"dnftImgUrl"`        //이미지URL로 쓸 변수
+	DnftBronzeUrl string  `bson:"dnftBronzeUrl",json:"dnftBronzeUrl"`  //브론즈 URL
+	DnftSilverUrl string  `bson:"dnftSilverUrl",json:"dnftSilverUrl"`  //실버 URL
+	DnftGoldUrl   string  `bson:"dnftGoldUrl",json:"dnftGoldUrl"`      //골드 URL
+	DnftTime      string  `bson:"dnfttime",json:"dnfttime"`            //발급 시간
+	BadgeTier     string  `bson:"dnftTier",json:"dnftTier"`            //티어
+	IssueCount    int64   `bson:"issueCount",bson:"issueCount"`        //계정별, 국가별 발급횟수를 체크하는 변수
 }
 
+// 뱃지 리소스
 type BadgeResource struct {
 	BadgeId         int    `json:"badgeId"`
 	BadgeCountry    string `json:"badgeCountry"`
@@ -51,6 +68,8 @@ type BadgeResource struct {
 	BadgeUrl_silver string `json:"badgeUrl_silver"`
 	BadgeUrl_gold   string `json:"badgeUrl_gold"`
 }
+
+// 로케이션 리소스 구조체
 
 type Location struct {
 	FormattedAddress string `json:"formattedAddress"`
