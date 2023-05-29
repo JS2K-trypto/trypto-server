@@ -66,14 +66,12 @@ func (p *Controller) GetMyTrip(c *gin.Context) {
 
 func (p *Controller) GetAllTrip(c *gin.Context) {
 
-	if err := c.ShouldBindJSON(&tripPlan); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+	res := p.md.SelectAllTrip()
+	fmt.Println(len(res))
+	if len(res) > 0 {
+		c.JSON(http.StatusOK, res)
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty TripPlan"})
 	}
-
-	fmt.Println("tripPlan", tripPlan)
-	res := p.md.SelectAllTrip(tripPlan.WalletAccount)
-
-	c.JSON(http.StatusOK, res)
 
 }

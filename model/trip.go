@@ -29,21 +29,24 @@ func (m *Model) InsertTripPlan(tripPlan *TripPlan) *TripPlan {
 	return tripPlan
 }
 
-// MyDnft 여러 개 불러오기
-func (m *Model) SelectAllTrip(account string) []bson.M {
+// 여행계획 전부 가져오기
+func (m *Model) SelectAllTrip() []bson.M {
 	var datas []bson.M
 	res, err := m.colTripPlan.Find(context.TODO(), bson.M{})
 	if err != nil {
 		logger.Error(err)
 	}
+	fmt.Println("res", res)
 
 	// 결과를 변수에 담기
 	if err = res.All(context.TODO(), &datas); err != nil {
 		fmt.Println(err)
 	}
+	fmt.Println("datas", datas)
 	return datas
 }
 
+// 나의 여행계획 가져오기
 func (m *Model) SelectMyTrip(account string) *TripPlans {
 
 	fmt.Println("account", account)
