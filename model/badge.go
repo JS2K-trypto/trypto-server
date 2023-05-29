@@ -5,35 +5,27 @@ import (
 	"fmt"
 	"log"
 	"trypto-server/logger"
-	
+
 	"go.mongodb.org/mongo-driver/bson"
 )
 
 var (
 	checkCountry bson.M
 	encytDnft    EncyclopediaDNFT
+	encytDnfts   EncyclopediaDNFTs
 )
 
 func (m *Model) MatchBadgeResource(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 
 	err := m.colResource.FindOne(context.TODO(), bson.M{"Country": encyDnft.DnftCountry}).Decode(&checkCountry)
-	log.Println("checkCountry", checkCountry)
+
 	if err != nil {
 		log.Println(err)
 		fmt.Errorf("fail to get menu detail")
 	}
 
-	// 컬렉션의 도큐먼트 카운트 세기
-	///filter := bson.D{{"walletAccount": encyDnft.WalletAccount}}
-	// count, err := m.colDnftBadge.CountDocuments(context.TODO(), bson.M{"walletAccount": encyDnft.WalletAccount})
-	// fmt.Println("count", count)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
 	filter := bson.D{{"walletAccount", encyDnft.WalletAccount}, {"dnftCountry", encyDnft.DnftCountry}}
 	count, err := m.colDnftBadge.CountDocuments(context.TODO(), filter)
-	fmt.Println("count", count)
 
 	estCount, estCountErr := m.colDnftBadge.EstimatedDocumentCount(context.TODO())
 	if estCountErr != nil {
@@ -73,8 +65,8 @@ func (m *Model) MatchBadgeResource(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT
 	return encyDnft
 }
 
-// MyDnft 여러 개 불러오기
-func (m *Model) GetMyAllDnft(account string) []bson.M {
+// Dnft 뱃지 여러 개 불러오기
+func (m *Model) GetAllDnft(account string) []bson.M {
 	var datas []bson.M
 	res, err := m.colDnftBadge.Find(context.TODO(), bson.M{})
 	if err != nil {
@@ -89,18 +81,22 @@ func (m *Model) GetMyAllDnft(account string) []bson.M {
 }
 
 // MyDnft 한개만 불러오기
-func (m *Model) GetMyDnft(account string) *EncyclopediaDNFT {
+func (m *Model) GetMyDnft(account string) *EncyclopediaDNFTs {
+	filter := bson.M{"walletAccount": account} // 데이터를 담을 변수 선언
 
-	// return list
-	//issue count값이 가장 크고 country별로 그룹화해서 보여줘야함
-	err := m.colDnftBadge.FindOne(context.TODO(), bson.M{"walletAccount": account}).Decode(&encytDnft)
-	fmt.Println("account.WalletAccount", account)
-	fmt.Println(encytDnft)
+	res, err := m.colDnftBadge.Find(context.TODO(), filter)
+	for res.Next(context.Background()) {
+
+		if err := res.Decode(&encytDnft); err != nil {
+			log.Fatal(err)
+		}
+		encytDnfts.Arr = append(encytDnfts.Arr, encytDnft)
+	}
+
 	if err != nil {
 		log.Println(err)
 		fmt.Errorf("fail to get menu detail")
-
 	}
-	return &encytDnft
+	return &encytDnfts
 
 }

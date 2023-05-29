@@ -15,21 +15,26 @@ type Account struct {
 	CommentCount  int                `json:"commentCount"`
 }
 
+type TripPlans struct {
+	Arr []TripPlan
+}
+
 // 여행계획
 type TripPlan struct {
-	TripId        int    `json:"travelId", 		bson:"travelId"`
-	WalletAccount string `json:"walletAccount", 	bson:"walletAccount"`
-	TripTitle     string `json:"tripTitle", 		bson:"tripTitle"`
-	TripCountry   string `json:"tripCountry",     bson:"tripCountry"`
-	TripDeparture string `json:"tripDeparture", 	bson:"tripDeparture"`
-	TripArrival   string `json:"tripArrival", 	bson:"tripArrival"`
-	ItemList      []DayItem
+	TripId        int                `json:"travelId", 		bson:"travelId"`
+	WalletAccount string             `json:"walletAccount", 	bson:"walletAccount"`
+	TripTitle     string             `json:"tripTitle", 		bson:"tripTitle"`
+	TripCountry   string             `json:"tripCountry",    bson:"tripCountry"`
+	TripDeparture string             `json:"tripDeparture", 	bson:"tripDeparture"`
+	TripArrival   string             `json:"tripArrival", 	bson:"tripArrival"`
+	Days          map[string]DayItem `json:"days", 			bson:"days"`
 }
 
 type DayItem struct {
-	DayItemTime string `json:"day1_time", bson:"day1_time"`
-	ItemArray   []Item
+	DayTime string          `json:"dayTime", 	bson:"dayTime"`
+	Items   map[string]Item `json:"items", 		bson:"items"`
 }
+
 type Item struct {
 	StartDate       string `json:"startDate", 	bson:"endDate"`
 	EndDate         string `json:"endDate",		bson:"endDate"`

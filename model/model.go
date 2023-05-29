@@ -30,7 +30,7 @@ func NewModel() (*Model, error) {
 	} else {
 		db := r.client.Database(dbName)
 		r.colAccount = db.Collection("account")
-		r.colTripPlan = db.Collection("travelplan")
+		r.colTripPlan = db.Collection("tripPlan")
 		r.colDnftBadge = db.Collection("dnftbadge")
 		r.colResource = db.Collection("resource")
 

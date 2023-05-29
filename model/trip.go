@@ -10,7 +10,8 @@ import (
 )
 
 var (
-	tripPlan TripPlan
+	tripPlan  TripPlan
+	tripPlans TripPlans
 )
 
 func (m *Model) InsertTripPlan(tripPlan *TripPlan) *TripPlan {
@@ -29,9 +30,9 @@ func (m *Model) InsertTripPlan(tripPlan *TripPlan) *TripPlan {
 }
 
 // MyDnft 여러 개 불러오기
-func (m *Model) GetAllTripPlan(account string) []bson.M {
+func (m *Model) SelectAllTrip(account string) []bson.M {
 	var datas []bson.M
-	res, err := m.colDnftBadge.Find(context.TODO(), bson.M{})
+	res, err := m.colTripPlan.Find(context.TODO(), bson.M{})
 	if err != nil {
 		logger.Error(err)
 	}
@@ -41,4 +42,24 @@ func (m *Model) GetAllTripPlan(account string) []bson.M {
 		fmt.Println(err)
 	}
 	return datas
+}
+
+func (m *Model) SelectMyTrip(account string) *TripPlans {
+
+	fmt.Println("account", account)
+	filter := bson.M{"walletaccount": account} // 데이터를 담을 변수 선언
+	// 메뉴 조회
+	res, err := m.colTripPlan.Find(context.TODO(), filter)
+	if err != nil {
+		log.Fatal(err)
+	}
+	for res.Next(context.Background()) {
+
+		if err := res.Decode(&tripPlan); err != nil {
+			log.Fatal(err)
+		}
+		tripPlans.Arr = append(tripPlans.Arr, tripPlan)
+	}
+
+	return &tripPlans
 }

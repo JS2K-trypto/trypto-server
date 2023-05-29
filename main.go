@@ -38,8 +38,8 @@ func main() {
 	mapi := &http.Server{
 		Addr:           config.Server.Port,
 		Handler:        rt.Idx(),
-		ReadTimeout:    5 * time.Second,
-		WriteTimeout:   10 * time.Second,
+		ReadTimeout:    0,
+		WriteTimeout:   0,
 		MaxHeaderBytes: 1 << 20,
 	}
 

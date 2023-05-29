@@ -21,6 +21,7 @@ var (
 )
 
 // CreateBadge godoc
+//
 //	@BasePath	/v01
 //	@Schemes
 //	@Summary		위도, 경도를 입력받고 해당하는 나라의 리소스를 참고해서 뱃지를 발급해줍니다.
@@ -88,6 +89,7 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 }
 
 // CreateBadge godoc
+//
 //	@BasePath		/v01
 //	@Summary		나의 뱃지를 가져오는 함수
 //	@Tags			GetMyBadge
@@ -104,6 +106,6 @@ func (p *Controller) GetMyBadge(c *gin.Context) {
 		return
 	}
 	fmt.Println("account", account.WalletAccount)
-	result := p.md.GetMyAllDnft(account.WalletAccount)
+	result := p.md.GetMyDnft(account.WalletAccount)
 	c.JSON(http.StatusOK, result)
 }
