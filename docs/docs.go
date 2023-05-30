@@ -15,7 +15,210 @@ const docTemplate = `{
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
-    "paths": {}
+    "paths": {
+        "/v01/acc/nickname": {
+            "post": {
+                "description": "유저 프로필 업데이트하는 함수",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserEditHandler"
+                ],
+                "summary": "계정주소, 닉네임을 입력합니다.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "walletAccount",
+                        "name": "walletAccount",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "nickName",
+                        "name": "nickName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v01/acc/profile": {
+            "get": {
+                "description": "유저 프로필 정보를 가져는 함수",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserProfileHandler"
+                ],
+                "summary": "계정주소, 닉네임을 입력합니다.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "walletAccount",
+                        "name": "walletAccount",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "nickName",
+                        "name": "nickName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v01/acc/register": {
+            "post": {
+                "description": "유저를 등록해주는 함수",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserRegisterHandler"
+                ],
+                "summary": "계정주소, 닉네임, 비밀번호를 입력합니다.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "walletAccount",
+                        "name": "walletAccount",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "nickName",
+                        "name": "nickName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "password",
+                        "name": "password",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v01/badge/issue": {
+            "post": {
+                "description": "사용자 위치를 참고해서 뱃지를 발급하는 함수",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CreateBadge"
+                ],
+                "summary": "위도, 경도를 입력받고 해당하는 나라의 리소스를 참고해서 뱃지를 발급해줍니다.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "walletAccount",
+                        "name": "walletAccount",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "latitude",
+                        "name": "latitude",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "longitude",
+                        "name": "longitude",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v01/badge/user": {
+            "get": {
+                "description": "사용자 위치를 참고해서 뱃지를 발급하는 함수",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GetMyBadge"
+                ],
+                "summary": "나의 뱃지를 가져오는 함수",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "walletAccount",
+                        "name": "walletAccount",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it

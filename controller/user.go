@@ -25,9 +25,15 @@ var (
 //	@name			UserRegisterHandler
 //	@Accept			json
 //	@Produce		json
+<<<<<<< Updated upstream
 //	@Param			walletAccount	string	true	walletAccount
 //	@Param			nickName		string	true	nickName
 //	@Param			password		string	true	password
+=======
+//	@Param			walletAccount path  string true 	"walletAccount"
+//	@Param			nickName	path	string	true	"nickName"
+//	@Param			password	path	string	true	"password"
+>>>>>>> Stashed changes
 //	@Router			/v01/acc/register [post]
 //	@Success		200	{object}	string
 func (p *Controller) UserRegisterHandler(c *gin.Context) {
@@ -60,8 +66,13 @@ func (p *Controller) UserRegisterHandler(c *gin.Context) {
 //	@name			UserEditHandler
 //	@Accept			json
 //	@Produce		json
+<<<<<<< Updated upstream
 //	@Param			walletAccount	string	true	walletAccount
 //	@Param			nickName		string	true	nickName
+=======
+//	@Param			walletAccount path  string true 	"walletAccount"
+//	@Param			nickName	path	string	true	"nickName"
+>>>>>>> Stashed changes
 //	@Router			/v01/acc/nickname [post]
 //	@Success		200	{object}	string
 func (p *Controller) UserEditHandler(c *gin.Context) {
@@ -91,8 +102,13 @@ func (p *Controller) UserEditHandler(c *gin.Context) {
 //	@name			UserProfileHandler
 //	@Accept			json
 //	@Produce		json
+<<<<<<< Updated upstream
 //	@Param			walletAccount	string	true	walletAccount
 //	@Param			nickName		string	true	nickName
+=======
+//	@Param			walletAccount path  string true 	"walletAccount"
+//	@Param			nickName path		string	true	"nickName"
+>>>>>>> Stashed changes
 //	@Router			/v01/acc/profile [get]
 //	@Success		200	{object}	string
 func (p *Controller) UserProfileHandler(c *gin.Context) {
