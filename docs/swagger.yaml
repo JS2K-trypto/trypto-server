@@ -136,4 +136,55 @@ paths:
       summary: 나의 뱃지를 가져오는 함수
       tags:
       - GetMyBadge
+  /v01/trip/allplan:
+    get:
+      consumes:
+      - application/json
+      description: 나의 여행계획을  DB에서 가져오는 함수, 계정주소로 파악한다.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 모든 여행계획을 가져오는 함수
+      tags:
+      - GetAllTrip
+  /v01/trip/myplan:
+    get:
+      consumes:
+      - application/json
+      description: 나의 여행계획을  DB에서 가져오는 함수, 계정주소로 파악한다.
+      parameters:
+      - description: walletAccount
+        in: path
+        name: walletAccount
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 나의 여행계획을 가져오는 함수
+      tags:
+      - GetMyTrip
+  /v01/trip/search:
+    get:
+      consumes:
+      - application/json
+      description: triptitle중 일치하는 문자열에 대해 콘텐츠를 리스폰스해주는 검색 API, 단어 단위로 구현
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 여행계획을 검색하는 API
+      tags:
+      - GetAllTrip
 swagger: "2.0"

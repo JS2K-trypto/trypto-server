@@ -25,19 +25,11 @@ var (
 //	@name					CreateTripPlan
 //	@Accept					json
 //	@Produce				json
-<<<<<<< Updated upstream
-//	@Param					walletAccount	string 	path	true	walletAccount
-//	@Param					travelTitle		string	path 	true	travelTitle
-//	@Param					tripDescription	string	path	true	tripDescription
-//	@Param					tripMemo		string	path	true	tripMemo
-//	@Param					tripImgSrc		string	path	true	tripImgSrc
-=======
-//	@Param					walletAccount path  string true "walletAccount"
-//	@Param					travelTitle	path	string	true	"travelTitle"
-//	@Param					tripDescription	path string	true	"tripDescription"
-//	@Param					tripMemo	path	string	true	"tripMemo"
-//	@Param					tripImgSrc	path	string	true	"tripImgSrc"
->>>>>>> Stashed changes
+//	@Param					walletAccount	path 	string 		true	"walletAccount"
+//	@Param					travelTitle		path 	string		true	"travelTitle"
+//	@Param					tripDescription	path	string		true	"tripDescription"
+//	@Param					tripMemo		path	string		true	"tripMemo"
+//	@Param					tripImgSrc		path	string		true	"tripImgSrc"
 //	@Router/v01/trip/myplan	[post]
 //	@Success				200	{object}	string
 func (p *Controller) CreateTripPlan(c *gin.Context) {
@@ -69,7 +61,7 @@ func (p *Controller) CreateTripPlan(c *gin.Context) {
 //	@name			GetMyTrip
 //	@Accept			json
 //	@Produce		json
-//	@Param			walletAccount	string 	 path	true	walletAccount
+//	@Param			walletAccount	 path  string	true	"walletAccount"
 //	@Router			/v01/trip/myplan [get]
 //	@Success		200	{object}	string
 func (p *Controller) GetMyTrip(c *gin.Context) {

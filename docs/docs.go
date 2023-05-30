@@ -217,6 +217,84 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/v01/trip/allplan": {
+            "get": {
+                "description": "나의 여행계획을  DB에서 가져오는 함수, 계정주소로 파악한다.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GetAllTrip"
+                ],
+                "summary": "모든 여행계획을 가져오는 함수",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v01/trip/myplan": {
+            "get": {
+                "description": "나의 여행계획을  DB에서 가져오는 함수, 계정주소로 파악한다.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GetMyTrip"
+                ],
+                "summary": "나의 여행계획을 가져오는 함수",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "walletAccount",
+                        "name": "walletAccount",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v01/trip/search": {
+            "get": {
+                "description": "triptitle중 일치하는 문자열에 대해 콘텐츠를 리스폰스해주는 검색 API, 단어 단위로 구현",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GetAllTrip"
+                ],
+                "summary": "여행계획을 검색하는 API",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     }
 }`

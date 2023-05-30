@@ -30,15 +30,9 @@ var (
 //	@name			CreateBadge
 //	@Accept			json
 //	@Produce		json
-<<<<<<< Updated upstream
-//	@Param			walletAccount	string 	 path	true	walletAccount
-//	@Param			latitude		string 	 path	true	latitude
-//	@Param			longitude		string	 path   true	longitude
-=======
-//	@Param			walletAccount path  string true "walletAccount"
-//	@Param			latitude	path    string  true  "latitude"
-//	@Param			longitude  path    string  true  "longitude"
->>>>>>> Stashed changes
+//	@Param			walletAccount	 	 path  string	true	"walletAccount"
+//	@Param			latitude		 	 path  string	true	"latitude"
+//	@Param			longitude			 path  string   true	"longitude"
 //	@Router			/v01/badge/issue [post]
 //	@Success		200	{object}	string
 func (p *Controller) CreateBadge(c *gin.Context) {
@@ -104,11 +98,7 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 //	@name			GetMyBadge
 //	@Accept			json
 //	@Produce		json
-<<<<<<< Updated upstream
-//	@Param			walletAccount	string 	 path	true	walletAccount
-=======
 //	@Param			walletAccount path  string true "walletAccount"
->>>>>>> Stashed changes
 //	@Router			/v01/badge/user [get]
 //	@Success		200	{object}	string
 func (p *Controller) GetMyBadge(c *gin.Context) {
