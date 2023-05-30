@@ -33,10 +33,8 @@ var (
 //	@Success				200	{object}	string
 func (p *Controller) CreateTripPlan(c *gin.Context) {
 
-	if err := c.ShouldBindJSON(&tripPlan); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	tripPlan.WalletAccount = c.Query("walletAccount")
+
 	fmt.Println("tripPlan", tripPlan)
 	now := time.Now()
 	custom := now.Format("2006-01-02 15:04:05")
@@ -52,10 +50,7 @@ func (p *Controller) CreateTripPlan(c *gin.Context) {
 
 func (p *Controller) GetMyTrip(c *gin.Context) {
 
-	if err := c.ShouldBindJSON(&tripPlan); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	tripPlan.WalletAccount = c.Query("walletAccount")
 
 	fmt.Println("tripPlan", tripPlan)
 	res := p.md.SelectMyTrip(tripPlan.WalletAccount)
