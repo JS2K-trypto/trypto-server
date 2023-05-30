@@ -4,8 +4,6 @@ import (
 	"context"
 	conf "trypto-server/config"
 
-	"github.com/docker/docker/daemon/logger"
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -16,7 +14,6 @@ type Model struct {
 	colTripPlan  *mongo.Collection
 	colDnftBadge *mongo.Collection
 	colResource  *mongo.Collection
-	coll         *mongo.Collection
 }
 
 func NewModel() (*Model, error) {
@@ -37,13 +34,12 @@ func NewModel() (*Model, error) {
 		r.colDnftBadge = db.Collection("dnftbadge")
 		r.colResource = db.Collection("resource")
 
-		model := mongo.IndexModel{Keys: bson.D{{"triptitle", "text"}, {}}}
-		name, err := r.colTripPlan.Indexes().CreateOne(context.TODO(), model)
-		if err != nil {
-			panic(err)
-		}
-		logger.Logger("create index", name)
-
+		// model := mongo.IndexModel{Keys: bson.D{{"triptitle", "text"}, {}}}
+		// name, err := r.colTripPlan.Indexes().CreateOne(context.TODO(), model)
+		// if err != nil {
+		// 	panic(err)
+		// }
+		// log.Println(name)
 	}
 
 	return r, nil

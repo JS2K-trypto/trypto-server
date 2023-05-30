@@ -9,15 +9,23 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var (
 	tripPlan  TripPlan
 	tripPlans TripPlans
+	encyDnft  EncyclopediaDNFT
 )
 
 func (m *Model) InsertTripPlan(tripPlan *TripPlan) *TripPlan {
 
+	totalTripPlanCount, err := m.colTripPlan.EstimatedDocumentCount(context.TODO())
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("totalTripPlanCount", totalTripPlanCount)
+	tripPlan.TripId = totalTripPlanCount + 1
 	result, err := m.colTripPlan.InsertOne(context.TODO(), tripPlan)
 	if err != nil {
 		log.Fatal(err)
@@ -25,6 +33,17 @@ func (m *Model) InsertTripPlan(tripPlan *TripPlan) *TripPlan {
 	//이전 Dnft 발급한 것을 삭제하기
 
 	//한달에 한 번만 발급할 수 있게 조정하기
+	fmt.Println("tripPlan.TripId ", tripPlan.TripId)
+	account.MyTravelCount = tripPlan.TripId
+	fmt.Println("account.MyTravelCount", account.MyTravelCount)
+	accFilter := bson.D{{Key: "walletaccount", Value: account.WalletAccount}}
+	accUpdate := bson.D{{Key: "$set", Value: account}}
+	accOpts := options.Update().SetUpsert(true)
+
+	_, acc_err := m.colAccount.UpdateOne(context.TODO(), accFilter, accUpdate, accOpts)
+	if err != nil {
+		panic(acc_err)
+	}
 
 	fmt.Println("check encyDnft", tripPlan, result)
 

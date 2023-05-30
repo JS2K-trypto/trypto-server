@@ -7,12 +7,14 @@ import (
 	"trypto-server/logger"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var (
 	checkCountry bson.M
 	encytDnft    EncyclopediaDNFT
 	encytDnfts   EncyclopediaDNFTs
+	account      Account
 )
 
 func (m *Model) MatchBadgeResource(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
@@ -41,6 +43,7 @@ func (m *Model) MatchBadgeResource(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT
 	encyDnft.DnftGoldUrl = checkCountry["gold"].(string)
 	encyDnft.DnftId = estCount + 1
 	encyDnft.IssueCount = count + 1
+	
 	if count < 5 {
 		encyDnft.BadgeTier = "bronze"
 		encyDnft.DnftImgUrl = checkCountry["bronze"].(string)
@@ -56,12 +59,17 @@ func (m *Model) MatchBadgeResource(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT
 	if err != nil {
 		log.Fatal(err)
 	}
-	//이전 Dnft 발급한 것을 삭제하기
+	account.MyDNFTCount = encyDnft.IssueCount
+	accFilter := bson.D{{Key: "id", Value: account.WalletAccount}}
+	accUpdate := bson.D{{Key: "$set", Value: account.MyDNFTCount}}
 
-	//한달에 한 번만 발급할 수 있게 조정하기
+	accOpts := options.Update().SetUpsert(true)
+	_, acc_err := m.colAccount.UpdateOne(context.TODO(), accFilter, accUpdate, accOpts)
+	if err != nil {
+		panic(acc_err)
+	}
 
 	fmt.Println("check encyDnft", encyDnft, result)
-
 	return encyDnft
 }
 

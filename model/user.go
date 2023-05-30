@@ -45,7 +45,7 @@ func (m *Model) UpdateUser(account Account) error {
 func (m *Model) GetProfile(account Account) []string {
 
 	// 메뉴 조회
-	err := m.colAccount.FindOne(context.TODO(), bson.M{"walletAccount": account.WalletAccount}).Decode(&account)
+	err := m.colAccount.FindOne(context.TODO(), bson.M{"walletaccount": account.WalletAccount}).Decode(&account)
 	fmt.Println("account.WalletAccount", account.WalletAccount)
 	if err != nil {
 		log.Println(err)
@@ -54,12 +54,13 @@ func (m *Model) GetProfile(account Account) []string {
 	fmt.Println("account", account)
 	fmt.Println("account", account.NickName)
 	profile := []string{}
+
 	// = append(profile, account.ID.String())
 	profile = append(profile, account.NickName)
-	profile = append(profile, strconv.Itoa(account.MyTravelCount))
-	profile = append(profile, strconv.Itoa(account.MyDNFTCount))
-	profile = append(profile, strconv.Itoa(account.LikeCount))
-	profile = append(profile, strconv.Itoa(account.CommentCount))
+	profile = append(profile, strconv.FormatInt(account.MyTravelCount, 10))
+	profile = append(profile, strconv.FormatInt(account.MyDNFTCount, 10))
+	profile = append(profile, strconv.FormatInt(account.LikeCount, 10))
+	profile = append(profile, strconv.FormatInt(account.CommentCount, 10))
 
 	return profile
 }

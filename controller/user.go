@@ -66,7 +66,6 @@ func (p *Controller) UserRegisterHandler(c *gin.Context) {
 //	@Success		200	{object}	string
 func (p *Controller) UserEditHandler(c *gin.Context) {
 
-
 	account.WalletAccount = c.Query("walletAccount")
 
 	fmt.Println("account.WalletAccount", account.WalletAccount)
@@ -103,10 +102,5 @@ func (p *Controller) UserProfileHandler(c *gin.Context) {
 	log.Println(account)
 	result := p.md.GetProfile(account)
 	fmt.Println("result", result)
-	if len(result) > 0 {
-		c.JSON(http.StatusOK, result)
-	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "get profile error"})
-	}
-
+	c.JSON(http.StatusOK, result)
 }

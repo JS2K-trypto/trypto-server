@@ -1,18 +1,16 @@
 package model
 
-import (
-	"go.mongodb.org/mongo-driver/bson/primitive"
-)
+import "go.mongodb.org/mongo-driver/bson/primitive"
 
 // 유저 계정
 type Account struct {
 	ID            primitive.ObjectID `bson:"_id,omitempty"`
-	WalletAccount string             `json:"walletAccount"`
-	NickName      string             `json:"nickName"`
-	MyTravelCount int                `json:"myTravelCount"`
-	MyDNFTCount   int                `json:"myDnftCount"`
-	LikeCount     int                `json:"likeCount"`
-	CommentCount  int                `json:"commentCount"`
+	WalletAccount string             `json:"walletAccount", bson:"walletaccount"`
+	NickName      string             `json:"nickName" , 	bson:"nickname"`
+	MyTravelCount int64              `json:"myTravelCount", bson:"mytravelcount"`
+	MyDNFTCount   int64              `json:"myDnftCount" , 	bson:"mytravelcount"`
+	LikeCount     int64              `json:"likeCount"    , bson:"likecount"`
+	CommentCount  int64              `json:"commentCount" , bson:"commentcount"`
 }
 
 type TripPlans struct {
@@ -21,7 +19,7 @@ type TripPlans struct {
 
 // 여행계획
 type TripPlan struct {
-	TripId        int                `json:"travelId", 		bson:"travelId"`
+	TripId        int64              `json:"travelId", 		bson:"travelId"`
 	WalletAccount string             `json:"walletAccount", 	bson:"walletAccount"`
 	TripTitle     string             `json:"tripTitle", 		bson:"tripTitle"`
 	TripCountry   string             `json:"tripCountry",    bson:"tripCountry"`

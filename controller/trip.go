@@ -52,17 +52,46 @@ func (p *Controller) CreateTripPlan(c *gin.Context) {
 
 }
 
+// GetMyTrip godoc
+//
+//	@BasePath		/v01
+//	@Summary		나의 여행계획을 가져오는 함수
+//	@Tags			GetMyTrip
+//	@Description	나의 여행계획을  DB에서 가져오는 함수, 계정주소로 파악한다.
+//	@name			GetMyTrip
+//	@Accept			json
+//	@Produce		json
+//	@Param			walletAccount	string 	 path	true	walletAccount
+//	@Router			/v01/trip/myplan [get]
+//	@Success		200	{object}	string
 func (p *Controller) GetMyTrip(c *gin.Context) {
 
 	tripPlan.WalletAccount = c.Query("walletAccount")
 
 	fmt.Println("tripPlan", tripPlan)
 	res := p.md.SelectMyTrip(tripPlan.WalletAccount)
+	//fmt.Println("len, len(res.Arr)", len(res.Arr))
+	//c.JSON(http.StatusOK, res)
 
-	c.JSON(http.StatusOK, res)
+	if len(res.Arr) > 0 {
+		c.JSON(http.StatusOK, res)
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty TripPlan"})
+	}
 
 }
 
+// GetMyTrip godoc
+//
+//	@BasePath		/v01
+//	@Summary		모든 여행계획을 가져오는 함수
+//	@Tags			GetAllTrip
+//	@Description	나의 여행계획을  DB에서 가져오는 함수, 계정주소로 파악한다.
+//	@name			GetAllTrip
+//	@Accept			json
+//	@Produce		json
+//	@Router			/v01/trip/allplan [get]
+//	@Success		200	{object}	string
 func (p *Controller) GetAllTrip(c *gin.Context) {
 
 	res := p.md.SelectAllTrip()
@@ -75,6 +104,17 @@ func (p *Controller) GetAllTrip(c *gin.Context) {
 
 }
 
+// SearchTrip godoc
+//
+//	@BasePath		/v01
+//	@Summary		여행계획을 검색하는 API
+//	@Tags			GetAllTrip
+//	@Description	triptitle중 일치하는 문자열에 대해 콘텐츠를 리스폰스해주는 검색 API, 단어 단위로 구현
+//	@name			GetAllTrip
+//	@Accept			json
+//	@Produce		json
+//	@Router			/v01/trip/search [get]
+//	@Success		200	{object}	string
 func (p *Controller) SearchTrip(c *gin.Context) {
 
 	searchQuery = c.Query("q")
