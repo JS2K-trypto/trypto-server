@@ -12,7 +12,8 @@ import (
 )
 
 var (
-	tripPlan model.TripPlan
+	tripPlan    model.TripPlan
+	searchQuery string
 )
 
 // CreateTripPlan godoc
@@ -24,16 +25,19 @@ var (
 //	@name					CreateTripPlan
 //	@Accept					json
 //	@Produce				json
-//	@Param					walletAccount	string	true	"walletAccount"
-//	@Param					travelTitle		string	true	"travelTitle"
-//	@Param					tripDescription	string	true	"tripDescription"
-//	@Param					tripMemo		string	true	"tripMemo"
-//	@Param					tripImgSrc		string	true	"tripImgSrc"
+//	@Param					walletAccount	string 	path	true	walletAccount
+//	@Param					travelTitle		string	path 	true	travelTitle
+//	@Param					tripDescription	string	path	true	tripDescription
+//	@Param					tripMemo		string	path	true	tripMemo
+//	@Param					tripImgSrc		string	path	true	tripImgSrc
 //	@Router/v01/trip/myplan	[post]
 //	@Success				200	{object}	string
 func (p *Controller) CreateTripPlan(c *gin.Context) {
 
-	tripPlan.WalletAccount = c.Query("walletAccount")
+	if err := c.ShouldBindJSON(&tripPlan); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	fmt.Println("tripPlan", tripPlan)
 	now := time.Now()
@@ -45,7 +49,7 @@ func (p *Controller) CreateTripPlan(c *gin.Context) {
 	res := p.md.InsertTripPlan(&tripPlan)
 
 	c.JSON(http.StatusOK, res)
-	//c.JSON(http.StatusOK, "hello ")
+
 }
 
 func (p *Controller) GetMyTrip(c *gin.Context) {
@@ -68,5 +72,15 @@ func (p *Controller) GetAllTrip(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty TripPlan"})
 	}
+
+}
+
+func (p *Controller) SearchTrip(c *gin.Context) {
+
+	searchQuery = c.Query("q")
+
+	res := p.md.SearchTrip(searchQuery)
+	fmt.Println("res", res)
+	c.JSON(http.StatusOK, res)
 
 }

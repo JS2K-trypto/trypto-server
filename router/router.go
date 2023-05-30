@@ -106,6 +106,7 @@ func (p *Router) Idx() *gin.Engine {
 		routerTrip.POST("/myplan", p.ct.CreateTripPlan)
 		routerTrip.GET("/myplan", p.ct.GetMyTrip)
 		routerTrip.GET("/allplan", p.ct.GetAllTrip)
+		routerTrip.GET("/search", p.ct.SearchTrip)
 	}
 
 	return e

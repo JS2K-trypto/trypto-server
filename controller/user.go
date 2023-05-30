@@ -32,13 +32,10 @@ var (
 //	@Success		200	{object}	string
 func (p *Controller) UserRegisterHandler(c *gin.Context) {
 
-	// if err := c.ShouldBindJSON(&account); err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 	return
-	// }
-
-	account.WalletAccount = c.Query("walletAccount")
-	account.NickName = c.Query("nickName")
+	if err := c.ShouldBindJSON(&account); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	result := p.md.RegisterUser(account)
 	if result != nil {
@@ -69,10 +66,6 @@ func (p *Controller) UserRegisterHandler(c *gin.Context) {
 //	@Success		200	{object}	string
 func (p *Controller) UserEditHandler(c *gin.Context) {
 
-	// if err := c.ShouldBindJSON(&account); err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 	return
-	// }
 
 	account.WalletAccount = c.Query("walletAccount")
 
@@ -104,12 +97,6 @@ func (p *Controller) UserEditHandler(c *gin.Context) {
 //	@Router			/v01/acc/profile [get]
 //	@Success		200	{object}	string
 func (p *Controller) UserProfileHandler(c *gin.Context) {
-
-	// if err := c.ShouldBindJSON(&account); err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 	return
-
-	// }
 
 	account.WalletAccount = c.Query("walletAccount")
 

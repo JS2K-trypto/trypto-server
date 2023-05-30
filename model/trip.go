@@ -2,11 +2,13 @@ package model
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"trypto-server/logger"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 var (
@@ -50,6 +52,7 @@ func (m *Model) SelectAllTrip() []bson.M {
 func (m *Model) SelectMyTrip(account string) *TripPlans {
 
 	fmt.Println("account", account)
+
 	filter := bson.M{"walletaccount": account} // 데이터를 담을 변수 선언
 	// 메뉴 조회
 	res, err := m.colTripPlan.Find(context.TODO(), filter)
@@ -65,4 +68,29 @@ func (m *Model) SelectMyTrip(account string) *TripPlans {
 	}
 
 	return &tripPlans
+}
+
+// 나의 여행계획 가져오기
+func (m *Model) SearchTrip(Query string) []TripPlan {
+	fmt.Println(Query)
+
+	matchStage := bson.D{{"$match", bson.D{{"$text", bson.D{{"$search", Query}}}}}}
+
+	//filter := bson.D{{"$text", bson.D{{"$search", Query}}}}
+	fmt.Println("matchStage", matchStage)
+	cursor, err := m.colTripPlan.Aggregate(context.TODO(), mongo.Pipeline{matchStage})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("cursor", cursor)
+	var results []TripPlan
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
+	}
+	for _, result := range results {
+		res, _ := json.Marshal(result)
+		fmt.Println(string(res))
+	}
+	fmt.Println("results", results)
+	return results
 }

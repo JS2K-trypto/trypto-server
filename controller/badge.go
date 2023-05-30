@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strconv"
 	"time"
 	conf "trypto-server/config"
 	"trypto-server/model"
@@ -31,16 +30,17 @@ var (
 //	@name			CreateBadge
 //	@Accept			json
 //	@Produce		json
-//	@Param			walletAccount	string path	true	walletAccount
-//	@Param			latitude		string path	true	latitude
-//	@Param			longitude		string	 path true	longitude
+//	@Param			walletAccount	string 	 path	true	walletAccount
+//	@Param			latitude		string 	 path	true	latitude
+//	@Param			longitude		string	 path   true	longitude
 //	@Router			/v01/badge/issue [post]
 //	@Success		200	{object}	string
 func (p *Controller) CreateBadge(c *gin.Context) {
 
-	encyDnft.WalletAccount = c.Query("walletAccount")
-	encyDnft.Latitude, _ = strconv.ParseFloat(c.Query("latitude"), 64)
-	encyDnft.Longitude, _ = strconv.ParseFloat(c.Query("longitude"), 64)
+	if err := c.ShouldBindJSON(&encyDnft); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	now := time.Now()
 	custom := now.Format("2006-01-02 15:04:05")
@@ -98,7 +98,7 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 //	@name			GetMyBadge
 //	@Accept			json
 //	@Produce		json
-//	@Param			walletAccount	string path	true	walletAccount
+//	@Param			walletAccount	string 	 path	true	walletAccount
 //	@Router			/v01/badge/user [get]
 //	@Success		200	{object}	string
 func (p *Controller) GetMyBadge(c *gin.Context) {

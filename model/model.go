@@ -2,8 +2,11 @@ package model
 
 import (
 	"context"
+	"fmt"
 	conf "trypto-server/config"
 
+	"github.com/docker/docker/daemon/logger"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -14,6 +17,7 @@ type Model struct {
 	colTripPlan  *mongo.Collection
 	colDnftBadge *mongo.Collection
 	colResource  *mongo.Collection
+	coll         *mongo.Collection
 }
 
 func NewModel() (*Model, error) {
@@ -33,6 +37,37 @@ func NewModel() (*Model, error) {
 		r.colTripPlan = db.Collection("tripPlan")
 		r.colDnftBadge = db.Collection("dnftbadge")
 		r.colResource = db.Collection("resource")
+
+		indexes, err := r.colTripPlan.Indexes().List(context.Background())
+		if err != nil {
+			panic(err)
+		}
+
+		hasIndex := false
+		for indexes.Next(context.Background()) {
+			index := bson.M{}
+			fmt.Println("index[name]", index["name"])
+			if err := indexes.Decode(&index); err != nil {
+				panic(err)
+			}
+			if index["name"] == "triptitle_text" {
+				hasIndex = true
+				break
+			}
+		}
+		if err := indexes.Err(); err != nil {
+			panic(err)
+		}
+
+		if hasIndex == false {
+			model := mongo.IndexModel{Keys: bson.D{{"triptitle", "text"}, {}}}
+			name, err := r.colTripPlan.Indexes().CreateOne(context.TODO(), model)
+			if err != nil {
+				panic(err)
+			}
+			logger.Logger("create index", name)
+
+		}
 
 	}
 
