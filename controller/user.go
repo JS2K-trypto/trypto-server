@@ -19,23 +19,20 @@ var (
 //
 // UserRegisterHandler godoc
 //
-//	@Summary		계정주소, 닉네임, 비밀번호를 입력합니다.
+//	@Summary		계정주소, 닉네임을 입력합니다.
 //	@Tags			UserRegisterHandler
-//	@Description	유저를 등록해주는 함수
+//	@Description	유저 닉네임을 등록 및 수정 해주는 함수로 지갑계정으로 연결 후 사용자가 닉네임을 입력할 수 있다. 이후 닉네임 수정은 자유롭게 가능하다.
 //	@name			UserRegisterHandler
 //	@Accept			json
 //	@Produce		json
-//	@Param			walletAccount	string	true	"walletAccount"
-//	@Param			nickName		string	true	"nickName"
-//	@Param			password		string	true	"password"
+//	@Param			walletAccount 	path	string	true	"walletAccount"
+//	@Param			nickName		path	string	true	"nickName"
 //	@Router			/v01/acc/register [post]
 //	@Success		200	{object}	string
 func (p *Controller) UserRegisterHandler(c *gin.Context) {
 
-	if err := c.ShouldBindJSON(&account); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	account.WalletAccount = c.Query("walletAccount")
+	account.NickName = c.Query("nickName")
 
 	result := p.md.RegisterUser(account)
 	if result != nil {
@@ -52,47 +49,16 @@ func (p *Controller) UserRegisterHandler(c *gin.Context) {
 
 //	@BasePath		/v01
 //
-// UserEditHandler godoc
-//
-//	@Summary		계정주소, 닉네임을 입력합니다.
-//	@Tags			UserEditHandler
-//	@Description	유저 프로필 업데이트하는 함수
-//	@name			UserEditHandler
-//	@Accept			json
-//	@Produce		json
-//	@Param			walletAccount	string	true	"walletAccount"
-//	@Param			nickName		string	true	"nickName"
-//	@Router			/v01/acc/nickname [post]
-//	@Success		200	{object}	string
-func (p *Controller) UserEditHandler(c *gin.Context) {
-
-	account.WalletAccount = c.Query("walletAccount")
-
-	fmt.Println("account.WalletAccount", account.WalletAccount)
-	fmt.Println("account", account)
-	checkUser := p.md.MatchUser(account.WalletAccount)
-	fmt.Println("checkUser", checkUser)
-	if checkUser == true {
-		p.md.UpdateUser(account)
-		c.JSON(http.StatusOK, gin.H{"message": "User updated successfully"})
-	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "User updated failed"})
-	}
-
-}
-
-//	@BasePath		/v01
-//
 // UserProfileHandler godoc
 //
 //	@Summary		계정주소, 닉네임을 입력합니다.
 //	@Tags			UserProfileHandler
-//	@Description	유저 프로필 정보를 가져는 함수
+//	@Description	유저 프로필 정보를 가져는 함수다. 다음과 같은 정보를 가져온다. [닉네임, 나의 여행계획 카운트, 나의 Dynamic NFT 카운트, 좋아요 카운트 , 댓글 카운트]
 //	@name			UserProfileHandler
 //	@Accept			json
 //	@Produce		json
-//	@Param			walletAccount	string	true	"walletAccount"
-//	@Param			nickName		string	true	"nickName"
+//	@Param			walletAccount	path	string	true	"walletAccount"
+//	@Param			nickName		path	string	true	"nickName"
 //	@Router			/v01/acc/profile [get]
 //	@Success		200	{object}	string
 func (p *Controller) UserProfileHandler(c *gin.Context) {

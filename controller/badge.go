@@ -24,15 +24,15 @@ var (
 //
 //	@BasePath	/v01
 //	@Schemes
-//	@Summary		위도, 경도를 입력받고 해당하는 나라의 리소스를 참고해서 뱃지를 발급해줍니다.
+//	@Summary		사용자 위치를 참고해서 Dynamic NFT 뱃지를 발급하는 함수
 //	@Tags			CreateBadge
-//	@Description	사용자 위치를 참고해서 뱃지를 발급하는 함수
+//	@Description	위도, 경도를 입력받고 해당하는 나라의 리소스(ipfs uri, nft metadata)를 참고해서 뱃지를 발급해줍니다.
 //	@name			CreateBadge
 //	@Accept			json
 //	@Produce		json
-//	@Param			walletAccount	string 	 path	true	walletAccount
-//	@Param			latitude		string 	 path	true	latitude
-//	@Param			longitude		string	 path   true	longitude
+//	@Param			walletAccount	path	string 	 	true	"walletAccount"
+//	@Param			latitude		path	string 	 	true	"latitude"
+//	@Param			longitude		path	string	    true	"longitude"
 //	@Router			/v01/badge/issue [post]
 //	@Success		200	{object}	string
 func (p *Controller) CreateBadge(c *gin.Context) {
@@ -92,13 +92,13 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 // CreateBadge godoc
 //
 //	@BasePath		/v01
-//	@Summary		나의 뱃지를 가져오는 함수
+//	@Summary		내가 발급한 뱃지를 가져오는 함수
 //	@Tags			GetMyBadge
 //	@Description	사용자 위치를 참고해서 뱃지를 발급하는 함수
 //	@name			GetMyBadge
 //	@Accept			json
 //	@Produce		json
-//	@Param			walletAccount	string 	 path	true	walletAccount
+//	@Param			walletAccount	path	string 	 	true	"walletAccount"
 //	@Router			/v01/badge/user [get]
 //	@Success		200	{object}	string
 func (p *Controller) GetMyBadge(c *gin.Context) {
