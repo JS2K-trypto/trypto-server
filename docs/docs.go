@@ -16,9 +16,54 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+<<<<<<< HEAD
         "/v01/acc/profile": {
             "get": {
                 "description": "유저 프로필 정보를 가져는 함수다. 다음과 같은 정보를 가져온다. [닉네임, 나의 여행계획 카운트, 나의 Dynamic NFT 카운트, 좋아요 카운트 , 댓글 카운트]",
+=======
+        "/v01/acc/nickname": {
+            "post": {
+                "description": "유저 프로필 업데이트하는 함수",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserEditHandler"
+                ],
+                "summary": "계정주소, 닉네임을 입력합니다.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "walletAccount",
+                        "name": "walletAccount",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "nickName",
+                        "name": "nickName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v01/acc/profile": {
+            "get": {
+                "description": "유저 프로필 정보를 가져는 함수",
+>>>>>>> 70e8f1e5e7ed874db7e22498fb7abb49e488bd0a
                 "consumes": [
                     "application/json"
                 ],
@@ -57,7 +102,11 @@ const docTemplate = `{
         },
         "/v01/acc/register": {
             "post": {
+<<<<<<< HEAD
                 "description": "유저 닉네임을 등록 및 수정 해주는 함수로 지갑계정으로 연결 후 사용자가 닉네임을 입력할 수 있다. 이후 닉네임 수정은 자유롭게 가능하다.",
+=======
+                "description": "유저를 등록해주는 함수",
+>>>>>>> 70e8f1e5e7ed874db7e22498fb7abb49e488bd0a
                 "consumes": [
                     "application/json"
                 ],
@@ -67,7 +116,11 @@ const docTemplate = `{
                 "tags": [
                     "UserRegisterHandler"
                 ],
+<<<<<<< HEAD
                 "summary": "계정주소, 닉네임을 입력합니다.",
+=======
+                "summary": "계정주소, 닉네임, 비밀번호를 입력합니다.",
+>>>>>>> 70e8f1e5e7ed874db7e22498fb7abb49e488bd0a
                 "parameters": [
                     {
                         "type": "string",
@@ -82,6 +135,16 @@ const docTemplate = `{
                         "name": "nickName",
                         "in": "path",
                         "required": true
+<<<<<<< HEAD
+=======
+                    },
+                    {
+                        "type": "string",
+                        "description": "password",
+                        "name": "password",
+                        "in": "path",
+                        "required": true
+>>>>>>> 70e8f1e5e7ed874db7e22498fb7abb49e488bd0a
                     }
                 ],
                 "responses": {
@@ -96,7 +159,11 @@ const docTemplate = `{
         },
         "/v01/badge/issue": {
             "post": {
+<<<<<<< HEAD
                 "description": "위도, 경도를 입력받고 해당하는 나라의 리소스(ipfs uri, nft metadata)를 참고해서 뱃지를 발급해줍니다.",
+=======
+                "description": "사용자 위치를 참고해서 뱃지를 발급하는 함수",
+>>>>>>> 70e8f1e5e7ed874db7e22498fb7abb49e488bd0a
                 "consumes": [
                     "application/json"
                 ],
@@ -106,7 +173,11 @@ const docTemplate = `{
                 "tags": [
                     "CreateBadge"
                 ],
+<<<<<<< HEAD
                 "summary": "사용자 위치를 참고해서 Dynamic NFT 뱃지를 발급하는 함수",
+=======
+                "summary": "위도, 경도를 입력받고 해당하는 나라의 리소스를 참고해서 뱃지를 발급해줍니다.",
+>>>>>>> 70e8f1e5e7ed874db7e22498fb7abb49e488bd0a
                 "parameters": [
                     {
                         "type": "string",
@@ -152,7 +223,11 @@ const docTemplate = `{
                 "tags": [
                     "GetMyBadge"
                 ],
+<<<<<<< HEAD
                 "summary": "내가 발급한 뱃지를 가져오는 함수",
+=======
+                "summary": "나의 뱃지를 가져오는 함수",
+>>>>>>> 70e8f1e5e7ed874db7e22498fb7abb49e488bd0a
                 "parameters": [
                     {
                         "type": "string",
@@ -174,7 +249,11 @@ const docTemplate = `{
         },
         "/v01/trip/allplan": {
             "get": {
+<<<<<<< HEAD
                 "description": "모든 여행계획을  MongoDB에서 가져오는 함수. 아무 파라미터가 없다 전체를 조회한다.",
+=======
+                "description": "나의 여행계획을  DB에서 가져오는 함수, 계정주소로 파악한다.",
+>>>>>>> 70e8f1e5e7ed874db7e22498fb7abb49e488bd0a
                 "consumes": [
                     "application/json"
                 ],
@@ -197,7 +276,11 @@ const docTemplate = `{
         },
         "/v01/trip/myplan": {
             "get": {
+<<<<<<< HEAD
                 "description": "나의 여행계획을 MongoDB에서 가져오는 함수, 계정주소로 파악한 후 가져온다.",
+=======
+                "description": "나의 여행계획을  DB에서 가져오는 함수, 계정주소로 파악한다.",
+>>>>>>> 70e8f1e5e7ed874db7e22498fb7abb49e488bd0a
                 "consumes": [
                     "application/json"
                 ],
@@ -229,7 +312,11 @@ const docTemplate = `{
         },
         "/v01/trip/search": {
             "get": {
+<<<<<<< HEAD
                 "description": "여행계획의 제목 중 일치하는 문자열에 대해 콘텐츠를 리스폰스해주는 검색 API, 단어 단위로 구현, 예를 들어 Paris로 무작정이라고 하면 \"Paris로\" 까지 입력해야된다.",
+=======
+                "description": "triptitle중 일치하는 문자열에 대해 콘텐츠를 리스폰스해주는 검색 API, 단어 단위로 구현",
+>>>>>>> 70e8f1e5e7ed874db7e22498fb7abb49e488bd0a
                 "consumes": [
                     "application/json"
                 ],

@@ -4,22 +4,23 @@ paths:
   /v01/acc/profile:
     get:
       consumes:
-      - application/json
-      description: 유저 프로필 정보를 가져는 함수다. 다음과 같은 정보를 가져온다. [닉네임, 나의 여행계획 카운트, 나의 Dynamic
+        - application/json
+      description:
+        유저 프로필 정보를 가져는 함수다. 다음과 같은 정보를 가져온다. [닉네임, 나의 여행계획 카운트, 나의 Dynamic
         NFT 카운트, 좋아요 카운트 , 댓글 카운트]
       parameters:
-      - description: walletAccount
-        in: path
-        name: walletAccount
-        required: true
-        type: string
-      - description: nickName
-        in: path
-        name: nickName
-        required: true
-        type: string
+        - description: walletAccount
+          in: path
+          name: walletAccount
+          required: true
+          type: string
+        - description: nickName
+          in: path
+          name: nickName
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
@@ -27,26 +28,27 @@ paths:
             type: string
       summary: 계정주소, 닉네임을 입력합니다.
       tags:
-      - UserProfileHandler
+        - UserProfileHandler
   /v01/acc/register:
     post:
       consumes:
-      - application/json
-      description: 유저 닉네임을 등록 및 수정 해주는 함수로 지갑계정으로 연결 후 사용자가 닉네임을 입력할 수 있다. 이후 닉네임
+        - application/json
+      description:
+        유저 닉네임을 등록 및 수정 해주는 함수로 지갑계정으로 연결 후 사용자가 닉네임을 입력할 수 있다. 이후 닉네임
         수정은 자유롭게 가능하다.
       parameters:
-      - description: walletAccount
-        in: path
-        name: walletAccount
-        required: true
-        type: string
-      - description: nickName
-        in: path
-        name: nickName
-        required: true
-        type: string
+        - description: walletAccount
+          in: path
+          name: walletAccount
+          required: true
+          type: string
+        - description: nickName
+          in: path
+          name: nickName
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
@@ -54,30 +56,30 @@ paths:
             type: string
       summary: 계정주소, 닉네임을 입력합니다.
       tags:
-      - UserRegisterHandler
+        - UserRegisterHandler
   /v01/badge/issue:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 위도, 경도를 입력받고 해당하는 나라의 리소스(ipfs uri, nft metadata)를 참고해서 뱃지를 발급해줍니다.
       parameters:
-      - description: walletAccount
-        in: path
-        name: walletAccount
-        required: true
-        type: string
-      - description: latitude
-        in: path
-        name: latitude
-        required: true
-        type: string
-      - description: longitude
-        in: path
-        name: longitude
-        required: true
-        type: string
+        - description: walletAccount
+          in: path
+          name: walletAccount
+          required: true
+          type: string
+        - description: latitude
+          in: path
+          name: latitude
+          required: true
+          type: string
+        - description: longitude
+          in: path
+          name: longitude
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
@@ -85,20 +87,20 @@ paths:
             type: string
       summary: 사용자 위치를 참고해서 Dynamic NFT 뱃지를 발급하는 함수
       tags:
-      - CreateBadge
+        - CreateBadge
   /v01/badge/user:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 사용자 위치를 참고해서 뱃지를 발급하는 함수
       parameters:
-      - description: walletAccount
-        in: path
-        name: walletAccount
-        required: true
-        type: string
+        - description: walletAccount
+          in: path
+          name: walletAccount
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
@@ -106,14 +108,14 @@ paths:
             type: string
       summary: 내가 발급한 뱃지를 가져오는 함수
       tags:
-      - GetMyBadge
+        - GetMyBadge
   /v01/trip/allplan:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 모든 여행계획을  MongoDB에서 가져오는 함수. 아무 파라미터가 없다 전체를 조회한다.
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
@@ -121,20 +123,20 @@ paths:
             type: string
       summary: 모든 여행계획을 가져오는 함수
       tags:
-      - GetAllTrip
+        - GetAllTrip
   /v01/trip/myplan:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 나의 여행계획을 MongoDB에서 가져오는 함수, 계정주소로 파악한 후 가져온다.
       parameters:
-      - description: walletAccount
-        in: path
-        name: walletAccount
-        required: true
-        type: string
+        - description: walletAccount
+          in: path
+          name: walletAccount
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
@@ -142,15 +144,16 @@ paths:
             type: string
       summary: 나의 여행계획을 가져오는 함수
       tags:
-      - GetMyTrip
+        - GetMyTrip
   /v01/trip/search:
     get:
       consumes:
-      - application/json
-      description: 여행계획의 제목 중 일치하는 문자열에 대해 콘텐츠를 리스폰스해주는 검색 API, 단어 단위로 구현, 예를 들어 Paris로
+        - application/json
+      description:
+        여행계획의 제목 중 일치하는 문자열에 대해 콘텐츠를 리스폰스해주는 검색 API, 단어 단위로 구현, 예를 들어 Paris로
         무작정이라고 하면 "Paris로" 까지 입력해야된다.
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
@@ -158,5 +161,5 @@ paths:
             type: string
       summary: 여행계획을 검색하는 API
       tags:
-      - GetAllTrip
+        - GetAllTrip
 swagger: "2.0"
