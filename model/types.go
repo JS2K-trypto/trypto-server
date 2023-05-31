@@ -21,6 +21,7 @@ type TripPlans struct {
 type TripPlan struct {
 	TripId        int64              `json:"travelId", 		bson:"travelId"`
 	WalletAccount string             `json:"walletAccount", 	bson:"walletAccount"`
+	NickName      string             `json:"nickName",        bson:"nickName"`
 	TripTitle     string             `json:"tripTitle", 		bson:"tripTitle"`
 	TripCountry   string             `json:"tripCountry",    bson:"tripCountry"`
 	TripDeparture string             `json:"tripDeparture", 	bson:"tripDeparture"`

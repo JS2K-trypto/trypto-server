@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"strconv"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -12,6 +11,7 @@ import (
 
 var (
 	checkUser bson.M
+	datas     []bson.M
 )
 
 func (m *Model) RegisterUser(account Account) error {
@@ -42,25 +42,32 @@ func (m *Model) UpdateUser(account Account) error {
 	return nil
 }
 
-func (m *Model) GetProfile(account Account) []string {
+func (m *Model) GetProfile(account Account) []map[string]interface{} {
+	var profile []map[string]interface{}
 
-	// 메뉴 조회
-	err := m.colAccount.FindOne(context.TODO(), bson.M{"walletaccount": account.WalletAccount}).Decode(&account)
-	fmt.Println("account.WalletAccount", account.WalletAccount)
+	filter := bson.M{"walletaccount": account.WalletAccount}
+	res, err := m.colAccount.Find(context.TODO(), filter)
 	if err != nil {
-		log.Println(err)
-		fmt.Errorf("fail to get menu detail")
+		log.Print(err)
 	}
-	fmt.Println("account", account)
-	fmt.Println("account", account.NickName)
-	profile := []string{}
+	// 결과를 변수에 담기
+	if err = res.All(context.TODO(), &datas); err != nil {
+		fmt.Println(err)
+	}
 
-	// = append(profile, account.ID.String())
-	profile = append(profile, account.NickName)
-	profile = append(profile, strconv.FormatInt(account.MyTravelCount, 10))
-	profile = append(profile, strconv.FormatInt(account.MyDNFTCount, 10))
-	profile = append(profile, strconv.FormatInt(account.LikeCount, 10))
-	profile = append(profile, strconv.FormatInt(account.CommentCount, 10))
+	for _, data := range datas {
+		item := make(map[string]interface{})
+		item["nickname"] = data["nickname"]
+		item["mytravelcount"] = data["mytravelcount"]
+		item["mydnftcount"] = data["mydnftcount"]
+		item["likecount"] = data["likecount"]
+		item["commentcount"] = data["commentcount"]
+
+		profile = append(profile, item)
+	}
+
+	// []byte를 String타입으로 변환
+	fmt.Println("profile", profile)
 
 	return profile
 }

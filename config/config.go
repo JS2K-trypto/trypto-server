@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/naoina/toml"
@@ -44,7 +43,6 @@ type Config struct {
 func GetConfig(fpath string) *Config {
 	c := new(Config)
 
-	fmt.Println("c", c)
 	if file, err := os.Open(fpath); err != nil {
 		panic(err)
 	} else {
@@ -53,7 +51,7 @@ func GetConfig(fpath string) *Config {
 		if err := toml.NewDecoder(file).Decode(c); err != nil {
 			panic(err)
 		} else {
-			fmt.Println("c2", c)
+
 			return c
 		}
 

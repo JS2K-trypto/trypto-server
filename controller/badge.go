@@ -44,18 +44,15 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 
 	now := time.Now()
 	custom := now.Format("2006-01-02 15:04:05")
-	fmt.Println("encyDnft", encyDnft)
 	geocoder := openstreetmap.Geocoder()
 	location, err := geocoder.ReverseGeocode(encyDnft.Latitude, encyDnft.Longitude)
 	if err != nil {
 		fmt.Println("Error:", err)
-		return
 	}
 
 	encyDnft.DnftCountry = location.Country
 	encyDnft.DnftTime = custom
-
-	result := p.md.MatchBadgeResource(&encyDnft)
+	result := p.md.CreateDNFTBadge(&encyDnft)
 	log.Println("dnft", result)
 
 	config2 := conf.GetConfig("./config/config.toml")
@@ -76,6 +73,7 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 	if err != nil {
 		panic(err)
 	}
+
 	log.Println("balance", balance)
 	metaData := []string{}
 	metaData = append(metaData, encyDnft.DnftBronzeUrl)

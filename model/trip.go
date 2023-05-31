@@ -24,22 +24,27 @@ func (m *Model) InsertTripPlan(tripPlan *TripPlan) *TripPlan {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("totalTripPlanCount", totalTripPlanCount)
+
 	tripPlan.TripId = totalTripPlanCount + 1
 	result, err := m.colTripPlan.InsertOne(context.TODO(), tripPlan)
 	if err != nil {
 		log.Fatal(err)
 	}
-	//이전 Dnft 발급한 것을 삭제하기
 
-	//한달에 한 번만 발급할 수 있게 조정하기
-	fmt.Println("tripPlan.TripId ", tripPlan.TripId)
+	filter := bson.M{"walletaccount": tripPlan.WalletAccount}
+	res, _ := m.colAccount.Find(context.TODO(), filter)
+	res.All(context.TODO(), &datas)
+
+	for _, data := range datas {
+		account.NickName = data["nickname"].(string)
+	}
+
 	account.MyTravelCount = tripPlan.TripId
-	fmt.Println("account.MyTravelCount", account.MyTravelCount)
+	account.WalletAccount = tripPlan.WalletAccount
+
 	accFilter := bson.D{{Key: "walletaccount", Value: account.WalletAccount}}
 	accUpdate := bson.D{{Key: "$set", Value: account}}
 	accOpts := options.Update().SetUpsert(true)
-
 	_, acc_err := m.colAccount.UpdateOne(context.TODO(), accFilter, accUpdate, accOpts)
 	if err != nil {
 		panic(acc_err)

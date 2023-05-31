@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"trypto-server/model"
@@ -64,9 +63,17 @@ func (p *Controller) UserRegisterHandler(c *gin.Context) {
 func (p *Controller) UserProfileHandler(c *gin.Context) {
 
 	account.WalletAccount = c.Query("walletAccount")
+	if account.WalletAccount == " " {
+		c.JSON(http.StatusBadRequest, gin.H{"Error": "Empty walletAccount"})
+	} else {
+		result := p.md.GetProfile(account)
+		c.JSON(http.StatusOK, result)
+		//c.JSON(http.StatusOK, gin.H{"Success": result})
 
+		if len(result) == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"Error": "You must be a registered user."})
+		}
+	}
 	log.Println(account)
-	result := p.md.GetProfile(account)
-	fmt.Println("result", result)
-	c.JSON(http.StatusOK, result)
+
 }

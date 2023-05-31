@@ -17,7 +17,7 @@ var (
 	account      Account
 )
 
-func (m *Model) MatchBadgeResource(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
+func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 
 	err := m.colResource.FindOne(context.TODO(), bson.M{"Country": encyDnft.DnftCountry}).Decode(&checkCountry)
 
@@ -43,7 +43,24 @@ func (m *Model) MatchBadgeResource(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT
 	encyDnft.DnftGoldUrl = checkCountry["gold"].(string)
 	encyDnft.DnftId = estCount + 1
 	encyDnft.IssueCount = count + 1
-	
+
+	account.MyDNFTCount = encyDnft.IssueCount
+
+	res, _ := m.colAccount.Find(context.TODO(), filter)
+	res.All(context.TODO(), &datas)
+
+	for _, data := range datas {
+		account.NickName = data["nickname"].(string)
+	}
+
+	accFilter := bson.D{{Key: "walletaccount", Value: account.WalletAccount}}
+	accUpdate := bson.D{{Key: "$set", Value: account}}
+	accOpts := options.Update().SetUpsert(true)
+	_, acc_err := m.colAccount.UpdateOne(context.TODO(), accFilter, accUpdate, accOpts)
+	if err != nil {
+		panic(acc_err)
+	}
+
 	if count < 5 {
 		encyDnft.BadgeTier = "bronze"
 		encyDnft.DnftImgUrl = checkCountry["bronze"].(string)
@@ -58,15 +75,6 @@ func (m *Model) MatchBadgeResource(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT
 	result, err := m.colDnftBadge.InsertOne(context.TODO(), encyDnft)
 	if err != nil {
 		log.Fatal(err)
-	}
-	account.MyDNFTCount = encyDnft.IssueCount
-	accFilter := bson.D{{Key: "id", Value: account.WalletAccount}}
-	accUpdate := bson.D{{Key: "$set", Value: account.MyDNFTCount}}
-
-	accOpts := options.Update().SetUpsert(true)
-	_, acc_err := m.colAccount.UpdateOne(context.TODO(), accFilter, accUpdate, accOpts)
-	if err != nil {
-		panic(acc_err)
 	}
 
 	fmt.Println("check encyDnft", encyDnft, result)
