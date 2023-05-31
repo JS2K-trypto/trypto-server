@@ -14,7 +14,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "UserProfileHandler"
+                    "UserProfileHandler(나의 프로필 정보 가져오기)"
                 ],
                 "summary": "계정주소, 닉네임을 입력합니다.",
                 "parameters": [
@@ -53,7 +53,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "UserRegisterHandler"
+                    "UserRegisterHandler(닉네임 등록/수정)"
                 ],
                 "summary": "계정주소, 닉네임을 입력합니다.",
                 "parameters": [
@@ -82,52 +82,6 @@
                 }
             }
         },
-        "/v01/badge/issue": {
-            "post": {
-                "description": "위도, 경도를 입력받고 해당하는 나라의 리소스(ipfs uri, nft metadata)를 참고해서 뱃지를 발급해줍니다.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CreateBadge"
-                ],
-                "summary": "사용자 위치를 참고해서 Dynamic NFT 뱃지를 발급하는 함수",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "walletAccount",
-                        "name": "walletAccount",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "latitude",
-                        "name": "latitude",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "longitude",
-                        "name": "longitude",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
         "/v01/badge/user": {
             "get": {
                 "description": "사용자 위치를 참고해서 뱃지를 발급하는 함수",
@@ -138,7 +92,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "GetMyBadge"
+                    "GetMyBadge(나의 뱃지 가져오기)"
                 ],
                 "summary": "내가 발급한 뱃지를 가져오는 함수",
                 "parameters": [
@@ -170,7 +124,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "GetAllTrip"
+                    "GetAllTrip(전체 여행계획 가져오기)"
                 ],
                 "summary": "모든 여행계획을 가져오는 함수",
                 "responses": {
@@ -193,7 +147,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "GetMyTrip"
+                    "GetMyTrip(나의 여행계획 가져오기)"
                 ],
                 "summary": "나의 여행계획을 가져오는 함수",
                 "parameters": [
@@ -217,7 +171,7 @@
         },
         "/v01/trip/search": {
             "get": {
-                "description": "여행계획의 제목 중 일치하는 문자열에 대해 콘텐츠를 리스폰스해주는 검색 API, 단어 단위로 구현, 예를 들어 Paris로 무작정이라고 하면 \"Paris로\" 까지 입력해야된다.",
+                "description": "여행계획의 제목 중 일치하는 문자열에 대해 콘텐츠를 리스폰스해주는 검색 API, 단어 단위로 구현, 예를 들어 Paris로 무작정이라고 하면 \"Paris로\" 까지 입력해야된다. q=\"Paris로\" 이런식으로 입력하면 된다.",
                 "consumes": [
                     "application/json"
                 ],
@@ -225,9 +179,18 @@
                     "application/json"
                 ],
                 "tags": [
-                    "GetAllTrip"
+                    "SearchTrip(여행계획 단어단위 검색하기)"
                 ],
                 "summary": "여행계획을 검색하는 API",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "q",
+                        "name": "q",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
