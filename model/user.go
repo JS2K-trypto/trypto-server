@@ -42,7 +42,7 @@ func (m *Model) UpdateUser(account Account) error {
 	return nil
 }
 
-func (m *Model) GetProfile(account Account) []map[string]interface{} {
+func (m *Model) GetProfile(account Account) map[string]interface{} {
 	var profile []map[string]interface{}
 
 	filter := bson.M{"walletaccount": account.WalletAccount}
@@ -68,8 +68,9 @@ func (m *Model) GetProfile(account Account) []map[string]interface{} {
 
 	// []byte를 String타입으로 변환
 	fmt.Println("profile", profile)
+	fmt.Println("profile", profile[0])
 
-	return profile
+	return profile[0]
 }
 
 func (m *Model) MatchUser(account string) bool {
