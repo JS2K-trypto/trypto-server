@@ -56,3 +56,9 @@
 - 뱃지(DNFT) 발급 위도,경도와 계정 정보를 받고 뱃지(DNFT) 발급을 할 수 있게 해야함
 
 ### API
+
+## http://152.69.231.140:1323/swagger/index.html
+
+<img src="./img/swagger1.png">
+<img src="./img/swagger2.png">
+<img src="./img/swagger3.png">
