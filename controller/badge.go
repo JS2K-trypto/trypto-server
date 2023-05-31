@@ -21,6 +21,7 @@ var (
 )
 
 // CreateBadge godoc
+//
 //	@BasePath	/v01
 //	@Schemes
 //	@Summary		지갑계정, 위도, 경도를 입력해줍니다.
@@ -34,7 +35,6 @@ var (
 //	@Param			longitude		path	string	    true	"longitude"
 //	@Router			/v01/badge/issue [post]
 //	@Success		200	{object}	string
-
 func (p *Controller) CreateBadge(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&encyDnft); err != nil {

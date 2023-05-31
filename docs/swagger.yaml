@@ -25,7 +25,7 @@ paths:
           description: OK
           schema:
             type: string
-      summary: 계정주소, 닉네임을 입력합니다.
+      summary: 계정주소를 입력합니다.
       tags:
       - UserProfileHandler(나의 프로필 정보 가져오기)
   /v01/acc/register:
@@ -55,6 +55,37 @@ paths:
       summary: 계정주소, 닉네임을 입력합니다.
       tags:
       - UserRegisterHandler(닉네임 등록/수정)
+  /v01/badge/issue:
+    post:
+      consumes:
+      - application/json
+      description: 위도, 경도를 입력받고 해당하는 나라의 리소스(ipfs uri, nft metadata)를 참고해서 뱃지를 발급해줍니다.
+      parameters:
+      - description: walletAccount
+        in: path
+        name: walletAccount
+        required: true
+        type: string
+      - description: latitude
+        in: path
+        name: latitude
+        required: true
+        type: string
+      - description: longitude
+        in: path
+        name: longitude
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 지갑계정, 위도, 경도를 입력해줍니다.
+      tags:
+      - CreateBadge(뱃지 발급)
   /v01/badge/user:
     get:
       consumes:
@@ -73,7 +104,7 @@ paths:
           description: OK
           schema:
             type: string
-      summary: 내가 발급한 뱃지를 가져오는 함수
+      summary: 지갑계정을 입력해줍니다.
       tags:
       - GetMyBadge(나의 뱃지 가져오기)
   /v01/trip/allplan:
@@ -88,7 +119,7 @@ paths:
           description: OK
           schema:
             type: string
-      summary: 모든 여행계획을 가져오는 함수
+      summary: 모든 여행계획을 가져온다.
       tags:
       - GetAllTrip(전체 여행계획 가져오기)
   /v01/trip/myplan:
@@ -109,9 +140,55 @@ paths:
           description: OK
           schema:
             type: string
-      summary: 나의 여행계획을 가져오는 함수
+      summary: 지갑계정을 입력한다.
       tags:
       - GetMyTrip(나의 여행계획 가져오기)
+    post:
+      consumes:
+      - application/json
+      description: days에는 day1, day2단위로 아이템이 있고 각 day1별로 시간과 imtes가 있으며 각각 여행시작시간,
+        종료시간, 이미지, 타이틀, 설명, 메모등을 입력할 수 있습니다.
+      parameters:
+      - description: walletAccount
+        in: path
+        name: walletAccount
+        required: true
+        type: string
+      - description: travelTitle
+        in: path
+        name: travelTitle
+        required: true
+        type: string
+      - description: tripCountry
+        in: path
+        name: tripCountry
+        required: true
+        type: string
+      - description: tripDeparture
+        in: path
+        name: tripDeparture
+        required: true
+        type: string
+      - description: tripArrival
+        in: path
+        name: tripArrival
+        required: true
+        type: string
+      - description: days
+        in: path
+        name: days
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 지갑계정, 제목, 나라, 출발날짜, 도착날짜 등을 입력합니다. days는 아이템을 담은 배열입니다.
+      tags:
+      - CreateTripPlan(나의 여행계획표 생성하기)
   /v01/trip/search:
     get:
       consumes:
@@ -131,7 +208,7 @@ paths:
           description: OK
           schema:
             type: string
-      summary: 여행계획을 검색하는 API
+      summary: q에 검색하고자 하는 키워드를 입력한다.
       tags:
       - SearchTrip(여행계획 단어단위 검색하기)
 swagger: "2.0"

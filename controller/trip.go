@@ -17,32 +17,21 @@ var (
 )
 
 // CreateTripPlan godoc
-//
-//		@BasePath				/v01
-//		@Summary				지갑계정, 제목, 나라, 출발날짜, 도착날짜 등을 입력합니다. days는 아이템을 담은 배열입니다.
-//		@Tags					CreateTripPlan
-//		@Description			days에는 day1, day2단위로 아이템이 있고 각 day1별로 시간과 imtes가 있으며 각각 여행시작시간, 종료시간, 이미지, 타이틀, 설명, 메모등을 입력할 수 있습니다. 상세 데이터(구조체) 구조는 model/types.go 참고
-//		@name					CreateTripPlan(나의 여행계획표 생성하기)
-//		@Accept					json
-//		@Produce				json
-//		@Param					walletAccount			path	string 		true	"walletAccount",
-//		@Param					travelTitle				path	string	 	true	"travelTitle",
-//		@Param					tripCountry				path	string		true	"tripCountry",
-//		@Param					tripDeparture			path	string		true	"tripDeparture",
-//		@Param					tripArrival				path	string		true	"tripArrival"
-//	 	@Param					days					path	string 		true	"days"
-//		@Param					day1					path 	string		true	"day1"
-//		@Param					day1["dayTime"] 		path	string		true	day1["dayTime"]
-//		@Param					day1["items"]			path	string		true	day1["items"]
-//		@Param					items["item1"]			path	string		true	items["item1"]
-//		@Param					item1["startDate"]		path	string		true	item1["startDate"]
-//		@Param					item1["endDate"]		path	string		true	item1["endDate"]
-//		@Param					item1["imgSrc"]			path	string		true	item1["imgSrc"]
-//		@Param					item1["title"]			path	string		true	item1["title"]
-//		@Param					item1["description"]	path	string		true	item1["description"]
-//
-// @Router/v01/trip/myplan	[post]
-// @Success				200	{object}	string
+
+// @BasePath				/v01
+// @Summary					지갑계정, 제목, 나라, 출발날짜, 도착날짜 등을 입력합니다. days는 아이템을 담은 배열입니다.
+// @Tags					CreateTripPlan(나의 여행계획표 생성하기)
+// @Description				days에는 day1, day2단위로 아이템이 있고 각 day1별로 시간과 imtes가 있으며 각각 여행시작시간, 종료시간, 이미지, 타이틀, 설명, 메모등을 입력할 수 있습니다.
+// @Accept					json
+// @Produce					json
+// @Param					walletAccount			path	string 		true	"walletAccount",
+// @Param					travelTitle				path	string	 	true	"travelTitle",
+// @Param					tripCountry				path	string		true	"tripCountry",
+// @Param					tripDeparture			path	string		true	"tripDeparture",
+// @Param					tripArrival				path	string		true	"tripArrival"
+// @Param					days					path	string 		true	"days"
+// @Router					/v01/trip/myplan	[post]
+// @Success					200	{object}	string
 func (p *Controller) CreateTripPlan(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&tripPlan); err != nil {
