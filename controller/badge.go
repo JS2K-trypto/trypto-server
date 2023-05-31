@@ -23,7 +23,7 @@ var (
 // CreateBadge godoc
 //	@BasePath	/v01
 //	@Schemes
-//	@Summary		사용자 위치를 참고해서 Dynamic NFT 뱃지를 발급하는 함수
+//	@Summary		지갑계정, 위도, 경도를 입력해줍니다.
 //	@Tags			CreateBadge(뱃지 발급)
 //	@Description	위도, 경도를 입력받고 해당하는 나라의 리소스(ipfs uri, nft metadata)를 참고해서 뱃지를 발급해줍니다.
 //	@name			CreateBadge
@@ -92,7 +92,7 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 // GetMyBadge godoc
 //
 //	@BasePath		/v01
-//	@Summary		내가 발급한 뱃지를 가져오는 함수
+//	@Summary		지갑계정을 입력해줍니다.
 //	@Tags			GetMyBadge(나의 뱃지 가져오기)
 //	@Description	사용자 위치를 참고해서 뱃지를 발급하는 함수
 //	@name			GetMyBadge

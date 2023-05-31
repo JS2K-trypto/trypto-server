@@ -18,20 +18,31 @@ var (
 
 // CreateTripPlan godoc
 //
-//	@BasePath				/v01
-//	@Summary				사용자가 입력한 여행계획표 데이터를 입력받고 그대로 여행계획을 생성해준다.
-//	@Tags					CreateTripPlan
-//	@Description			계정주소, 제목, 설명, 메모, 여행사진등을 입력해서 여행계획을 만들어줍니다.
-//	@name					CreateTripPlan(나의 여행계획표 생성하기)
-//	@Accept					json
-//	@Produce				json
-//	@Param					walletAccount	path	string 		true	"walletAccount",
-//	@Param					travelTitle		path	string	 	true	"travelTitle",
-//	@Param					tripDescription	path	string		true	"tripDescription",
-//	@Param					tripMemo		path	string		true	"tripMemo",
-//	@Param					tripImgSrc		path	string		true	"tripImgSrc"
-//	@Router/v01/trip/myplan	[post]
-//	@Success				200	{object}	string
+//		@BasePath				/v01
+//		@Summary				지갑계정, 제목, 나라, 출발날짜, 도착날짜 등을 입력합니다. days는 아이템을 담은 배열입니다.
+//		@Tags					CreateTripPlan
+//		@Description			days에는 day1, day2단위로 아이템이 있고 각 day1별로 시간과 imtes가 있으며 각각 여행시작시간, 종료시간, 이미지, 타이틀, 설명, 메모등을 입력할 수 있습니다. 상세 데이터(구조체) 구조는 model/types.go 참고
+//		@name					CreateTripPlan(나의 여행계획표 생성하기)
+//		@Accept					json
+//		@Produce				json
+//		@Param					walletAccount			path	string 		true	"walletAccount",
+//		@Param					travelTitle				path	string	 	true	"travelTitle",
+//		@Param					tripCountry				path	string		true	"tripCountry",
+//		@Param					tripDeparture			path	string		true	"tripDeparture",
+//		@Param					tripArrival				path	string		true	"tripArrival"
+//	 	@Param					days					path	string 		true	"days"
+//		@Param					day1					path 	string		true	"day1"
+//		@Param					day1["dayTime"] 		path	string		true	day1["dayTime"]
+//		@Param					day1["items"]			path	string		true	day1["items"]
+//		@Param					items["item1"]			path	string		true	items["item1"]
+//		@Param					item1["startDate"]		path	string		true	item1["startDate"]
+//		@Param					item1["endDate"]		path	string		true	item1["endDate"]
+//		@Param					item1["imgSrc"]			path	string		true	item1["imgSrc"]
+//		@Param					item1["title"]			path	string		true	item1["title"]
+//		@Param					item1["description"]	path	string		true	item1["description"]
+//
+// @Router/v01/trip/myplan	[post]
+// @Success				200	{object}	string
 func (p *Controller) CreateTripPlan(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&tripPlan); err != nil {
@@ -55,7 +66,7 @@ func (p *Controller) CreateTripPlan(c *gin.Context) {
 // GetMyTrip godoc
 //
 //	@BasePath		/v01
-//	@Summary		나의 여행계획을 가져오는 함수
+//	@Summary		지갑계정을 입력한다.
 //	@Tags			GetMyTrip(나의 여행계획 가져오기)
 //	@Description	나의 여행계획을 MongoDB에서 가져오는 함수, 계정주소로 파악한 후 가져온다.
 //	@name			GetMyTrip
@@ -84,7 +95,7 @@ func (p *Controller) GetMyTrip(c *gin.Context) {
 // GetAllTrip godoc
 //
 //	@BasePath		/v01
-//	@Summary		모든 여행계획을 가져오는 함수
+//	@Summary		모든 여행계획을 가져온다.
 //	@Tags			GetAllTrip(전체 여행계획 가져오기)
 //	@Description    모든 여행계획을  MongoDB에서 가져오는 함수. 아무 파라미터가 없다 전체를 조회한다.
 //	@name			GetAllTrip
@@ -107,7 +118,7 @@ func (p *Controller) GetAllTrip(c *gin.Context) {
 // SearchTrip godoc
 //
 //	@BasePath		/v01
-//	@Summary		여행계획을 검색하는 API
+//	@Summary		q에 검색하고자 하는 키워드를 입력한다.
 //	@Tags			SearchTrip(여행계획 단어단위 검색하기)
 //	@Description	여행계획의 제목 중 일치하는 문자열에 대해 콘텐츠를 리스폰스해주는 검색 API, 단어 단위로 구현, 예를 들어 Paris로 무작정이라고 하면 "Paris로" 까지 입력해야된다. q="Paris로" 이런식으로 입력하면 된다.
 //	@name			SearchTrip

@@ -51,7 +51,7 @@ func (p *Controller) UserRegisterHandler(c *gin.Context) {
 //
 // UserProfileHandler godoc
 //
-//	@Summary		계정주소, 닉네임을 입력합니다.
+//	@Summary		계정주소를 입력합니다.
 //	@Tags			UserProfileHandler(나의 프로필 정보 가져오기)
 //	@Description	유저 프로필 정보를 가져는 함수다. 다음과 같은 정보를 가져온다. [닉네임, 나의 여행계획 카운트, 나의 Dynamic NFT 카운트, 좋아요 카운트 , 댓글 카운트]
 //	@name			UserProfileHandler
