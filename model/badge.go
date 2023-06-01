@@ -13,9 +13,18 @@ import (
 var (
 	checkCountry bson.M
 	encytDnft    EncyclopediaDNFT
-	encytDnfts   EncyclopediaDNFTs
+	encytDnfts   []EncyclopediaDNFT
 	account      Account
+	num          int64
 )
+
+var bronzeUp = 2
+var silverUp = 4
+var goldUp = 5
+
+func increase(num int64) int64 {
+	return num + 1
+}
 
 func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 
@@ -41,8 +50,8 @@ func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 	encyDnft.DnftBronzeUrl = checkCountry["bronze"].(string)
 	encyDnft.DnftSilverUrl = checkCountry["silver"].(string)
 	encyDnft.DnftGoldUrl = checkCountry["gold"].(string)
-	encyDnft.DnftId = estCount + 1
-	encyDnft.IssueCount = count + 1
+	encyDnft.DnftId = increase(estCount)
+	encyDnft.IssueCount = increase(count)
 
 	account.MyDNFTCount = encyDnft.IssueCount
 
@@ -98,8 +107,8 @@ func (m *Model) GetAllDnft(account string) []bson.M {
 
 // 나의 Dnft 불러오기
 func (m *Model) GetMyDnft(account string) []EncyclopediaDNFT {
-	//var datas []bson.M
-	var encytDnfts []EncyclopediaDNFT
+	var maxIssueCount int64
+
 	filter := bson.M{"walletAccount": account}
 	fmt.Println("account", account)
 	res, err := m.colDnftBadge.Find(context.TODO(), filter)
@@ -108,7 +117,15 @@ func (m *Model) GetMyDnft(account string) []EncyclopediaDNFT {
 		if err := res.Decode(&encytDnft); err != nil {
 			log.Fatal(err)
 		}
-		encytDnfts = append(encytDnfts, encytDnft)
+
+		if encytDnft.IssueCount > maxIssueCount {
+			maxIssueCount = encytDnft.IssueCount
+			encytDnfts = []EncyclopediaDNFT{encytDnft}
+		} else if encytDnft.IssueCount == maxIssueCount {
+			encytDnfts = append(encytDnfts, encytDnft)
+		}
+
+		// encytDnfts = append(encytDnfts, encytDnft)
 	}
 
 	if err != nil {
