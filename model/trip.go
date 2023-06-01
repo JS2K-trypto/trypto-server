@@ -14,7 +14,7 @@ import (
 
 var (
 	tripPlan  TripPlan
-	tripPlans TripPlans
+	tripPlans []TripPlan
 	encyDnft  EncyclopediaDNFT
 )
 
@@ -73,8 +73,7 @@ func (m *Model) SelectAllTrip() []bson.M {
 }
 
 // 나의 여행계획 가져오기
-func (m *Model) SelectMyTrip(account string) *TripPlans {
-
+func (m *Model) SelectMyTrip(account string) []TripPlan {
 	fmt.Println("account", account)
 
 	filter := bson.M{"walletaccount": account} // 데이터를 담을 변수 선언
@@ -88,13 +87,13 @@ func (m *Model) SelectMyTrip(account string) *TripPlans {
 		if err := res.Decode(&tripPlan); err != nil {
 			log.Fatal(err)
 		}
-		tripPlans.Arr = append(tripPlans.Arr, tripPlan)
+		tripPlans = append(tripPlans, tripPlan)
 	}
 
-	return &tripPlans
+	return tripPlans
 }
 
-// 나의 여행계획 가져오기
+// 여행계획 검색하기
 func (m *Model) SearchTrip(Query string) []TripPlan {
 	fmt.Println(Query)
 

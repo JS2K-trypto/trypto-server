@@ -1,3 +1,105 @@
+definitions:
+  model.Account:
+    properties:
+      commentCount:
+        type: integer
+      id:
+        type: string
+      likeCount:
+        type: integer
+      myDnftCount:
+        type: integer
+      myTravelCount:
+        type: integer
+      nickName:
+        type: string
+      walletAccount:
+        type: string
+    type: object
+  model.DayItem:
+    properties:
+      dayTime:
+        type: string
+      items:
+        additionalProperties:
+          $ref: '#/definitions/model.Item'
+        type: object
+    type: object
+  model.EncyclopediaDNFT:
+    properties:
+      badgeTier:
+        description: 티어
+        type: string
+      dnftBronzeUrl:
+        description: 브론즈 URL
+        type: string
+      dnftCountry:
+        description: 국가
+        type: string
+      dnftGoldUrl:
+        description: 골드 URL
+        type: string
+      dnftId:
+        description: 전체 dnftID
+        type: integer
+      dnftImgUrl:
+        description: 이미지URL로 쓸 변수
+        type: string
+      dnftSilverUrl:
+        description: 실버 URL
+        type: string
+      dnftTime:
+        description: 발급 시간
+        type: string
+      issueCount:
+        description: 계정별, 국가별 발급횟수를 체크하는 변수
+        type: integer
+      latitude:
+        description: 위도
+        type: number
+      longitude:
+        description: 경도
+        type: number
+      walletAccount:
+        description: 지갑계정
+        type: string
+    type: object
+  model.Item:
+    properties:
+      description:
+        type: string
+      endDate:
+        type: string
+      imgSrc:
+        type: string
+      memo:
+        type: string
+      startDate:
+        type: string
+      title:
+        type: string
+    type: object
+  model.TripPlan:
+    properties:
+      days:
+        additionalProperties:
+          $ref: '#/definitions/model.DayItem'
+        type: object
+      nickName:
+        type: string
+      travelId:
+        type: integer
+      tripArrival:
+        type: string
+      tripCountry:
+        type: string
+      tripDeparture:
+        type: string
+      tripTitle:
+        type: string
+      walletAccount:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -24,7 +126,9 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            items:
+              $ref: '#/definitions/model.Account'
+            type: array
       summary: 계정주소를 입력합니다.
       tags:
       - UserProfileHandler(나의 프로필 정보 가져오기)
@@ -51,7 +155,9 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            items:
+              $ref: '#/definitions/model.Account'
+            type: array
       summary: 계정주소, 닉네임을 입력합니다.
       tags:
       - UserRegisterHandler(닉네임 등록/수정)
@@ -82,7 +188,9 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            items:
+              $ref: '#/definitions/model.EncyclopediaDNFT'
+            type: array
       summary: 지갑계정, 위도, 경도를 입력해줍니다.
       tags:
       - CreateBadge(뱃지 발급)
@@ -103,7 +211,9 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            items:
+              $ref: '#/definitions/model.EncyclopediaDNFT'
+            type: array
       summary: 지갑계정을 입력해줍니다.
       tags:
       - GetMyBadge(나의 뱃지 가져오기)
@@ -118,7 +228,9 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            items:
+              $ref: '#/definitions/model.TripPlan'
+            type: array
       summary: 모든 여행계획을 가져온다.
       tags:
       - GetAllTrip(전체 여행계획 가져오기)
@@ -139,7 +251,9 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            items:
+              $ref: '#/definitions/model.TripPlan'
+            type: array
       summary: 지갑계정을 입력한다.
       tags:
       - GetMyTrip(나의 여행계획 가져오기)
@@ -185,7 +299,9 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            items:
+              $ref: '#/definitions/model.TripPlan'
+            type: array
       summary: 지갑계정, 제목, 나라, 출발날짜, 도착날짜 등을 입력합니다. days는 아이템을 담은 배열입니다.
       tags:
       - CreateTripPlan(나의 여행계획표 생성하기)
@@ -207,7 +323,9 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            items:
+              $ref: '#/definitions/model.TripPlan'
+            type: array
       summary: q에 검색하고자 하는 키워드를 입력한다.
       tags:
       - SearchTrip(여행계획 단어단위 검색하기)

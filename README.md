@@ -62,3 +62,8 @@
 <img src="./img/swagger1.png">
 <img src="./img/swagger2.png">
 <img src="./img/swagger3.png">
+
+### Contract
+
+goerli : 0xc40a82F2937Fb7b33764acde9D4758C2Ed8FE2E0
+mumbai : 0xb3c72Df5bBDb985dac5eDa966b501B35830A8cb1

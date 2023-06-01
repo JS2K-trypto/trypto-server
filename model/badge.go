@@ -53,7 +53,7 @@ func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 		account.NickName = data["nickname"].(string)
 	}
 
-	accFilter := bson.D{{Key: "walletaccount", Value: account.WalletAccount}}
+	accFilter := bson.D{{Key: "walletaccount", Value: encyDnft.WalletAccount}}
 	accUpdate := bson.D{{Key: "$set", Value: account}}
 	accOpts := options.Update().SetUpsert(true)
 	_, acc_err := m.colAccount.UpdateOne(context.TODO(), accFilter, accUpdate, accOpts)
@@ -96,23 +96,25 @@ func (m *Model) GetAllDnft(account string) []bson.M {
 	return datas
 }
 
-// MyDnft 한개만 불러오기
-func (m *Model) GetMyDnft(account string) *EncyclopediaDNFTs {
-	filter := bson.M{"walletAccount": account} // 데이터를 담을 변수 선언
-
+// 나의 Dnft 불러오기
+func (m *Model) GetMyDnft(account string) []EncyclopediaDNFT {
+	//var datas []bson.M
+	var encytDnfts []EncyclopediaDNFT
+	filter := bson.M{"walletAccount": account}
+	fmt.Println("account", account)
 	res, err := m.colDnftBadge.Find(context.TODO(), filter)
 	for res.Next(context.Background()) {
 
 		if err := res.Decode(&encytDnft); err != nil {
 			log.Fatal(err)
 		}
-		encytDnfts.Arr = append(encytDnfts.Arr, encytDnft)
+		encytDnfts = append(encytDnfts, encytDnft)
 	}
 
 	if err != nil {
 		log.Println(err)
 		fmt.Errorf("fail to get menu detail")
 	}
-	return &encytDnfts
+	return encytDnfts
 
 }

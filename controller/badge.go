@@ -34,14 +34,14 @@ var (
 //	@Param			latitude		path	string 	 	true	"latitude",
 //	@Param			longitude		path	string	    true	"longitude"
 //	@Router			/v01/badge/issue [post]
-//	@Success		200	{object}	string
+//	@Success		200	 {array} model.EncyclopediaDNFT
 func (p *Controller) CreateBadge(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&encyDnft); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
+	fmt.Println(&encyDnft)
 	now := time.Now()
 	custom := now.Format("2006-01-02 15:04:05")
 	geocoder := openstreetmap.Geocoder()
@@ -52,12 +52,13 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 
 	encyDnft.DnftCountry = location.Country
 	encyDnft.DnftTime = custom
+	fmt.Println("encyDnft", &encyDnft)
 	result := p.md.CreateDNFTBadge(&encyDnft)
 	log.Println("dnft", result)
 
 	config2 := conf.GetConfig("./config/config.toml")
 	contractAddress := config2.Contract.DnftContract
-	sdk, err := thirdweb.NewThirdwebSDK("goerli", &thirdweb.SDKOptions{
+	sdk, err := thirdweb.NewThirdwebSDK("mumbai", &thirdweb.SDKOptions{
 		PrivateKey: config2.Contract.PRIVATEKEY,
 	})
 	if err != nil {
@@ -98,7 +99,7 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 //	@Produce		json
 //	@Param			walletAccount	path	string 	 	true	"walletAccount"
 //	@Router			/v01/badge/user [get]
-//	@Success		200	{object}	string
+//	@Success		200	{array} model.EncyclopediaDNFT
 func (p *Controller) GetMyBadge(c *gin.Context) {
 	account.WalletAccount = c.Query("walletAccount")
 

@@ -31,7 +31,7 @@ var (
 // @Param					tripArrival				path	string		true	"tripArrival"
 // @Param					days					path	string 		true	"days"
 // @Router					/v01/trip/myplan	[post]
-// @Success					200	{object}	string
+// @Success					200	{array} model.TripPlan
 func (p *Controller) CreateTripPlan(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&tripPlan); err != nil {
@@ -63,7 +63,7 @@ func (p *Controller) CreateTripPlan(c *gin.Context) {
 //	@Produce		json
 //	@Param			walletAccount	path	string 	 	true	"walletAccount"
 //	@Router			/v01/trip/myplan [get]
-//	@Success		200	{object}	string
+//	@Success		200	{array} model.TripPlan
 func (p *Controller) GetMyTrip(c *gin.Context) {
 
 	tripPlan.WalletAccount = c.Query("walletAccount")
@@ -73,7 +73,7 @@ func (p *Controller) GetMyTrip(c *gin.Context) {
 	//fmt.Println("len, len(res.Arr)", len(res.Arr))
 	//c.JSON(http.StatusOK, res)
 
-	if len(res.Arr) > 0 {
+	if len(res) > 0 {
 		c.JSON(http.StatusOK, res)
 	} else {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty TripPlan"})
@@ -91,7 +91,7 @@ func (p *Controller) GetMyTrip(c *gin.Context) {
 //	@Accept			json
 //	@Produce		json
 //	@Router			/v01/trip/allplan [get]
-//	@Success		200	{object}	string
+//	@Success		200	{array} model.TripPlan
 func (p *Controller) GetAllTrip(c *gin.Context) {
 
 	res := p.md.SelectAllTrip()
@@ -115,7 +115,7 @@ func (p *Controller) GetAllTrip(c *gin.Context) {
 //	@Produce		json
 //	@Param			q	path	string 	 	true	"q"
 //	@Router			/v01/trip/search [get]
-//	@Success		200	{object}	string
+//	@Success		200	{array} model.TripPlan
 func (p *Controller) SearchTrip(c *gin.Context) {
 
 	searchQuery = c.Query("q")

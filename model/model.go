@@ -34,8 +34,8 @@ func NewModel() (*Model, error) {
 		r.colDnftBadge = db.Collection("dnftbadge")
 		r.colResource = db.Collection("resource")
 
-		// model := mongo.IndexModel{Keys: bson.D{{"triptitle", "text"}, {}}}
-		// name, err := r.colTripPlan.Indexes().CreateOne(context.TODO(), model)
+		// indexmodel := mongo.IndexModel{Keys: bson.D{{"triptitle", "text"}, {}}}
+		// name, err := r.colTripPlan.Indexes().CreateOne(context.TODO(), indexmodel)
 		// if err != nil {
 		// 	panic(err)
 		// }

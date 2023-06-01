@@ -45,6 +45,7 @@ func (m *Model) UpdateUser(account Account) error {
 func (m *Model) GetProfile(account Account) map[string]interface{} {
 	var profile []map[string]interface{}
 
+	fmt.Println("account", account.WalletAccount)
 	filter := bson.M{"walletaccount": account.WalletAccount}
 	res, err := m.colAccount.Find(context.TODO(), filter)
 	if err != nil {
@@ -54,21 +55,23 @@ func (m *Model) GetProfile(account Account) map[string]interface{} {
 	if err = res.All(context.TODO(), &datas); err != nil {
 		fmt.Println(err)
 	}
+	fmt.Println("datas", datas)
+
+	dnftFilter := bson.D{{"walletAccount", account.WalletAccount}}
+	tripFilter := bson.D{{"walletaccount", account.WalletAccount}}
+	dnftCount, err := m.colDnftBadge.CountDocuments(context.TODO(), dnftFilter)
+	tripCount, err := m.colTripPlan.CountDocuments(context.TODO(), tripFilter)
 
 	for _, data := range datas {
 		item := make(map[string]interface{})
-		item["nickname"] = data["nickname"]
-		item["mytravelcount"] = data["mytravelcount"]
-		item["mydnftcount"] = data["mydnftcount"]
-		item["likecount"] = data["likecount"]
-		item["commentcount"] = data["commentcount"]
 
+		item["commentcount"] = data["commentcount"]
+		item["likecount"] = data["likecount"]
+		item["nickname"] = data["nickname"]
+		item["mydnftcount"] = dnftCount
+		item["mytravelcount"] = tripCount
 		profile = append(profile, item)
 	}
-
-	// []byte를 String타입으로 변환
-	fmt.Println("profile", profile)
-	fmt.Println("profile", profile[0])
 
 	return profile[0]
 }

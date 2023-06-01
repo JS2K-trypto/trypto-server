@@ -27,7 +27,7 @@ var (
 //	@Param			walletAccount 	path	string	true	"walletAccount",
 //	@Param			nickName		path	string	true	"nickName"
 //	@Router			/v01/acc/register [post]
-//	@Success		200	{object}	string
+//	@Success		200	{array} model.Account
 func (p *Controller) UserRegisterHandler(c *gin.Context) {
 
 	account.WalletAccount = c.Query("walletAccount")
@@ -59,7 +59,7 @@ func (p *Controller) UserRegisterHandler(c *gin.Context) {
 //	@Param			walletAccount	path	string	true	"walletAccount",
 //	@Param			nickName		path	string	true	"nickName"
 //	@Router			/v01/acc/profile [get]
-//	@Success		200	{object}	string
+//	@Success		200	{array} model.Account
 func (p *Controller) UserProfileHandler(c *gin.Context) {
 
 	account.WalletAccount = c.Query("walletAccount")
