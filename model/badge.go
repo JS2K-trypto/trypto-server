@@ -93,11 +93,11 @@ func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 	if count <= int64(bronzeUp) {
 		encyDnft.BadgeTier = "bronze"
 		encyDnft.DnftImgUrl = checkCountry["bronze"].(string)
-	} else if count == int64(silverUp) {
+	} else if count >= int64(silverUp) && count < int64(goldUp) {
 		encyDnft.BadgeTier = "silver"
 		encyDnft.DnftImgUrl = checkCountry["silver"].(string)
 		upgrade(count)
-	} else if count == int64(goldUp) {
+	} else if count >= int64(goldUp) {
 		encyDnft.BadgeTier = "gold"
 		encyDnft.DnftImgUrl = checkCountry["gold"].(string)
 		upgrade(count)
