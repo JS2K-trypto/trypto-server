@@ -54,7 +54,7 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 	encyDnft.DnftTime = custom
 	fmt.Println("encyDnft", &encyDnft)
 	result := p.md.CreateDNFTBadge(&encyDnft)
-	log.Println("dnft", result)
+	log.Println("dnft result", result.DnftId)
 
 	config2 := conf.GetConfig("./config/config.toml")
 	contractAddress := config2.Contract.DnftContract
@@ -74,8 +74,8 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 	if err != nil {
 		panic(err)
 	}
-
 	log.Println("balance", balance)
+
 	metaData := []string{}
 	metaData = append(metaData, encyDnft.DnftBronzeUrl)
 	metaData = append(metaData, encyDnft.DnftSilverUrl)
@@ -83,8 +83,22 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 
 	mint, err := contract.Call(context.Background(), "safeMint", encyDnft.WalletAccount, metaData[0])
 	fmt.Println("mint", mint)
+	increaseId := int(result.DnftId)
+	increase, err := contract.Call(context.Background(), "increasebadgeLevel", increaseId)
+	if err != nil {
+		fmt.Println("err", err)
+		panic(err)
+	}
+	fmt.Println("increase", increase)
 
-	c.JSON(http.StatusOK, mint)
+	log.Println("increase", increase)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty walletAccount"})
+	} else {
+		fmt.Println("mint", mint)
+		c.JSON(http.StatusOK, gin.H{"resut mint": mint})
+
+	}
 
 }
 

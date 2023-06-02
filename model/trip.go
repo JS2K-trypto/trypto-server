@@ -26,22 +26,23 @@ func (m *Model) InsertTripPlan(tripPlan *TripPlan) *TripPlan {
 	}
 
 	tripPlan.TripId = totalTripPlanCount + 1
+	filter := bson.M{"walletaccount": tripPlan.WalletAccount}
+	res, _ := m.colAccount.Find(context.TODO(), filter)
+
+	res.All(context.TODO(), &datas)
+	tripPlan.NickName = datas[0]["nickname"].(string)
 	result, err := m.colTripPlan.InsertOne(context.TODO(), tripPlan)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	filter := bson.M{"walletaccount": tripPlan.WalletAccount}
-	res, _ := m.colAccount.Find(context.TODO(), filter)
-	res.All(context.TODO(), &datas)
+	fmt.Println("tripPlan", tripPlan)
+	fmt.Println("datas", datas)
 
-	for _, data := range datas {
-		account.NickName = data["nickname"].(string)
-	}
-
-	account.MyTravelCount = tripPlan.TripId
+	account.AccountID = tripPlan.TripId
 	account.WalletAccount = tripPlan.WalletAccount
-
+	account.WalletAccount = tripPlan.NickName
+	fmt.Println("account", account)
 	accFilter := bson.D{{Key: "walletaccount", Value: account.WalletAccount}}
 	accUpdate := bson.D{{Key: "$set", Value: account}}
 	accOpts := options.Update().SetUpsert(true)
@@ -82,13 +83,12 @@ func (m *Model) SelectMyTrip(account string) []TripPlan {
 	if err != nil {
 		log.Fatal(err)
 	}
-	for res.Next(context.Background()) {
-
-		if err := res.Decode(&tripPlan); err != nil {
-			log.Fatal(err)
-		}
-		tripPlans = append(tripPlans, tripPlan)
+	// 결과를 변수에 담기
+	if err = res.All(context.TODO(), &tripPlans); err != nil {
+		fmt.Println(err)
 	}
+	fmt.Println("datas", tripPlans)
+	return tripPlans
 
 	return tripPlans
 }

@@ -18,15 +18,15 @@ var (
 	num          int64
 )
 
-var bronzeUp = 2
-var silverUp = 4
-var goldUp = 5
-
 func increase(num int64) int64 {
 	return num + 1
 }
 
 func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
+
+	bronzeUp := 2
+	silverUp := 3
+	goldUp := 4
 
 	err := m.colResource.FindOne(context.TODO(), bson.M{"Country": encyDnft.DnftCountry}).Decode(&checkCountry)
 
@@ -70,13 +70,13 @@ func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 		panic(acc_err)
 	}
 
-	if count < 5 {
+	if count < int64(bronzeUp) {
 		encyDnft.BadgeTier = "bronze"
 		encyDnft.DnftImgUrl = checkCountry["bronze"].(string)
-	} else if count < 10 && count >= 5 {
+	} else if count < int64(silverUp) && count >= int64(bronzeUp) {
 		encyDnft.BadgeTier = "silver"
 		encyDnft.DnftImgUrl = checkCountry["silver"].(string)
-	} else if count >= 10 {
+	} else if count >= int64(goldUp) {
 		encyDnft.BadgeTier = "gold"
 		encyDnft.DnftImgUrl = checkCountry["gold"].(string)
 	}
@@ -109,7 +109,7 @@ func (m *Model) GetAllDnft(account string) []bson.M {
 func (m *Model) GetMyDnft(account string) []EncyclopediaDNFT {
 	var maxIssueCount int64
 
-	filter := bson.M{"walletAccount": account}
+	filter := bson.M{"walletaccount": account}
 	fmt.Println("account", account)
 	res, err := m.colDnftBadge.Find(context.TODO(), filter)
 	for res.Next(context.Background()) {
@@ -125,7 +125,6 @@ func (m *Model) GetMyDnft(account string) []EncyclopediaDNFT {
 			encytDnfts = append(encytDnfts, encytDnft)
 		}
 
-		// encytDnfts = append(encytDnfts, encytDnft)
 	}
 
 	if err != nil {
