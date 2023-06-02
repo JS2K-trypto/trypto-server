@@ -24,6 +24,7 @@ func (m *Model) InsertTripPlan(tripPlan *TripPlan) *TripPlan {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("insert tripplan", tripPlan)
 	fmt.Println("totalTripPlanCount", totalTripPlanCount)
 	tripPlan.TripId = totalTripPlanCount + 1
 	filter := bson.M{"walletaccount": tripPlan.WalletAccount}
@@ -41,7 +42,7 @@ func (m *Model) InsertTripPlan(tripPlan *TripPlan) *TripPlan {
 
 	account.AccountID = tripPlan.TripId
 	account.WalletAccount = tripPlan.WalletAccount
-	account.WalletAccount = tripPlan.NickName
+	account.NickName = tripPlan.NickName
 	fmt.Println("account", account)
 	accFilter := bson.D{{Key: "walletaccount", Value: account.WalletAccount}}
 	accUpdate := bson.D{{Key: "$set", Value: account}}
