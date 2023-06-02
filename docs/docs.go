@@ -347,31 +347,176 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/v01/trip/simpleplan": {
+            "post": {
+                "description": "days에는 day1, day2단위로 아이템이 있고 각 day1별로 시간과 imtes가 있으며 각각 여행시작시간, 종료시간, 이미지, 타이틀, 설명, 메모등을 입력할 수 있습니다.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CreateTripPlan(나의 여행계획표 생성하기)"
+                ],
+                "summary": "지갑계정, 제목, 나라, 출발날짜, 도착날짜 등을 입력합니다. days는 아이템을 담은 배열입니다.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "walletAccount",
+                        "name": "walletAccount",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "travelTitle",
+                        "name": "travelTitle",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "tripCountry",
+                        "name": "tripCountry",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "tripDeparture",
+                        "name": "tripDeparture",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "tripArrival",
+                        "name": "tripArrival",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "days",
+                        "name": "days",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.TripPlan"
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "days에는 day1, day2단위로 아이템이 있고 각 day1별로 시간과 imtes가 있으며 각각 여행시작시간, 종료시간, 이미지, 타이틀, 설명, 메모등을 입력할 수 있습니다.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CreateTripPlan(나의 여행계획표 생성하기)"
+                ],
+                "summary": "지갑계정, 제목, 나라, 출발날짜, 도착날짜 등을 입력합니다. days를 입력으로 받는 함수 이후 데이터를 추가한다.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "walletAccount",
+                        "name": "walletAccount",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "travelTitle",
+                        "name": "travelTitle",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "tripCountry",
+                        "name": "tripCountry",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "tripDeparture",
+                        "name": "tripDeparture",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "tripArrival",
+                        "name": "tripArrival",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "days",
+                        "name": "days",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.TripPlan"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
         "model.Account": {
             "type": "object",
             "properties": {
-                "commentCount": {
+                "accountId": {
+                    "description": "계정 ID",
                     "type": "integer"
                 },
-                "id": {
-                    "type": "string"
+                "commentCount": {
+                    "description": "댓글 카운트",
+                    "type": "integer"
                 },
                 "likeCount": {
+                    "description": "좋아요 카운트",
                     "type": "integer"
                 },
                 "myDnftCount": {
+                    "description": "DNFT뱃지 카운트",
                     "type": "integer"
                 },
-                "myTravelCount": {
+                "myTripCount": {
+                    "description": "여행계획 카운트",
                     "type": "integer"
                 },
                 "nickName": {
+                    "description": "닉네임",
                     "type": "string"
                 },
                 "walletAccount": {
+                    "description": "지갑 계정 주소",
                     "type": "string"
                 }
             }
@@ -379,24 +524,27 @@ const docTemplate = `{
         "model.DayItem": {
             "type": "object",
             "properties": {
-                "dayTime": {
+                "endDate": {
+                    "description": "세부 여행 종료날짜 \t/예시  : 15:15:00",
                     "type": "string"
                 },
-                "items": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "$ref": "#/definitions/model.Item"
-                    }
+                "note": {
+                    "description": "세부 여행 메모",
+                    "type": "string"
+                },
+                "startDate": {
+                    "description": "세부 여행 시작시간 \t/예시  : 09:15:00",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "세부 여행 타이틀",
+                    "type": "string"
                 }
             }
         },
         "model.EncyclopediaDNFT": {
             "type": "object",
             "properties": {
-                "badgeTier": {
-                    "description": "티어",
-                    "type": "string"
-                },
                 "dnftBronzeUrl": {
                     "description": "브론즈 URL",
                     "type": "string"
@@ -421,6 +569,10 @@ const docTemplate = `{
                     "description": "실버 URL",
                     "type": "string"
                 },
+                "dnftTier": {
+                    "description": "티어",
+                    "type": "string"
+                },
                 "dnftTime": {
                     "description": "발급 시간",
                     "type": "string"
@@ -443,57 +595,42 @@ const docTemplate = `{
                 }
             }
         },
-        "model.Item": {
-            "type": "object",
-            "properties": {
-                "description": {
-                    "type": "string"
-                },
-                "endDate": {
-                    "type": "string"
-                },
-                "imgSrc": {
-                    "type": "string"
-                },
-                "memo": {
-                    "type": "string"
-                },
-                "startDate": {
-                    "type": "string"
-                },
-                "title": {
-                    "type": "string"
-                }
-            }
-        },
         "model.TripPlan": {
             "type": "object",
             "properties": {
-                "days": {
-                    "type": "object",
-                    "additionalProperties": {
+                "dayItems": {
+                    "description": "days 아이템",
+                    "type": "array",
+                    "items": {
                         "$ref": "#/definitions/model.DayItem"
                     }
                 },
                 "nickName": {
+                    "description": "닉네임",
                     "type": "string"
                 },
-                "travelId": {
-                    "type": "integer"
-                },
                 "tripArrival": {
+                    "description": "여행출발",
                     "type": "string"
                 },
                 "tripCountry": {
+                    "description": "여행국가",
                     "type": "string"
                 },
                 "tripDeparture": {
+                    "description": "여행도착",
                     "type": "string"
                 },
+                "tripId": {
+                    "description": "여행계획 아이디",
+                    "type": "integer"
+                },
                 "tripTitle": {
+                    "description": "여행계획 제목",
                     "type": "string"
                 },
                 "walletAccount": {
+                    "description": "지갑주소 계정",
                     "type": "string"
                 }
             }

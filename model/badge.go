@@ -41,7 +41,7 @@ func upgrade(count int64) interface{} {
 		panic(err)
 	}
 	log.Println("contract", contract)
-	increase, err := contract.Call(context.Background(), "increasebadgeLevel", increaseId+1)
+	increase, err := contract.Call(context.Background(), "increasebadgeLevel", increaseId)
 	log.Println("increase", increase)
 	return increase
 }

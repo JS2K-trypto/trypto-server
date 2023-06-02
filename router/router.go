@@ -102,7 +102,10 @@ func (p *Router) Idx() *gin.Engine {
 
 	routerTrip := e.Group("/v01/trip", LiteAuth())
 	{
+		//simpleplan
 		routerTrip.POST("/myplan", p.ct.CreateTripPlan)
+		routerTrip.POST("/simpleplan", p.ct.CreateSimpleTripPlan)
+		routerTrip.PATCH("/simpleplan", p.ct.PatchSimpleTripPlan)
 		routerTrip.GET("/myplan", p.ct.GetMyTrip)
 		routerTrip.GET("/allplan", p.ct.GetAllTrip)
 		routerTrip.GET("/search", p.ct.SearchTrip)
