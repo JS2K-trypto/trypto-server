@@ -30,9 +30,6 @@ var (
 //	@Success		200	{array} model.Account
 func (p *Controller) UserRegisterHandler(c *gin.Context) {
 
-	// account.WalletAccount = c.Query("walletAccount")
-	// account.NickName = c.Query("nickName")
-
 	if err := c.ShouldBindJSON(&account); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

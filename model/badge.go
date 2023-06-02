@@ -24,6 +24,7 @@ func increase(num int64) int64 {
 
 func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 
+	fmt.Println("start encyDnft", encyDnft)
 	bronzeUp := 2
 	silverUp := 3
 	goldUp := 4
@@ -35,7 +36,7 @@ func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 		fmt.Errorf("fail to get menu detail")
 	}
 
-	filter := bson.D{{"walletAccount", encyDnft.WalletAccount}, {"dnftCountry", encyDnft.DnftCountry}}
+	filter := bson.D{{"walletaccount", encyDnft.WalletAccount}, {"dnftcountry", encyDnft.DnftCountry}}
 	count, err := m.colDnftBadge.CountDocuments(context.TODO(), filter)
 
 	estCount, estCountErr := m.colDnftBadge.EstimatedDocumentCount(context.TODO())
@@ -52,18 +53,13 @@ func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 	encyDnft.DnftGoldUrl = checkCountry["gold"].(string)
 	encyDnft.DnftId = increase(estCount)
 	encyDnft.IssueCount = increase(count)
-
 	account.MyDNFTCount = encyDnft.IssueCount
 
 	res, _ := m.colAccount.Find(context.TODO(), filter)
 	res.All(context.TODO(), &datas)
 
-	for _, data := range datas {
-		account.NickName = data["nickname"].(string)
-	}
-
 	accFilter := bson.D{{Key: "walletaccount", Value: encyDnft.WalletAccount}}
-	accUpdate := bson.D{{Key: "$set", Value: account}}
+	accUpdate := bson.D{{Key: "$set", Value: account.MyDNFTCount}}
 	accOpts := options.Update().SetUpsert(true)
 	_, acc_err := m.colAccount.UpdateOne(context.TODO(), accFilter, accUpdate, accOpts)
 	if err != nil {

@@ -24,7 +24,7 @@ func (m *Model) InsertTripPlan(tripPlan *TripPlan) *TripPlan {
 	if err != nil {
 		panic(err)
 	}
-
+	fmt.Println("totalTripPlanCount", totalTripPlanCount)
 	tripPlan.TripId = totalTripPlanCount + 1
 	filter := bson.M{"walletaccount": tripPlan.WalletAccount}
 	res, _ := m.colAccount.Find(context.TODO(), filter)
@@ -88,8 +88,6 @@ func (m *Model) SelectMyTrip(account string) []TripPlan {
 		fmt.Println(err)
 	}
 	fmt.Println("datas", tripPlans)
-	return tripPlans
-
 	return tripPlans
 }
 

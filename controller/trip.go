@@ -42,13 +42,17 @@ func (p *Controller) CreateTripPlan(c *gin.Context) {
 	fmt.Println("tripPlan", tripPlan)
 	now := time.Now()
 	custom := now.Format("2006-01-02 15:04:05")
-	fmt.Println("tripPlan", tripPlan)
+
 	tripPlan.TripDeparture = custom
 	tripPlan.TripArrival = custom
-
+	fmt.Println("before res")
 	res := p.md.InsertTripPlan(&tripPlan)
-
-	c.JSON(http.StatusOK, res)
+	fmt.Println("after res")
+	if res != nil {
+		c.JSON(http.StatusOK, res)
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty TripPlan"})
+	}
 
 }
 

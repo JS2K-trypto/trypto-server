@@ -83,20 +83,19 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 
 	mint, err := contract.Call(context.Background(), "safeMint", encyDnft.WalletAccount, metaData[0])
 	fmt.Println("mint", mint)
-	increaseId := int(result.DnftId)
-	increase, err := contract.Call(context.Background(), "increasebadgeLevel", increaseId)
-	if err != nil {
-		fmt.Println("err", err)
-		panic(err)
-	}
-	fmt.Println("increase", increase)
+	// increaseId := int(result.DnftId)
+	// increase, err := contract.Call(context.Background(), "increasebadgeLevel", increaseId)
+	// if err != nil {
+	// 	fmt.Println("err", err)
+	// 	panic(err)
+	// }
+	// fmt.Println("increase", increase)
 
-	log.Println("increase", increase)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty walletAccount"})
 	} else {
 		fmt.Println("mint", mint)
-		c.JSON(http.StatusOK, gin.H{"resut mint": mint})
+		c.JSON(http.StatusOK, mint)
 
 	}
 
@@ -119,5 +118,10 @@ func (p *Controller) GetMyBadge(c *gin.Context) {
 
 	fmt.Println("account", account.WalletAccount)
 	result := p.md.GetMyDnft(account.WalletAccount)
-	c.JSON(http.StatusOK, result)
+	if len(result) > 0 {
+		c.JSON(http.StatusOK, result)
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty MyBadge"})
+	}
+
 }

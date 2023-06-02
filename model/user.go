@@ -57,7 +57,7 @@ func (m *Model) GetProfile(account Account) map[string]interface{} {
 	}
 	fmt.Println("datas", datas)
 
-	dnftFilter := bson.D{{"walletAccount", account.WalletAccount}}
+	dnftFilter := bson.D{{"walletaccount", account.WalletAccount}}
 	tripFilter := bson.D{{"walletaccount", account.WalletAccount}}
 	dnftCount, err := m.colDnftBadge.CountDocuments(context.TODO(), dnftFilter)
 	tripCount, err := m.colTripPlan.CountDocuments(context.TODO(), tripFilter)
