@@ -65,7 +65,7 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 		panic(err)
 	}
 	log.Println("contractAddress", contractAddress)
-	contract, err := sdk.GetContractFromAbi(contractAddress, ABI)
+	contract, err := sdk.GetContractFromAbi(contractAddress, model.ABI)
 	if err != nil {
 		panic(err)
 	}
@@ -83,14 +83,17 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 
 	mint, err := contract.Call(context.Background(), "safeMint", encyDnft.WalletAccount, metaData[0])
 	fmt.Println("mint", mint)
-	// increaseId := int(result.DnftId)
-	// increase, err := contract.Call(context.Background(), "increasebadgeLevel", increaseId)
-	// if err != nil {
-	// 	fmt.Println("err", err)
-	// 	panic(err)
-	// }
-	// fmt.Println("increase", increase)
+	increaseId := int(result.DnftId)
+	increase, err := contract.Call(context.Background(), "increasebadgeLevel", increaseId)
+	fmt.Println("increase", increase)
 
+	if err != nil {
+		fmt.Println("err", err)
+		panic(err)
+	}
+
+	//tokeURI = 2 > 3  리믹스
+	// tokenid > 디비 2
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty walletAccount"})
 	} else {

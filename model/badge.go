@@ -4,8 +4,10 @@ import (
 	"context"
 	"fmt"
 	"log"
+	conf "trypto-server/config"
 	"trypto-server/logger"
 
+	"github.com/thirdweb-dev/go-sdk/thirdweb"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -20,6 +22,28 @@ var (
 
 func increase(num int64) int64 {
 	return num + 1
+}
+
+func upgrade(count int64) interface{} {
+	increaseId := int(count)
+	config2 := conf.GetConfig("./config/config.toml")
+	contractAddress := config2.Contract.DnftContract
+	sdk, err := thirdweb.NewThirdwebSDK("mumbai", &thirdweb.SDKOptions{
+		PrivateKey: config2.Contract.PRIVATEKEY,
+	})
+	if err != nil {
+		panic(err)
+	}
+	log.Println("contractAddress", contractAddress)
+
+	contract, err := sdk.GetContractFromAbi(contractAddress, ABI)
+	if err != nil {
+		panic(err)
+	}
+	log.Println("contract", contract)
+	increase, err := contract.Call(context.Background(), "increasebadgeLevel", increaseId+1)
+	log.Println("increase", increase)
+	return increase
 }
 
 func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
@@ -66,15 +90,18 @@ func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 		panic(acc_err)
 	}
 
-	if count < int64(bronzeUp) {
+	if count <= int64(bronzeUp) {
 		encyDnft.BadgeTier = "bronze"
 		encyDnft.DnftImgUrl = checkCountry["bronze"].(string)
-	} else if count < int64(silverUp) && count >= int64(bronzeUp) {
+	} else if count == int64(silverUp) {
 		encyDnft.BadgeTier = "silver"
 		encyDnft.DnftImgUrl = checkCountry["silver"].(string)
-	} else if count >= int64(goldUp) {
+		upgrade(count)
+	} else if count == int64(goldUp) {
 		encyDnft.BadgeTier = "gold"
 		encyDnft.DnftImgUrl = checkCountry["gold"].(string)
+		upgrade(count)
+		upgrade(count)
 	}
 
 	result, err := m.colDnftBadge.InsertOne(context.TODO(), encyDnft)
