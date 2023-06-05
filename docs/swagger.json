@@ -198,6 +198,76 @@
                 }
             }
         },
+        "/v01/trip/delete/:num": {
+            "delete": {
+                "description": "트립아이디를 입력하면 해당하는 게시물을 삭제합니다.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DeleteTrip(나의 여행계획 중 디테일 페이지를 가져와줌)"
+                ],
+                "summary": "트립아이디를 delete 뒤에 입력하면 해당하는 트립 아이디의 게시물이 삭제됩니다.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "tripId",
+                        "name": "tripId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.TripPlan"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v01/trip/detail/:num": {
+            "get": {
+                "description": "트립아이디를 입력하면 해당하는 상세페이지를 보여줍니다.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GetDetailTrip(나의 여행계획 중 디테일 페이지를 가져와줌)"
+                ],
+                "summary": "트립아이디를 detail 뒤에 입력하면 해당하는 트립 아이디가 출력됩니다.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "tripId",
+                        "name": "tripId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.TripPlan"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v01/trip/myplan": {
             "get": {
                 "description": "나의 여행계획을 MongoDB에서 가져오는 함수, 계정주소로 파악한 후 가져온다.",
@@ -254,8 +324,8 @@
                     },
                     {
                         "type": "string",
-                        "description": "travelTitle",
-                        "name": "travelTitle",
+                        "description": "tripTitle",
+                        "name": "tripTitle",
                         "in": "path",
                         "required": true
                     },
@@ -359,8 +429,8 @@
                     },
                     {
                         "type": "string",
-                        "description": "travelTitle",
-                        "name": "travelTitle",
+                        "description": "triplTitle",
+                        "name": "triplTitle",
                         "in": "path",
                         "required": true
                     },
@@ -420,36 +490,8 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "walletAccount",
-                        "name": "walletAccount",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "travelTitle",
-                        "name": "travelTitle",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "tripCountry",
-                        "name": "tripCountry",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "tripDeparture",
-                        "name": "tripDeparture",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "tripArrival",
-                        "name": "tripArrival",
+                        "description": "tripId",
+                        "name": "tripId",
                         "in": "path",
                         "required": true
                     },
@@ -533,16 +575,8 @@
         "model.EncyclopediaDNFT": {
             "type": "object",
             "properties": {
-                "dnftBronzeUrl": {
-                    "description": "브론즈 URL",
-                    "type": "string"
-                },
                 "dnftCountry": {
                     "description": "국가",
-                    "type": "string"
-                },
-                "dnftGoldUrl": {
-                    "description": "골드 URL",
                     "type": "string"
                 },
                 "dnftId": {
@@ -551,10 +585,6 @@
                 },
                 "dnftImgUrl": {
                     "description": "이미지URL로 쓸 변수",
-                    "type": "string"
-                },
-                "dnftSilverUrl": {
-                    "description": "실버 URL",
                     "type": "string"
                 },
                 "dnftTier": {

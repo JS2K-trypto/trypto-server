@@ -40,23 +40,14 @@ definitions:
     type: object
   model.EncyclopediaDNFT:
     properties:
-      dnftBronzeUrl:
-        description: 브론즈 URL
-        type: string
       dnftCountry:
         description: 국가
-        type: string
-      dnftGoldUrl:
-        description: 골드 URL
         type: string
       dnftId:
         description: 전체 dnftID
         type: integer
       dnftImgUrl:
         description: 이미지URL로 쓸 변수
-        type: string
-      dnftSilverUrl:
-        description: 실버 URL
         type: string
       dnftTier:
         description: 티어
@@ -240,6 +231,52 @@ paths:
       summary: 모든 여행계획을 가져온다.
       tags:
       - GetAllTrip(전체 여행계획 가져오기)
+  /v01/trip/delete/:num:
+    delete:
+      consumes:
+      - application/json
+      description: 트립아이디를 입력하면 해당하는 게시물을 삭제합니다.
+      parameters:
+      - description: tripId
+        in: path
+        name: tripId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.TripPlan'
+            type: array
+      summary: 트립아이디를 delete 뒤에 입력하면 해당하는 트립 아이디의 게시물이 삭제됩니다.
+      tags:
+      - DeleteTrip(나의 여행계획 중 디테일 페이지를 가져와줌)
+  /v01/trip/detail/:num:
+    get:
+      consumes:
+      - application/json
+      description: 트립아이디를 입력하면 해당하는 상세페이지를 보여줍니다.
+      parameters:
+      - description: tripId
+        in: path
+        name: tripId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.TripPlan'
+            type: array
+      summary: 트립아이디를 detail 뒤에 입력하면 해당하는 트립 아이디가 출력됩니다.
+      tags:
+      - GetDetailTrip(나의 여행계획 중 디테일 페이지를 가져와줌)
   /v01/trip/myplan:
     get:
       consumes:
@@ -274,9 +311,9 @@ paths:
         name: walletAccount
         required: true
         type: string
-      - description: travelTitle
+      - description: tripTitle
         in: path
-        name: travelTitle
+        name: tripTitle
         required: true
         type: string
       - description: tripCountry
@@ -342,29 +379,9 @@ paths:
       description: days에는 day1, day2단위로 아이템이 있고 각 day1별로 시간과 imtes가 있으며 각각 여행시작시간,
         종료시간, 이미지, 타이틀, 설명, 메모등을 입력할 수 있습니다.
       parameters:
-      - description: walletAccount
+      - description: tripId
         in: path
-        name: walletAccount
-        required: true
-        type: string
-      - description: travelTitle
-        in: path
-        name: travelTitle
-        required: true
-        type: string
-      - description: tripCountry
-        in: path
-        name: tripCountry
-        required: true
-        type: string
-      - description: tripDeparture
-        in: path
-        name: tripDeparture
-        required: true
-        type: string
-      - description: tripArrival
-        in: path
-        name: tripArrival
+        name: tripId
         required: true
         type: string
       - description: days
@@ -395,9 +412,9 @@ paths:
         name: walletAccount
         required: true
         type: string
-      - description: travelTitle
+      - description: triplTitle
         in: path
-        name: travelTitle
+        name: triplTitle
         required: true
         type: string
       - description: tripCountry

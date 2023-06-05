@@ -27,7 +27,7 @@ var (
 // @Accept					json
 // @Produce					json
 // @Param					walletAccount			path	string 		true	"walletAccount",
-// @Param					travelTitle				path	string	 	true	"travelTitle",
+// @Param					tripTitle				path	string	 	true	"tripTitle",
 // @Param					tripCountry				path	string		true	"tripCountry",
 // @Param					tripDeparture			path	string		true	"tripDeparture",
 // @Param					tripArrival				path	string		true	"tripArrival"
@@ -145,7 +145,7 @@ func (p *Controller) SearchTrip(c *gin.Context) {
 // @Accept					json
 // @Produce					json
 // @Param					walletAccount			path	string 		true	"walletAccount",
-// @Param					travelTitle				path	string	 	true	"travelTitle",
+// @Param					triplTitle				path	string	 	true	"triplTitle",
 // @Param					tripCountry				path	string		true	"tripCountry",
 // @Param					tripDeparture			path	string		true	"tripDeparture",
 // @Param					tripArrival				path	string		true	"tripArrival"
@@ -184,11 +184,7 @@ func (p *Controller) CreateSimpleTripPlan(c *gin.Context) {
 // @Description				days에는 day1, day2단위로 아이템이 있고 각 day1별로 시간과 imtes가 있으며 각각 여행시작시간, 종료시간, 이미지, 타이틀, 설명, 메모등을 입력할 수 있습니다.
 // @Accept					json
 // @Produce					json
-// @Param					walletAccount			path	string 		true	"walletAccount",
-// @Param					travelTitle				path	string	 	true	"travelTitle",
-// @Param					tripCountry				path	string		true	"tripCountry",
-// @Param					tripDeparture			path	string		true	"tripDeparture",
-// @Param					tripArrival				path	string		true	"tripArrival"
+// @Param					tripId			path	string 		true	"tripId"
 // @Param					days					path	string 		true	"days"
 // @Router					/v01/trip/simpleplan	[patch]
 // @Success					200	{array} model.TripPlan
@@ -217,6 +213,17 @@ func (p *Controller) PatchSimpleTripPlan(c *gin.Context) {
 
 }
 
+// GetDetailTrip godoc
+
+// @BasePath				/v01
+// @Summary					트립아이디를 detail 뒤에 입력하면 해당하는 트립 아이디가 출력됩니다.
+// @Tags					GetDetailTrip(나의 여행계획 중 디테일 페이지를 가져와줌)
+// @Description				트립아이디를 입력하면 해당하는 상세페이지를 보여줍니다.
+// @Accept					json
+// @Produce					json
+// @Param					tripId			path	string 		true	"tripId"
+// @Router					/v01/trip/detail/:num	[get]
+// @Success					200	{array} model.TripPlan
 func (p *Controller) GetDetailTrip(c *gin.Context) {
 
 	num := c.Param("num")
@@ -236,7 +243,17 @@ func (p *Controller) GetDetailTrip(c *gin.Context) {
 
 }
 
-// 여행계획 삭제하기
+// DeleteTrip godoc
+
+// @BasePath				/v01
+// @Summary					트립아이디를 delete 뒤에 입력하면 해당하는 트립 아이디의 게시물이 삭제됩니다.
+// @Tags					DeleteTrip(나의 여행계획 중 디테일 페이지를 가져와줌)
+// @Description				트립아이디를 입력하면 해당하는 게시물을 삭제합니다.
+// @Accept					json
+// @Produce					json
+// @Param					tripId			path	string 		true	"tripId"
+// @Router					/v01/trip/delete/:num	[delete]
+// @Success					200	{array} model.TripPlan
 func (p *Controller) DeleteTrip(c *gin.Context) {
 
 	num := c.Param("num")
