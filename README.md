@@ -68,6 +68,8 @@
 goerli : 0xc40a82F2937Fb7b33764acde9D4758C2Ed8FE2E0
 <br>
 
+mumbai :
+
 - ver0.1 : trypto_for_remix > dnft mint 기능 구현된 컨트랙트
   mumbai : 0xb3c72Df5bBDb985dac5eDa966b501B35830A8cb1
   <br>
@@ -77,4 +79,4 @@ goerli : 0xc40a82F2937Fb7b33764acde9D4758C2Ed8FE2E0
 - ver0.3 : 0xAC6de0e2E7405C5E638b1EE3B1bC5F486A2Ef320
 - ver0.4 : 0xa38A89aaC82fFadD0845e45C02985A17bEbcCc3c
 - ver0.5 : 0x70f9643f9CBc3FBE078054fE5236be294B9D4532
-
+- ver0.6 : 0x2f9506b88bcb05392124E30975a8F8FB65b0cEc9
