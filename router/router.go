@@ -111,6 +111,7 @@ func (p *Router) Idx() *gin.Engine {
 		routerTrip.GET("/allplan", p.ct.GetAllTrip)
 		routerTrip.GET("/search", p.ct.SearchTrip)
 		routerTrip.GET("/detail/:num", p.ct.GetDetailTrip)
+		routerTrip.DELETE("/delete/:num", p.ct.DeleteTrip)
 	}
 
 	return e

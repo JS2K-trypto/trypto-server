@@ -134,6 +134,20 @@ func (m *Model) SelectDetailTrip(tripId int64) []TripPlan {
 	return tripPlans
 }
 
+// 여행계획 삭제하기
+func (m *Model) DeleteTrip(tripId int64) *mongo.DeleteResult {
+
+	filter := bson.M{"tripid": tripId}
+
+	// 메뉴 조회
+	result, err := m.colTripPlan.DeleteOne(context.TODO(), filter)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("result", result)
+	return result
+}
+
 // 여행계획 검색하기
 func (m *Model) SearchTrip(Query string) []TripPlan {
 	fmt.Println(Query)

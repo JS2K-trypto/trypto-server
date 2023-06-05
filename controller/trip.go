@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"net/http"
+	"reflect"
 	"strconv"
 	"time"
 	"trypto-server/model"
@@ -231,6 +232,25 @@ func (p *Controller) GetDetailTrip(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"The result is empty.": empty})
 	} else {
 		c.JSON(http.StatusOK, res[0])
+	}
+
+}
+
+// 여행계획 삭제하기
+func (p *Controller) DeleteTrip(c *gin.Context) {
+
+	num := c.Param("num")
+	tripPlan.TripId, _ = strconv.ParseInt(num, 10, 64)
+
+	empty := []string{" "}
+	fmt.Println("num", num)
+	res := p.md.DeleteTrip(tripPlan.TripId)
+	fmt.Println(reflect.TypeOf(res))
+	if res.DeletedCount != 0 {
+		c.JSON(http.StatusOK, gin.H{"The delete was successful.": res})
+
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"The delete failed. ": empty})
 	}
 
 }
