@@ -1,0 +1,10 @@
+{
+  "name": "Trypto Korea Silver Badge",
+  "description": "Silver badge for visiting travel destinations in South Korea",
+  "image": "https://ipfs-2.thirdwebcdn.com/ipfs/QmU9sg5aCU9sff4Vqu5un6gmFy4hqjXcU78yqz9t6KML7u/silverkorea.png",
+  "attributes": [
+    {
+      "tier": "Silver"
+    }
+  ]
+}

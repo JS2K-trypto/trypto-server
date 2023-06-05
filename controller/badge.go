@@ -18,6 +18,7 @@ import (
 var (
 	encyDnft model.EncyclopediaDNFT
 	location model.Location
+	empty    []string
 )
 
 // CreateBadge godoc
@@ -52,9 +53,9 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 
 	encyDnft.DnftCountry = location.Country
 	encyDnft.DnftTime = custom
-	fmt.Println("encyDnft", &encyDnft)
+	//log.Println("encyDnft", &encyDnft)
 	result := p.md.CreateDNFTBadge(&encyDnft)
-	log.Println("dnft result", result.DnftId)
+	//log.Println("dnft result", result.DnftId)
 
 	config2 := conf.GetConfig("./config/config.toml")
 	contractAddress := config2.Contract.DnftContract
@@ -64,28 +65,28 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 	if err != nil {
 		panic(err)
 	}
-	log.Println("contractAddress", contractAddress)
+	//log.Println("contractAddress", contractAddress)
 	contract, err := sdk.GetContractFromAbi(contractAddress, model.ABI)
 	if err != nil {
 		panic(err)
 	}
 
-	balance, err := contract.Call(context.Background(), "balanceOf", encyDnft.WalletAccount)
-	if err != nil {
-		panic(err)
-	}
-	log.Println("balance", balance)
+	// balance, err := contract.Call(context.Background(), "balanceOf", encyDnft.WalletAccount)
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// log.Println("balance", balance)
 
-	metaData := []string{}
-	metaData = append(metaData, encyDnft.DnftBronzeUrl)
-	metaData = append(metaData, encyDnft.DnftSilverUrl)
-	metaData = append(metaData, encyDnft.DnftGoldUrl)
+	// metaData := []string{}
+	// metaData = append(metaData, encyDnft.DnftBronzeUrl)
+	// metaData = append(metaData, encyDnft.DnftSilverUrl)
+	// metaData = append(metaData, encyDnft.DnftGoldUrl)
 
-	mint, err := contract.Call(context.Background(), "safeMint", encyDnft.WalletAccount, metaData[0])
-	fmt.Println("mint", mint)
+	mint, err := contract.Call(context.Background(), "safeMint", encyDnft.WalletAccount, encyDnft.DnftImgUrl)
+	log.Println("mint", mint)
 	increaseId := int(result.DnftId)
 	increase, err := contract.Call(context.Background(), "increasebadgeLevel", increaseId)
-	fmt.Println("increase", increase)
+	log.Println("increase", increase)
 
 	if err != nil {
 		fmt.Println("err", err)
@@ -118,13 +119,40 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 //	@Success		200	{array} model.EncyclopediaDNFT
 func (p *Controller) GetMyBadge(c *gin.Context) {
 	account.WalletAccount = c.Query("walletAccount")
-
+	empty = []string{}
 	fmt.Println("account", account.WalletAccount)
 	result := p.md.GetMyDnft(account.WalletAccount)
+
 	if len(result) > 0 {
 		c.JSON(http.StatusOK, result)
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty MyBadge"})
+		c.JSON(http.StatusBadRequest, gin.H{"empty result": empty})
+	}
+
+}
+
+// GetMyBadge godoc
+//
+//	@BasePath		/v01
+//	@Summary		지갑계정을 입력해줍니다.
+//	@Tags			GetMyBadge(나의 뱃지 가져오기)
+//	@Description	사용자 위치를 참고해서 뱃지를 발급하는 함수
+//	@name			GetMyBadge
+//	@Accept			json
+//	@Produce		json
+//	@Param			walletAccount	path	string 	 	true	"walletAccount"
+//	@Router			/v01/badge/user [get]
+//	@Success		200	{array} model.EncyclopediaDNFT
+func (p *Controller) GetMyBadgeAll(c *gin.Context) {
+	account.WalletAccount = c.Query("walletAccount")
+
+	fmt.Println("account", account.WalletAccount)
+	result := p.md.GetMyDnftAll(account.WalletAccount)
+	empty = []string{}
+	if len(result) > 0 {
+		c.JSON(http.StatusOK, result)
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"empty result": empty})
 	}
 
 }

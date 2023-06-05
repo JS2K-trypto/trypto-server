@@ -57,6 +57,31 @@ func (m *Model) InsertTripPlan(tripPlan *TripPlan) *TripPlan {
 	return tripPlan
 }
 
+func (m *Model) PatchTripPlan(tripPlan *TripPlan) *TripPlan {
+
+	tripFilter := bson.D{{Key: "tripid", Value: tripPlan.TripId}}
+	tripUpdate := bson.D{{Key: "$set", Value: tripPlan}}
+
+	tripOpts := options.Update().SetUpsert(true)
+	_, acc_err := m.colTripPlan.UpdateOne(context.TODO(), tripFilter, tripUpdate, tripOpts)
+	if acc_err != nil {
+		panic(acc_err)
+	}
+
+	filter := bson.M{"tripid": tripPlan.TripId} // 데이터를 담을 변수 선언
+	// 메뉴 조회
+	res, err := m.colTripPlan.Find(context.TODO(), filter)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// 결과를 변수에 담기
+	if err = res.All(context.TODO(), &tripPlan); err != nil {
+		fmt.Println(err)
+	}
+
+	return tripPlan
+}
+
 // 여행계획 전부 가져오기
 func (m *Model) SelectAllTrip() []bson.M {
 	var datas []bson.M

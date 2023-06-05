@@ -48,7 +48,7 @@ func upgrade(count int64) interface{} {
 
 func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 
-	fmt.Println("start encyDnft", encyDnft)
+	//log.Println("start encyDnft", encyDnft)
 	bronzeUp := 2
 	silverUp := 3
 	goldUp := 4
@@ -72,9 +72,9 @@ func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 	//wallet account가발급한 dnft 개수가 5개 미만이면 실버
 	//wallet account가발급한 dnft 개수가 7개 미만이면 골드
 
-	encyDnft.DnftBronzeUrl = checkCountry["bronze"].(string)
-	encyDnft.DnftSilverUrl = checkCountry["silver"].(string)
-	encyDnft.DnftGoldUrl = checkCountry["gold"].(string)
+	// encyDnft.DnftBronzeUrl = checkCountry["bronze"].(string)
+	// encyDnft.DnftSilverUrl = checkCountry["silver"].(string)
+	// encyDnft.DnftGoldUrl = checkCountry["gold"].(string)
 	encyDnft.DnftId = increase(estCount)
 	encyDnft.IssueCount = increase(count)
 	account.MyDNFTCount = encyDnft.IssueCount
@@ -90,13 +90,16 @@ func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 		panic(acc_err)
 	}
 
+	//1,2
 	if count <= int64(bronzeUp) {
 		encyDnft.BadgeTier = "bronze"
 		encyDnft.DnftImgUrl = checkCountry["bronze"].(string)
-	} else if count >= int64(silverUp) && count < int64(goldUp) {
+		//3
+	} else if count > int64(bronzeUp) && count <= int64(silverUp) {
 		encyDnft.BadgeTier = "silver"
 		encyDnft.DnftImgUrl = checkCountry["silver"].(string)
 		upgrade(count)
+		//4
 	} else if count >= int64(goldUp) {
 		encyDnft.BadgeTier = "gold"
 		encyDnft.DnftImgUrl = checkCountry["gold"].(string)
@@ -109,7 +112,7 @@ func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 		log.Fatal(err)
 	}
 
-	fmt.Println("check encyDnft", encyDnft, result)
+	log.Println("check encyDnft", encyDnft, result)
 	return encyDnft
 }
 
@@ -154,6 +157,21 @@ func (m *Model) GetMyDnft(account string) []EncyclopediaDNFT {
 		log.Println(err)
 		fmt.Errorf("fail to get menu detail")
 	}
+	return encytDnfts
+
+}
+
+// 나의 Dnft 불러오기
+func (m *Model) GetMyDnftAll(account string) []EncyclopediaDNFT {
+
+	filter := bson.M{"walletaccount": account}
+	fmt.Println("account", account)
+	res, err := m.colDnftBadge.Find(context.TODO(), filter)
+	// 결과를 변수에 담기
+	if err = res.All(context.TODO(), &encytDnfts); err != nil {
+		fmt.Println(err)
+	}
+
 	return encytDnfts
 
 }

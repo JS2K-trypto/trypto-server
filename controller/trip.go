@@ -38,7 +38,7 @@ func (p *Controller) CreateTripPlan(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
+	empty := []string{" "}
 	fmt.Println("tripPlan", tripPlan)
 	now := time.Now()
 	custom := now.Format("2006-01-02 15:04:05")
@@ -51,7 +51,7 @@ func (p *Controller) CreateTripPlan(c *gin.Context) {
 	if res != nil {
 		c.JSON(http.StatusOK, res)
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty TripPlan"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": empty})
 	}
 
 }
@@ -71,7 +71,7 @@ func (p *Controller) CreateTripPlan(c *gin.Context) {
 func (p *Controller) GetMyTrip(c *gin.Context) {
 
 	tripPlan.WalletAccount = c.Query("walletAccount")
-
+	empty := []string{" "}
 	fmt.Println("tripPlan", tripPlan)
 	res := p.md.SelectMyTrip(tripPlan.WalletAccount)
 	//fmt.Println("len, len(res.Arr)", len(res.Arr))
@@ -80,7 +80,7 @@ func (p *Controller) GetMyTrip(c *gin.Context) {
 	if len(res) > 0 {
 		c.JSON(http.StatusOK, res)
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty TripPlan"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": empty})
 	}
 
 }
@@ -97,13 +97,13 @@ func (p *Controller) GetMyTrip(c *gin.Context) {
 //	@Router			/v01/trip/allplan [get]
 //	@Success		200	{array} model.TripPlan
 func (p *Controller) GetAllTrip(c *gin.Context) {
-
+	empty := []string{" "}
 	res := p.md.SelectAllTrip()
 	fmt.Println(len(res))
 	if len(res) > 0 {
 		c.JSON(http.StatusOK, res)
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty TripPlan"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": empty})
 	}
 
 }
@@ -123,10 +123,14 @@ func (p *Controller) GetAllTrip(c *gin.Context) {
 func (p *Controller) SearchTrip(c *gin.Context) {
 
 	searchQuery = c.Query("q")
-
+	empty := []string{" "}
 	res := p.md.SearchTrip(searchQuery)
 	fmt.Println("res", res)
-	c.JSON(http.StatusOK, res)
+	if len(res) > 0 {
+		c.JSON(http.StatusOK, res)
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"search result empty": empty})
+	}
 
 }
 
@@ -196,16 +200,17 @@ func (p *Controller) PatchSimpleTripPlan(c *gin.Context) {
 	fmt.Println("tripPlan", tripPlan)
 	now := time.Now()
 	custom := now.Format("2006-01-02 15:04:05")
+	empty := []string{" "}
 
 	tripPlan.TripDeparture = custom
 	tripPlan.TripArrival = custom
 	fmt.Println("before res")
-	res := p.md.InsertTripPlan(&tripPlan)
+	res := p.md.PatchTripPlan(&tripPlan)
 	fmt.Println("after res")
 	if res != nil {
 		c.JSON(http.StatusOK, res)
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty TripPlan"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": empty})
 	}
 
 }
