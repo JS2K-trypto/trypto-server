@@ -90,16 +90,16 @@ func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 		panic(acc_err)
 	}
 
-	//1,2
+	//0,1 카운트가 2개 이하일 때 
 	if count <= int64(bronzeUp) {
 		encyDnft.BadgeTier = "bronze"
 		encyDnft.DnftImgUrl = checkCountry["bronze"].(string)
-		//3
+		//2 카운트가 2개 초과 3개 이하일 때 실버 
 	} else if count > int64(bronzeUp) && count <= int64(silverUp) {
 		encyDnft.BadgeTier = "silver"
 		encyDnft.DnftImgUrl = checkCountry["silver"].(string)
 		upgrade(count)
-		//4
+		//3
 	} else if count >= int64(goldUp) {
 		encyDnft.BadgeTier = "gold"
 		encyDnft.DnftImgUrl = checkCountry["gold"].(string)
