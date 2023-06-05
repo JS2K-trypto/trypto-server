@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 	"trypto-server/model"
 
@@ -51,7 +52,7 @@ func (p *Controller) CreateTripPlan(c *gin.Context) {
 	if res != nil {
 		c.JSON(http.StatusOK, res)
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": empty})
+		c.JSON(http.StatusBadRequest, gin.H{"Trip plan creation failed.": empty})
 	}
 
 }
@@ -80,7 +81,7 @@ func (p *Controller) GetMyTrip(c *gin.Context) {
 	if len(res) > 0 {
 		c.JSON(http.StatusOK, res)
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": empty})
+		c.JSON(http.StatusBadRequest, gin.H{"The result is empty. ": empty})
 	}
 
 }
@@ -103,7 +104,7 @@ func (p *Controller) GetAllTrip(c *gin.Context) {
 	if len(res) > 0 {
 		c.JSON(http.StatusOK, res)
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": empty})
+		c.JSON(http.StatusBadRequest, gin.H{"The result is empty. ": empty})
 	}
 
 }
@@ -129,7 +130,7 @@ func (p *Controller) SearchTrip(c *gin.Context) {
 	if len(res) > 0 {
 		c.JSON(http.StatusOK, res)
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"search result empty": empty})
+		c.JSON(http.StatusBadRequest, gin.H{"The result is empty.": empty})
 	}
 
 }
@@ -169,7 +170,7 @@ func (p *Controller) CreateSimpleTripPlan(c *gin.Context) {
 	if res != nil {
 		c.JSON(http.StatusOK, res)
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty TripPlan"})
+		c.JSON(http.StatusBadRequest, gin.H{"Error": "Trip plan creation failed."})
 	}
 
 }
@@ -210,7 +211,26 @@ func (p *Controller) PatchSimpleTripPlan(c *gin.Context) {
 	if res != nil {
 		c.JSON(http.StatusOK, res)
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": empty})
+		c.JSON(http.StatusBadRequest, gin.H{"The result is empty.": empty})
+	}
+
+}
+
+func (p *Controller) GetDetailTrip(c *gin.Context) {
+
+	num := c.Param("num")
+	tripPlan.TripId, _ = strconv.ParseInt(num, 10, 64)
+
+	empty := []string{" "}
+	fmt.Println("num", num)
+	res := p.md.SelectDetailTrip(tripPlan.TripId)
+	//fmt.Println("len, len(res.Arr)", len(res.Arr))
+	//c.JSON(http.StatusOK, res)
+
+	if len(res) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"The result is empty.": empty})
+	} else {
+		c.JSON(http.StatusOK, res[0])
 	}
 
 }

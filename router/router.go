@@ -110,6 +110,7 @@ func (p *Router) Idx() *gin.Engine {
 		routerTrip.GET("/myplan", p.ct.GetMyTrip)
 		routerTrip.GET("/allplan", p.ct.GetAllTrip)
 		routerTrip.GET("/search", p.ct.SearchTrip)
+		routerTrip.GET("/detail/:num", p.ct.GetDetailTrip)
 	}
 
 	return e

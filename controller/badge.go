@@ -53,9 +53,7 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 
 	encyDnft.DnftCountry = location.Country
 	encyDnft.DnftTime = custom
-	//log.Println("encyDnft", &encyDnft)
 	result := p.md.CreateDNFTBadge(&encyDnft)
-	//log.Println("dnft result", result.DnftId)
 
 	config2 := conf.GetConfig("./config/config.toml")
 	contractAddress := config2.Contract.DnftContract
@@ -65,22 +63,10 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 	if err != nil {
 		panic(err)
 	}
-	//log.Println("contractAddress", contractAddress)
 	contract, err := sdk.GetContractFromAbi(contractAddress, model.ABI)
 	if err != nil {
 		panic(err)
 	}
-
-	// balance, err := contract.Call(context.Background(), "balanceOf", encyDnft.WalletAccount)
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// log.Println("balance", balance)
-
-	// metaData := []string{}
-	// metaData = append(metaData, encyDnft.DnftBronzeUrl)
-	// metaData = append(metaData, encyDnft.DnftSilverUrl)
-	// metaData = append(metaData, encyDnft.DnftGoldUrl)
 
 	mint, err := contract.Call(context.Background(), "safeMint", encyDnft.WalletAccount, encyDnft.DnftImgUrl)
 	log.Println("mint", mint)
@@ -126,7 +112,7 @@ func (p *Controller) GetMyBadge(c *gin.Context) {
 	if len(result) > 0 {
 		c.JSON(http.StatusOK, result)
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"empty result": empty})
+		c.JSON(http.StatusBadRequest, gin.H{"The result is empty.": empty})
 	}
 
 }
@@ -152,7 +138,7 @@ func (p *Controller) GetMyBadgeAll(c *gin.Context) {
 	if len(result) > 0 {
 		c.JSON(http.StatusOK, result)
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"empty result": empty})
+		c.JSON(http.StatusBadRequest, gin.H{"The result is empty.": empty})
 	}
 
 }

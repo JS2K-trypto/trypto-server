@@ -117,6 +117,23 @@ func (m *Model) SelectMyTrip(account string) []TripPlan {
 	return tripPlans
 }
 
+// 디테일한 여행계획 가져오기
+func (m *Model) SelectDetailTrip(tripId int64) []TripPlan {
+
+	filter := bson.M{"tripid": tripId} // 데이터를 담을 변수 선언
+	// 메뉴 조회
+	res, err := m.colTripPlan.Find(context.TODO(), filter)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// 결과를 변수에 담기
+	if err = res.All(context.TODO(), &tripPlans); err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("tripPlans", tripPlans)
+	return tripPlans
+}
+
 // 여행계획 검색하기
 func (m *Model) SearchTrip(Query string) []TripPlan {
 	fmt.Println(Query)
