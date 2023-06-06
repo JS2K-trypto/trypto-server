@@ -1,0 +1,10 @@
+{
+  "name": "Trypto UK Bronze Badge",
+  "description": "Bronze badge for visiting travel destinations in UK",
+  "image": "https://ipfs-2.thirdwebcdn.com/ipfs/QmXrrd8YbtrooHx2D9PfUF6rYSc3R8ZxMdQMgaGjCVTA2Y/bronzelondon.png",
+  "attributes": [
+    {
+      "tier": "Bronze"
+    }
+  ]
+}

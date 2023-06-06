@@ -1,0 +1,10 @@
+{
+  "name": "Trypto Australia Bronze Badge",
+  "description": "Bronze badge for visiting travel destinations in Australia",
+  "image": "https://ipfs-2.thirdwebcdn.com/ipfs/QmZsTekkRR1RqKx8YCTUh4E8V9BR4UkokwTYdE88faFXV4/bronzesydney.png",
+  "attributes": [
+    {
+      "tier": "Bronze"
+    }
+  ]
+}

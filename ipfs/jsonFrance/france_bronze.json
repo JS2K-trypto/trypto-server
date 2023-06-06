@@ -1,0 +1,10 @@
+{
+  "name": "Trypto France Bronze Badge",
+  "description": "Bronze badge for visiting travel destinations in France",
+  "image": "https://ipfs-2.thirdwebcdn.com/ipfs/QmVBfrb41BHpPFfNXmT6vUW4ezETTsBBV85zfWa6DziukT/bronzeparis.png",
+  "attributes": [
+    {
+      "tier": "Bronze"
+    }
+  ]
+}

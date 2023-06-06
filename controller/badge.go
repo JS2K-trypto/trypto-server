@@ -50,7 +50,8 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
-
+	fmt.Println("나라", location.Country)
+	fmt.Println("location", location)
 	encyDnft.DnftCountry = location.Country
 	encyDnft.DnftTime = custom
 	result := p.md.CreateDNFTBadge(&encyDnft)

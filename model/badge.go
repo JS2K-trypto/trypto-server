@@ -53,6 +53,7 @@ func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 	silverUp := 3
 	goldUp := 4
 
+	fmt.Println("encyDnft.DnftCountry", encyDnft.DnftCountry)
 	err := m.colResource.FindOne(context.TODO(), bson.M{"Country": encyDnft.DnftCountry}).Decode(&checkCountry)
 
 	if err != nil {
@@ -90,11 +91,11 @@ func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 		panic(acc_err)
 	}
 
-	//0,1 카운트가 2개 이하일 때 
+	//0,1 카운트가 2개 이하일 때
 	if count <= int64(bronzeUp) {
 		encyDnft.BadgeTier = "bronze"
 		encyDnft.DnftImgUrl = checkCountry["bronze"].(string)
-		//2 카운트가 2개 초과 3개 이하일 때 실버 
+		//2 카운트가 2개 초과 3개 이하일 때 실버
 	} else if count > int64(bronzeUp) && count <= int64(silverUp) {
 		encyDnft.BadgeTier = "silver"
 		encyDnft.DnftImgUrl = checkCountry["silver"].(string)
@@ -106,7 +107,7 @@ func (m *Model) CreateDNFTBadge(encyDnft *EncyclopediaDNFT) *EncyclopediaDNFT {
 		upgrade(count)
 		upgrade(count)
 	}
-
+	fmt.Println("before encyDnft", encyDnft)
 	result, err := m.colDnftBadge.InsertOne(context.TODO(), encyDnft)
 	if err != nil {
 		log.Fatal(err)

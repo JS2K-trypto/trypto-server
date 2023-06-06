@@ -1,0 +1,10 @@
+{
+  "name": "Trypto Australia Silver Badge",
+  "description": "Silver badge for visiting travel destinations in Australia",
+  "image": "https://ipfs-2.thirdwebcdn.com/ipfs/QmZsTekkRR1RqKx8YCTUh4E8V9BR4UkokwTYdE88faFXV4/silversydney.png",
+  "attributes": [
+    {
+      "tier": "Silver"
+    }
+  ]
+}

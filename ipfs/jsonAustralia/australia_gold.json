@@ -1,0 +1,10 @@
+{
+  "name": "Trypto Australia Gold Badge",
+  "description": "Gold badge for visiting travel destinations in Australia",
+  "image": "https://ipfs-2.thirdwebcdn.com/ipfs/QmZsTekkRR1RqKx8YCTUh4E8V9BR4UkokwTYdE88faFXV4/goldsydney.png",
+  "attributes": [
+    {
+      "tier": "Gold"
+    }
+  ]
+}

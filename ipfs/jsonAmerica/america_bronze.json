@@ -1,0 +1,10 @@
+{
+  "name": "Trypto America Bronze Badge",
+  "description": "Bronze badge for visiting travel destinations in America",
+  "image": "https://ipfs-2.thirdwebcdn.com/ipfs/QmYGY8SJay9WKpupvCs6qBmH8DBsSRNVUaxSwwfaNnQAKa/bronzenewyork.png",
+  "attributes": [
+    {
+      "tier": "Bronze"
+    }
+  ]
+}

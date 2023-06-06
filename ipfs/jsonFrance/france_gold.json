@@ -1,0 +1,10 @@
+{
+  "name": "Trypto France Gold Badge",
+  "description": "Gold badge for visiting travel destinations in France",
+  "image": "https://ipfs-2.thirdwebcdn.com/ipfs/QmVBfrb41BHpPFfNXmT6vUW4ezETTsBBV85zfWa6DziukT/goldparis.png",
+  "attributes": [
+    {
+      "tier": "Gold"
+    }
+  ]
+}
