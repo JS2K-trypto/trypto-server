@@ -59,29 +59,45 @@
 
 ## http://152.69.231.140:1323/swagger/index.html
 
+<img src="./img/swagger0.png">
 <img src="./img/swagger1.png">
-<img src="./img/swagger2.png">
-<img src="./img/swagger3.png">
+<img src="./img/swagger4.png">
+<img src="./img/swagger5.png">
+<img src="./img/swagger6.png">
+<img src="./img/swagger7.png">
+<img src="./img/swagger8.png">
+<img src="./img/swagger9.png">
+<img src="./img/swagger10.png">
+<img src="./img/swagger11.png">
+<img src="./img/swagger12.png">
+<img src="./img/swagger13.png">
+<img src="./img/swagger14.png">
+<img src="./img/swagger15.png">
+<img src="./img/swagger16.png">
+<img src="./img/swagger17.png">
 
-### Contract
+### Contract Address
 
-goerli : 0xc40a82F2937Fb7b33764acde9D4758C2Ed8FE2E0
 <br>
 
-mumbai :
-<deploy>
+### goerli
 
-- ver0.1 : trypto_for_remix > dnft mint 기능 구현된 컨트랙트
-  mumbai : 0xb3c72Df5bBDb985dac5eDa966b501B35830A8cb1
-  <br>
-- ver0.2 : trypto_for_remix에서 supportInterface 뺀 컨트랙트
-  mumbai : 0x303766fAD71443073850E5Ad7E11a44d3Bd8BC97
+- ver 0.1 : 0xc40a82F2937Fb7b33764acde9D4758C2Ed8FE2E0
 
-- ver0.3 : 0xAC6de0e2E7405C5E638b1EE3B1bC5F486A2Ef320
-- ver0.4 : 0xa38A89aaC82fFadD0845e45C02985A17bEbcCc3c
-- ver0.5 : 0x70f9643f9CBc3FBE078054fE5236be294B9D4532
-- ver0.6 : 0x2f9506b88bcb05392124E30975a8F8FB65b0cEc9
-- ver0.7 : 0xa8b4B25d0c6A3d3eBabc18cf1Cbb12D05ca2bE01
+<br>
 
-<dev>
+### mumbai
+
+- ver 0.1 : 0xb3c72Df5bBDb985dac5eDa966b501B35830A8cb1
+- ver 0.2 : 0x303766fAD71443073850E5Ad7E11a44d3Bd8BC97
+- ver 0.3 : 0xAC6de0e2E7405C5E638b1EE3B1bC5F486A2Ef320
+- ver 0.4 : 0xa38A89aaC82fFadD0845e45C02985A17bEbcCc3c
+- ver 0.5 : 0x70f9643f9CBc3FBE078054fE5236be294B9D4532
+- ver 0.6 : 0x2f9506b88bcb05392124E30975a8F8FB65b0cEc9
+- ver 0.7 : 0xa8b4B25d0c6A3d3eBabc18cf1Cbb12D05ca2bE01
+
+<br>
+
+### local
+
 - ver0.1 : 0xb48099B07b0F959C71c2Fb49fDbCB542Ff2Ea59D
