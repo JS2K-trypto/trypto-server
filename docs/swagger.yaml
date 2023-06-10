@@ -104,8 +104,9 @@ paths:
     get:
       consumes:
       - application/json
-      description: 유저 프로필 정보를 가져는 함수다. 다음과 같은 정보를 가져온다. [닉네임, 나의 여행계획 카운트, 나의 Dynamic
-        NFT 카운트, 좋아요 카운트 , 댓글 카운트]
+      description: Fetches user profile information. Gets the following information
+        [nickname, number of travel plans, number of Dynamic NFTs, number of likes,
+        number of comments].
       parameters:
       - description: walletAccount
         in: path
@@ -126,15 +127,15 @@ paths:
             items:
               $ref: '#/definitions/model.Account'
             type: array
-      summary: 계정주소를 입력합니다.
+      summary: Enter your account address to get your profile information.
       tags:
-      - UserProfileHandler(나의 프로필 정보 가져오기)
+      - UserProfileHandler(Get my profile information)
   /v01/acc/register:
     post:
       consumes:
       - application/json
-      description: 유저 닉네임을 등록 및 수정 해주는 함수로 지갑계정으로 연결 후 사용자가 닉네임을 입력할 수 있다. 이후 닉네임
-        수정은 자유롭게 가능하다.
+      description: This function allows you to register and edit user nicknames, and
+        you can do so by entering your wallet account and entering the desired nickname.
       parameters:
       - description: walletAccount
         in: path
@@ -155,14 +156,15 @@ paths:
             items:
               $ref: '#/definitions/model.Account'
             type: array
-      summary: 계정주소, 닉네임을 입력합니다.
+      summary: Enter your account address and nickname.
       tags:
-      - UserRegisterHandler(닉네임 등록/수정)
+      - UserRegisterHandler( You can register or edit your nickname. )
   /v01/badge/issue:
     post:
       consumes:
       - application/json
-      description: 위도, 경도를 입력받고 해당하는 나라의 리소스(ipfs uri, nft metadata)를 참고해서 뱃지를 발급해줍니다.
+      description: It takes the latitude, longitude, and references the country's
+        resources (IPFS URI, NFT METADATA) to issue the badge.
       parameters:
       - description: walletAccount
         in: path
@@ -188,14 +190,14 @@ paths:
             items:
               $ref: '#/definitions/model.EncyclopediaDNFT'
             type: array
-      summary: 지갑계정, 위도, 경도를 입력해줍니다.
+      summary: Enter your mumbai wallet account, latitude, and longitude.
       tags:
-      - CreateBadge(뱃지 발급)
+      - CreateBadge (issuing a badge)
   /v01/badge/user:
     get:
       consumes:
       - application/json
-      description: 사용자 위치를 참고해서 뱃지를 발급하는 함수
+      description: Get all my DYNAMIC NFT badges
       parameters:
       - description: walletAccount
         in: path
@@ -211,14 +213,14 @@ paths:
             items:
               $ref: '#/definitions/model.EncyclopediaDNFT'
             type: array
-      summary: 지갑계정을 입력해줍니다.
       tags:
-      - GetMyBadge(나의 뱃지 가져오기)
+      - GetMyBadgeAll(get all my dynamic nft badges)
   /v01/trip/allplan:
     get:
       consumes:
       - application/json
-      description: 모든 여행계획을  MongoDB에서 가져오는 함수. 아무 파라미터가 없다 전체를 조회한다.
+      description: Function to fetch all trip plans from MongoDB. No parameters. Retrieves
+        all.
       produces:
       - application/json
       responses:
@@ -228,14 +230,15 @@ paths:
             items:
               $ref: '#/definitions/model.TripPlan'
             type: array
-      summary: 모든 여행계획을 가져온다.
+      summary: Import all trip plans.
       tags:
-      - GetAllTrip(전체 여행계획 가져오기)
+      - GetAllTrip(Import all  trip plans.)
   /v01/trip/delete/:num:
     delete:
       consumes:
       - application/json
-      description: 트립아이디를 입력하면 해당하는 게시물을 삭제합니다.
+      description: Enter the /delete path followed by the trip id and the corresponding
+        trip will be deleted.
       parameters:
       - description: tripId
         in: path
@@ -251,14 +254,15 @@ paths:
             items:
               $ref: '#/definitions/model.TripPlan'
             type: array
-      summary: 트립아이디를 delete 뒤에 입력하면 해당하는 트립 아이디의 게시물이 삭제됩니다.
+      summary: Entering a tripid after delete will delete posts for that tripid.
       tags:
-      - DeleteTrip(나의 여행계획 중 디테일 페이지를 가져와줌)
+      - DeleteTrip(Delete my trip)
   /v01/trip/detail/:num:
     get:
       consumes:
       - application/json
-      description: 트립아이디를 입력하면 해당하는 상세페이지를 보여줍니다.
+      description: If you enter a trip id after the detail path, it will display the
+        detail page of my trip plan.
       parameters:
       - description: tripId
         in: path
@@ -274,14 +278,15 @@ paths:
             items:
               $ref: '#/definitions/model.TripPlan'
             type: array
-      summary: 트립아이디를 detail 뒤에 입력하면 해당하는 트립 아이디가 출력됩니다.
+      summary: Entering a tripid after detail will output the corresponding trip plan.
+        ex) /detail/tripId
       tags:
-      - GetDetailTrip(나의 여행계획 중 디테일 페이지를 가져와줌)
+      - GetDetailTrip(Prints the details page of my trip plan)
   /v01/trip/myplan:
     get:
       consumes:
       - application/json
-      description: 나의 여행계획을 MongoDB에서 가져오는 함수, 계정주소로 파악한 후 가져온다.
+      description: Import the itinerary you created from MongoDB.
       parameters:
       - description: walletAccount
         in: path
@@ -297,14 +302,15 @@ paths:
             items:
               $ref: '#/definitions/model.TripPlan'
             type: array
-      summary: 지갑계정을 입력한다.
+      summary: Enter your wallet account to import your trip plans
       tags:
-      - GetMyTrip(나의 여행계획 가져오기)
+      - GetMyTrip(Importing my trip plans)
     post:
       consumes:
       - application/json
-      description: days에는 day1, day2단위로 아이템이 있고 각 day1별로 시간과 imtes가 있으며 각각 여행시작시간,
-        종료시간, 이미지, 타이틀, 설명, 메모등을 입력할 수 있습니다.
+      description: DAYS has items in DAY1 and DAY2, and each DAY1 has time and imtes,
+        and you can enter start time, end time, image, title, description, and notes.
+        After inputting, a travel plan is created.
       parameters:
       - description: walletAccount
         in: path
@@ -331,9 +337,9 @@ paths:
         name: tripArrival
         required: true
         type: string
-      - description: days
+      - description: dayItems
         in: path
-        name: days
+        name: dayItems
         required: true
         type: string
       produces:
@@ -345,15 +351,16 @@ paths:
             items:
               $ref: '#/definitions/model.TripPlan'
             type: array
-      summary: 지갑계정, 제목, 나라, 출발날짜, 도착날짜 등을 입력합니다. days는 아이템을 담은 배열입니다.
+      summary: Enter the wallet account, title, country, departure date, arrival date,
+        etc. days is an array containing the items.
       tags:
-      - CreateTripPlan(나의 여행계획표 생성하기)
+      - CreateTripPlan(Create my itinerary)
   /v01/trip/search:
     get:
       consumes:
       - application/json
-      description: 여행계획의 제목 중 일치하는 문자열에 대해 콘텐츠를 리스폰스해주는 검색 API, 단어 단위로 구현, 예를 들어 Paris로
-        무작정이라고 하면 "Paris로" 까지 입력해야된다. q="Paris로" 이런식으로 입력하면 된다.
+      description: A search API that returns content for matching strings in the title
+        of a travel plan, implemented on a word-by-word basis, e.g. q="South Korea".
       parameters:
       - description: q
         in: path
@@ -369,24 +376,24 @@ paths:
             items:
               $ref: '#/definitions/model.TripPlan'
             type: array
-      summary: q에 검색하고자 하는 키워드를 입력한다.
+      summary: In Q, type the keyword you want to search for.
       tags:
-      - SearchTrip(여행계획 단어단위 검색하기)
+      - SearchTrip(Search your travel plans by keyword)
   /v01/trip/simpleplan:
     patch:
       consumes:
       - application/json
-      description: days에는 day1, day2단위로 아이템이 있고 각 day1별로 시간과 imtes가 있으며 각각 여행시작시간,
-        종료시간, 이미지, 타이틀, 설명, 메모등을 입력할 수 있습니다.
+      description: This API is used to make modifications such as patches based on
+        existing trip IDs.
       parameters:
       - description: tripId
         in: path
         name: tripId
         required: true
         type: string
-      - description: days
+      - description: dayItems
         in: path
-        name: days
+        name: dayItems
         required: true
         type: string
       produces:
@@ -398,14 +405,15 @@ paths:
             items:
               $ref: '#/definitions/model.TripPlan'
             type: array
-      summary: 지갑계정, 제목, 나라, 출발날짜, 도착날짜 등을 입력합니다. days를 입력으로 받는 함수 이후 데이터를 추가한다.
+      summary: Enter the wallet account, title, country, departure date, arrival date,
+        etc. Add the data after the function that takes dayItems as input.
       tags:
-      - CreateTripPlan(나의 여행계획표 생성하기)
+      - PatchSimpleTripPlan(Modify my simple trip plan with the patch)
     post:
       consumes:
       - application/json
-      description: days에는 day1, day2단위로 아이템이 있고 각 day1별로 시간과 imtes가 있으며 각각 여행시작시간,
-        종료시간, 이미지, 타이틀, 설명, 메모등을 입력할 수 있습니다.
+      description: DAYS has items in DAY1 and DAY2, and each DAY1 has time and imtes,
+        and you can enter start time, end time, image, title, description, and notes.
       parameters:
       - description: walletAccount
         in: path
@@ -432,9 +440,9 @@ paths:
         name: tripArrival
         required: true
         type: string
-      - description: days
+      - description: dayItems
         in: path
-        name: days
+        name: dayItems
         required: true
         type: string
       produces:
@@ -446,7 +454,9 @@ paths:
             items:
               $ref: '#/definitions/model.TripPlan'
             type: array
-      summary: 지갑계정, 제목, 나라, 출발날짜, 도착날짜 등을 입력합니다. days는 아이템을 담은 배열입니다.
+      summary: Enter the wallet account, title, country, departure date, arrival date,
+        etc. days is an array containing the items. Here it is entered as an empty
+        array.
       tags:
-      - CreateTripPlan(나의 여행계획표 생성하기)
+      - CreateSimpleTripPlan(Create my simple trip plan)
 swagger: "2.0"

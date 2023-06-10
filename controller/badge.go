@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"time"
+
 	conf "trypto-server/config"
 	"trypto-server/model"
 
@@ -25,9 +26,9 @@ var (
 //
 //	@BasePath	/v01
 //	@Schemes
-//	@Summary		지갑계정, 위도, 경도를 입력해줍니다.
-//	@Tags			CreateBadge(뱃지 발급)
-//	@Description	위도, 경도를 입력받고 해당하는 나라의 리소스(ipfs uri, nft metadata)를 참고해서 뱃지를 발급해줍니다.
+//	@Summary		Enter your mumbai wallet account, latitude, and longitude.
+//	@Tags			CreateBadge (issuing a badge)
+//	@Description	It takes the latitude, longitude, and references the country's resources (IPFS URI, NFT METADATA) to issue the badge.
 //	@name			CreateBadge
 //	@Accept			json
 //	@Produce		json
@@ -37,7 +38,6 @@ var (
 //	@Router			/v01/badge/issue [post]
 //	@Success		200	 {array} model.EncyclopediaDNFT
 func (p *Controller) CreateBadge(c *gin.Context) {
-
 	if err := c.ShouldBindJSON(&encyDnft); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -80,7 +80,7 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 		panic(err)
 	}
 
-	//tokeURI = 2 > 3  리믹스
+	// tokeURI = 2 > 3  리믹스
 	// tokenid > 디비 2
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty walletAccount"})
@@ -89,15 +89,14 @@ func (p *Controller) CreateBadge(c *gin.Context) {
 		c.JSON(http.StatusOK, mint)
 
 	}
-
 }
 
 // GetMyBadge godoc
 //
 //	@BasePath		/v01
-//	@Summary		지갑계정을 입력해줍니다.
-//	@Tags			GetMyBadge(나의 뱃지 가져오기)
-//	@Description	사용자 위치를 참고해서 뱃지를 발급하는 함수
+//	@Summary		Entering your My Wallet account will bring up your most issued badges.
+//	@Tags			GetMyBadge(Get my dynamic nft badges)
+//	@Description	Function to issue badges based on user location
 //	@name			GetMyBadge
 //	@Accept			json
 //	@Produce		json
@@ -115,16 +114,15 @@ func (p *Controller) GetMyBadge(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusBadRequest, gin.H{"The result is empty.": empty})
 	}
-
 }
 
-// GetMyBadge godoc
+// GetMyBadgeAll godoc
 //
 //	@BasePath		/v01
-//	@Summary		지갑계정을 입력해줍니다.
-//	@Tags			GetMyBadge(나의 뱃지 가져오기)
-//	@Description	사용자 위치를 참고해서 뱃지를 발급하는 함수
-//	@name			GetMyBadge
+//	@Summary
+//	@Tags			GetMyBadgeAll(get all my dynamic nft badges)
+//	@Description	Get all my DYNAMIC NFT badges
+//	@name			GetMyBadgeAll
 //	@Accept			json
 //	@Produce		json
 //	@Param			walletAccount	path	string 	 	true	"walletAccount"
@@ -141,5 +139,4 @@ func (p *Controller) GetMyBadgeAll(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusBadRequest, gin.H{"The result is empty.": empty})
 	}
-
 }

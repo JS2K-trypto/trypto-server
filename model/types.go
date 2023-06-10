@@ -2,22 +2,22 @@ package model
 
 // 유저 계정
 type Account struct {
-	AccountID     int64  `json:"accountId"		, bson:"accountid"`        //계정 ID
-	WalletAccount string `json:"walletAccount"	, bson:"walletaccount"` //지갑 계정 주소
-	NickName      string `json:"nickName" 		, bson:"nickname"`         //닉네임
-	MyTripCount   int64  `json:"myTripCount"	, bson:"mytripcount"`     //여행계획 카운트
-	MyDNFTCount   int64  `json:"myDnftCount" 	, bson:"mydnftcount"`    //DNFT뱃지 카운트
-	LikeCount     int64  `json:"likeCount"    	, bson:"likecount"`     //좋아요 카운트
-	CommentCount  int64  `json:"commentCount" 	, bson:"commentcount"`  //댓글 카운트
+	AccountID     int64  `json:"accountId"		, bson:"accountid"`        //계정 ID  		  
+	WalletAccount string `json:"walletAccount"	, bson:"walletaccount"` //지갑 계정 주소  	  
+	NickName      string `json:"nickName" 		, bson:"nickname"`         //닉네임 		  
+	MyTripCount   int64  `json:"myTripCount"	, bson:"mytripcount"`     //여행계획 카운트 	
+	MyDNFTCount   int64  `json:"myDnftCount" 	, bson:"mydnftcount"`    //DNFT뱃지 카운트		
+	LikeCount     int64  `json:"likeCount"    	, bson:"likecount"`     //좋아요 카운트			
+	CommentCount  int64  `json:"commentCount" 	, bson:"commentcount"`  //댓글 카운트			
 }
 
 // 여행계획
 type TripPlan struct {
-	TripId        int64     `json:"tripId"				,bson:"tripid"`             //여행계획 아이디
-	WalletAccount string    `json:"walletAccount"		,bson:"walletaccount"` //지갑주소 계정
-	NickName      string    `json:"nickName"			,bson:"nickname"`          //닉네임
-	TripTitle     string    `json:"tripTitle"			,bson:"triptitle"`        //여행계획 제목
-	TripCountry   string    `json:"tripCountry"			,bson:"tripcountry"`    //여행국가
+	TripId        int64     `json:"tripId"				,bson:"tripid"`             //여행계획 아이디	
+	WalletAccount string    `json:"walletAccount"		,bson:"walletaccount"` //지갑주소 계정			
+	NickName      string    `json:"nickName"			,bson:"nickname"`          //닉네임				
+	TripTitle     string    `json:"tripTitle"			,bson:"triptitle"`        //여행계획 제목		
+	TripCountry   string    `json:"tripCountry"			,bson:"tripcountry"`    //여행국가				
 	TripDeparture string    `json:"tripDeparture"		,bson:"tripdeparture"` //여행도착
 	TripArrival   string    `json:"tripArrival"			,bson:"triparrival"`    //여행출발
 	DayItems      []DayItem `json:"dayItems"				,bson:"dayitems"`         //days 아이템

@@ -1,63 +1,109 @@
 # Project : Trypto-server
 
-## Model
+## Getting Started
 
-### 1. 계정정보 테이블
+First, run the development server:
 
-- Account Collection
-  - ID
-  - 계정정보
-  - 닉네임
-  - 나의 여행계획표 카운트
-  - 나의 DNFT 뱃지 카운트
-  - 좋아요 숫자
-  - 댓글 숫자
+```bash
+1. configure trypto-server/config/.config.toml
 
-### 2. 여행계획표
+[server] ##nomal type
+mode = "dev"
+port = ":1323"
 
-- Travelplan Collection
-  - 날짜 아이템에 다음의 항목들이 있다.
-  - ID
-  - 제목
-  - 설명
-  - 메모
-  - 사진
-  - 시간
+[db] #data access object
+[db.user] # map type map[string]map[string]interface{}
+host = "mongodb://localhost:27017"
+user = "user"
+pass = "user!@"
+name = "trypto"
 
-### 3. 도감(DNFT 뱃지를 모아둔 도감)
+[db.account]
+host = "mongodb://localhost:27017"
+user = "admin"
+pass = "admin!@"
+name = "accountDB"
 
-### DNFT 뱃지
+#worker pool job object
+[[work]] #, jobs []job
+name = "HeartBeat"
+desc = "log"
+excute = "x"
+duration = 300
+args = "resv"
 
-- Encyclopedia Collection
-  - ID (dnft)
-  - 이름
-  - 사진
-  - 설명
-  - 나라
+[[work]]
+name = "exam"
+desc = "exam"
+excute = "x"
+duration = 60
+args = "exam"
 
-### 4. 나라/사진/설명 DB
+[log]
+level = "debug" # debug or info
+fpath = "./logs/go-loger" # log path
+msize = 2000    # 2g : megabytes
+mage = 7        # 7days
+mbackup = 5    # number of log files
 
-- BadgeResource
-  - ID
-  - country
-  - imgUrl
-  - description
+[contract]
+DnftContract = "my dnft contract address"
+PRIVATEKEY = "my wallet private key"
 
-## controller
+2. docker pull mongo db
+4. Creating an database "trypto" in mongodb
+5. Creating an "account" collection in mongodb
+6. Creating an "dnftbadge" collection in mongodb
+7. Creating an "tripPlan" collection in mongodb
+8. Creating an "resource" collection in mongodb
+9. import the ./badgeResource.csv file from the resource collection
+10. go build .
+11. ./main
+12. Register users, issue badges, and test trip plans
 
-### 서비스
+```
 
-- 나의 닉네임 생성 계정정보와 쓰려고 하는 닉네임을 DB에 저장한다.
-- 나의 여행계획 리스트 불러오기 API에서 DB쿼리를 통해 나만의 여행계획표 리스트를 가져오기
-- 전체 커뮤니티 여행계획 리스트 불러오기 API에서 DB쿼리를 통해 전체 여행계획표 리스트를 가져오기
-- 나의 도감 가져오기 API에서 스마트컨트랙트 함수 호출을 통해 나만의 도감을 가져오기
-- 나의 프로필 정보 가져오기 API에서 나의 프로필 정보를 가져오기
-- 나의 도감 상세 보기 API에서 DB 정보를 가져오되 스마트 컨트랙트 데이터와 싱크를 맞춰야함
-- 뱃지(DNFT) 발급 위도,경도와 계정 정보를 받고 뱃지(DNFT) 발급을 할 수 있게 해야함
+Open [http://localhost:1323/swagger/index.html](http://localhost:1323/swagger/index.html) with your browser to see the API infomation.
 
-### API
+## Curl Test
+
+├── ./getMostIssuedBadges.sh
+
+├── ./getMyAllDnftBadge.sh
+
+├── ./createTripPlan.sh
+
+├── ./createTripPlan2.sh
+
+├── ./createTripPlanSimple.sh
+
+├── ./deleteTrip.sh
+
+├── ./getMyProfile.sh
+
+├── ./getMyTrip.sh
+
+├── ./getTripDetail.sh
+
+├── ./koreaIssueBadge.sh
+
+├── ./newYorkIssueBadge.sh
+
+├── ./parisIssueBadge copy.sh
+
+├── ./patchMyTrip.sh
+
+├── ./registerNickname.sh
+
+├── ./sydneyIssueBadge copy 3.sh
+
+└── ./ukIssueBadge.sh
+
+## Swagger API (ENG)
 
 ## http://152.69.231.140:1323/swagger/index.html
+
+## Swagger API Screen Shot (Korea)
 
 <img src="./img/swagger0.png">
 <img src="./img/swagger1.png">
@@ -95,6 +141,7 @@
 - ver 0.5 : 0x70f9643f9CBc3FBE078054fE5236be294B9D4532
 - ver 0.6 : 0x2f9506b88bcb05392124E30975a8F8FB65b0cEc9
 - ver 0.7 : 0xa8b4B25d0c6A3d3eBabc18cf1Cbb12D05ca2bE01
+- ver 0.8 : 0x00Ece125AA0021aA3E20491919102b4ccB0f2E2C
 
 <br>
 
