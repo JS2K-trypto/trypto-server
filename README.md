@@ -152,6 +152,6 @@ Open [http://localhost:1323/swagger/index.html](http://localhost:1323/swagger/in
 
 
 ### Discord Monitoring 
-![스크린샷, 2023-07-05 23-43-33](https://github.com/JS2K-trypto/trypto-server/assets/7809925/3e981caa-e49e-4c03-a52a-c28f6a6b5d4c)
 
+![스크린샷, 2023-07-05 23-45-40](https://github.com/JS2K-trypto/trypto-server/assets/7809925/1e11d155-16fc-4be1-bf4f-0603406380d7)
 
