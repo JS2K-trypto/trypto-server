@@ -148,3 +148,9 @@ Open [http://localhost:1323/swagger/index.html](http://localhost:1323/swagger/in
 ### local
 
 - ver0.1 : 0xb48099B07b0F959C71c2Fb49fDbCB542Ff2Ea59D
+
+
+
+### Discord Monitoring 
+![스크린샷, 2023-07-05 23-41-43](https://github.com/JS2K-trypto/trypto-server/assets/7809925/52cb4a56-29cb-475f-af7b-79a4b92fa67b)
+
